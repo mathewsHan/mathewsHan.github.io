@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+  <meta name="description" content="title: 设计模式date: 2019-10-18 08:42:37tags: 一级标题两次相同的查询从  sqlSession中取数据  2、怎么判断某两次查询是完全相同的查询？ 　　mybatis认为，对于两次查询，如果以下条件都完全一样，那么就认为它们是完全相同的两次查询。 　　2.1 传入的statementId 　　2.2 查询时要求的结果集中的结果范围 　　2.3. 这次查询所产">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kotlin-demo">
-<meta property="og:url" content="http://yoursite.com/2019/10/16/kotlin-demo/index.html">
+<meta property="og:title" content="mybatis源码分析">
+<meta property="og:url" content="http://yoursite.com/2019/10/23/mybatis源码分析/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+<meta property="og:description" content="title: 设计模式date: 2019-10-18 08:42:37tags: 一级标题两次相同的查询从  sqlSession中取数据  2、怎么判断某两次查询是完全相同的查询？ 　　mybatis认为，对于两次查询，如果以下条件都完全一样，那么就认为它们是完全相同的两次查询。 　　2.1 传入的statementId 　　2.2 查询时要求的结果集中的结果范围 　　2.3. 这次查询所产">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-16T14:40:30.716Z">
+<meta property="og:updated_time" content="2019-10-23T13:51:00.898Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kotlin-demo">
-<meta name="twitter:description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-  <link rel="canonical" href="http://yoursite.com/2019/10/16/kotlin-demo/">
+<meta name="twitter:title" content="mybatis源码分析">
+<meta name="twitter:description" content="title: 设计模式date: 2019-10-18 08:42:37tags: 一级标题两次相同的查询从  sqlSession中取数据  2、怎么判断某两次查询是完全相同的查询？ 　　mybatis认为，对于两次查询，如果以下条件都完全一样，那么就认为它们是完全相同的两次查询。 　　2.1 传入的statementId 　　2.2 查询时要求的结果集中的结果范围 　　2.3. 这次查询所产">
+  <link rel="canonical" href="http://yoursite.com/2019/10/23/mybatis源码分析/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>kotlin-demo | 我的个人博客</title>
+  <title>mybatis源码分析 | 我的个人博客</title>
   
 
 
@@ -261,7 +261,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/16/kotlin-demo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/23/mybatis源码分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -275,7 +275,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            kotlin-demo
+            mybatis源码分析
             
 
           
@@ -292,8 +292,12 @@
                 
               
 
-              <time title="创建时间：2019-10-16 22:40:30" itemprop="dateCreated datePublished" datetime="2019-10-16T22:40:30+08:00">2019-10-16</time>
+              <time title="创建时间：2019-10-23 21:50:22 / 修改时间：21:51:00" itemprop="dateCreated datePublished" datetime="2019-10-23T21:50:22+08:00">2019-10-23</time>
             </span>
+          
+            
+
+            
           
 
           
@@ -307,7 +311,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <hr>
+<p>title: 设计模式<br>date: 2019-10-18 08:42:37<br>tags:</p>
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><pre><code>两次相同的查询从  sqlSession中取数据 
+</code></pre><p>2、怎么判断某两次查询是完全相同的查询？</p>
+<p>　　mybatis认为，对于两次查询，如果以下条件都完全一样，那么就认为它们是完全相同的两次查询。</p>
+<p>　　2.1 传入的statementId</p>
+<p>　　2.2 查询时要求的结果集中的结果范围</p>
+<p>　　2.3. 这次查询所产生的最终要传递给JDBC java.sql.Preparedstatement的Sql语句字符串（boundSql.getSql() ）</p>
+<p>　　2.4 传递给java.sql.Statement要设置的参数值</p>
+<p>​————————————-<br>    二级缓存<br><del>删除线</del></p>
+<ul>
+<li>二级缓存?<br>+</li>
+</ul>
+<div class="pdf" target="https://github.com/mathewsHan/-Note/blob/master/鸟哥的Linux私房菜–基础学习篇(第三版)%20.pdf" height></div> 
+<hr>
+
     </div>
 
     
@@ -323,14 +342,18 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
+                <a href="/2019/10/22/markdown画图/" rel="next" title="markdown画图">
+                  <i class="fa fa-chevron-left"></i> markdown画图
+                </a>
+              
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/10/22/markdown画图/" rel="prev" title="markdown画图">
-                  markdown画图 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/10/23/数据结构/" rel="prev" title="数据结构">
+                  数据结构 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -380,6 +403,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一级标题"><span class="nav-number">1.</span> <span class="nav-text">一级标题</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -507,7 +532,7 @@
       repo: 'mathewsHan.github.io',
       owner: 'mathewsHan',
       admin: ['mathewsHan'],
-      id: '4b77ad94a1c76842c9a68a354fdf6e83',
+      id: 'a6386d4f2e245fee8fc3d485167c5698',
         language: 'zh-CN',
       
       distractionFreeMode: 'false'
