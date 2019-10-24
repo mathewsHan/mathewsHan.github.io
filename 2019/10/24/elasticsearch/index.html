@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+  <meta name="description" content="1.概述Elasticsearch是面向文档(document oriented)的，这意味着它可以存储整个对象或文档(document)。然而它不仅仅是存储，还会索引(index)每个文档的内容使之可以被搜索。在Elasticsearch中，你可以对文档进行索引、搜索、排序、过滤。ES比传统关系型数据库，就像如下： Relation DB  -&amp;gt; DataBase-&amp;gt; Tables-">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kotlin-demo">
-<meta property="og:url" content="http://yoursite.com/2019/10/16/kotlin-demo/index.html">
+<meta property="og:title" content="elasticsearch">
+<meta property="og:url" content="http://yoursite.com/2019/10/24/elasticsearch/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+<meta property="og:description" content="1.概述Elasticsearch是面向文档(document oriented)的，这意味着它可以存储整个对象或文档(document)。然而它不仅仅是存储，还会索引(index)每个文档的内容使之可以被搜索。在Elasticsearch中，你可以对文档进行索引、搜索、排序、过滤。ES比传统关系型数据库，就像如下： Relation DB  -&amp;gt; DataBase-&amp;gt; Tables-">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-16T14:40:30.716Z">
+<meta property="og:updated_time" content="2019-10-24T02:00:37.212Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kotlin-demo">
-<meta name="twitter:description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-  <link rel="canonical" href="http://yoursite.com/2019/10/16/kotlin-demo/">
+<meta name="twitter:title" content="elasticsearch">
+<meta name="twitter:description" content="1.概述Elasticsearch是面向文档(document oriented)的，这意味着它可以存储整个对象或文档(document)。然而它不仅仅是存储，还会索引(index)每个文档的内容使之可以被搜索。在Elasticsearch中，你可以对文档进行索引、搜索、排序、过滤。ES比传统关系型数据库，就像如下： Relation DB  -&amp;gt; DataBase-&amp;gt; Tables-">
+  <link rel="canonical" href="http://yoursite.com/2019/10/24/elasticsearch/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>kotlin-demo | 我的个人博客</title>
+  <title>elasticsearch | 我的个人博客</title>
   
 
 
@@ -261,7 +261,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/16/kotlin-demo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/elasticsearch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -275,7 +275,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            kotlin-demo
+            elasticsearch
             
 
           
@@ -292,8 +292,12 @@
                 
               
 
-              <time title="创建时间：2019-10-16 22:40:30" itemprop="dateCreated datePublished" datetime="2019-10-16T22:40:30+08:00">2019-10-16</time>
+              <time title="创建时间：2019-10-24 09:58:20 / 修改时间：10:00:37" itemprop="dateCreated datePublished" datetime="2019-10-24T09:58:20+08:00">2019-10-24</time>
             </span>
+          
+            
+
+            
           
 
           
@@ -307,7 +311,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><p>Elasticsearch是面向文档(document oriented)的，这意味着它可以存储整个对象或文档(document)。然而它不仅仅是存储，还会索引(index)每个文档的内容使之可以被搜索。在Elasticsearch中，你可以对文档进行索引、搜索、排序、过滤。ES比传统关系型数据库，就像如下：</p>
+<p>Relation DB  -&gt; DataBase-&gt; Tables-&gt; Rows   -&gt; Colums</p>
+<p>ElasticSearch -&gt; Indeces -&gt; Types -&gt; Documents-&gt; Fields</p>
+<h1 id="2-特点"><a href="#2-特点" class="headerlink" title="2.特点"></a>2.特点</h1><p>Elasticsearch致力于隐藏分布式系统的复杂性。</p>
+<p>1）将你的文档分区到不同的容器或者分片(shards)中，它们可以存在于一个或多个节点中。<br>2）将分片均匀的分配到各个节点，对索引和搜索做负载均衡。<br>3）冗余每一个分片，防止硬件故障造成的数据丢失。<br>4）将集群中任意一个节点上的请求路由到相应数据所在的节点。<br>5）无论是增加节点，还是移除节点，分片都可以做到无缝的扩展和迁移</p>
+<h1 id="3-ES常见名词解释"><a href="#3-ES常见名词解释" class="headerlink" title="3.ES常见名词解释"></a>3.ES常见名词解释</h1><p>（1）接近实时（NRT）</p>
+<p>Elasticsearch是一个接近实时的搜索平台。</p>
+<p>（2）集群（cluster）</p>
+<p>一个集群就是由一个或多个节点组织在一起，它们共同持有你整个的数据，并一起提供索引和搜索功能。一个集群由一个唯一的名字标识，节点都是通过集群名加入到elasticsearch集群中的。</p>
+<p>（3）节点（node）</p>
+<p>一个节点是你集群中的一个服务器，作为集群的一部分，它存储你的数据，参与集群的索引和搜索功能。和集群类似，一个节点也是由一个名字来标识的。</p>
+<p>一个节点可以通过配置集群名称的方式来加入一个指定的集群。默认情况下，每个节点都会被安排加入到一个叫做“elasticsearch”的集群中，这意味着，如果你在你的网络中启动了若干个节点，并假定它们能够相互发现彼此，它们将会自动地形成并加入到一个叫做“elasticsearch”的集群中。</p>
+<p>在一个集群里，只要你想，可以拥有任意多个节点。而且，如果当前你的网络中没有运行任何Elasticsearch节点，这时启动一个节点，会默认创建并加入一个叫做“elasticsearch”的集群</p>
+<h1 id="（4）索引（index）"><a href="#（4）索引（index）" class="headerlink" title="（4）索引（index）"></a>（4）索引（index）</h1><p>一个索引就是一个拥有几分相似特征的文档的集合。</p>
+<h1 id="（5）类型（type）"><a href="#（5）类型（type）" class="headerlink" title="（5）类型（type）"></a>（5）类型（type）</h1><p>在一个索引中，你可以定义一种或多种类型。一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来定。通常，会为具有一组共同字段的文档定义一个类型。</p>
+<h1 id="（6）文档（document）"><a href="#（6）文档（document）" class="headerlink" title="（6）文档（document）"></a>（6）文档（document）</h1><p>一个文档是一个可被索引的基础信息单元。</p>
+<h1 id="（7）分片和复制（shard-amp-replica）"><a href="#（7）分片和复制（shard-amp-replica）" class="headerlink" title="（7）分片和复制（shard &amp; replica）"></a>（7）分片和复制（shard &amp; replica）</h1><p>一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任一节点都没有这样大的磁盘空间；或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch提供了将索引划分成多份的能力，这些份就叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。分片很重要，主要有两方面的原因：<br>1）允许你水平分割/扩展你的内容容量。<br>2）允许你在分片（潜在地，位于多个节点上）之上进行分布式的、并行的操作，进而提高性能/吞吐量。</p>
+<p>至于一个分片怎样分布，它的文档怎样聚合回搜索请求，是完全由Elasticsearch管理的，对于作为用户的你来说，这些都是透明的。</p>
+<p>在一个网络/云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于离线状态，或者由于任何原因消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。</p>
+<p>默认情况下，Elasticsearch中的每个索引被分片5个主分片和1个复制（一个索引的完全拷贝）。</p>
+
     </div>
 
     
@@ -323,15 +347,15 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
+                <a href="/2019/10/23/数据结构/" rel="next" title="数据结构">
+                  <i class="fa fa-chevron-left"></i> 数据结构
+                </a>
+              
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/10/22/markdown画图/" rel="prev" title="markdown画图">
-                  markdown画图 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -380,6 +404,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-概述"><span class="nav-number">1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-特点"><span class="nav-number">2.</span> <span class="nav-text">2.特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-ES常见名词解释"><span class="nav-number">3.</span> <span class="nav-text">3.ES常见名词解释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#（4）索引（index）"><span class="nav-number">4.</span> <span class="nav-text">（4）索引（index）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#（5）类型（type）"><span class="nav-number">5.</span> <span class="nav-text">（5）类型（type）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#（6）文档（document）"><span class="nav-number">6.</span> <span class="nav-text">（6）文档（document）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#（7）分片和复制（shard-amp-replica）"><span class="nav-number">7.</span> <span class="nav-text">（7）分片和复制（shard &amp; replica）</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -520,7 +546,7 @@
       repo: 'mathewsHan.github.io',
       owner: 'mathewsHan',
       admin: ['mathewsHan'],
-      id: '4b77ad94a1c76842c9a68a354fdf6e83',
+      id: 'fbceb6bbc21c0db1b57cc790cd0f63de',
         language: 'zh-CN',
       
       distractionFreeMode: 'false'
