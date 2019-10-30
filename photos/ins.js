@@ -119,10 +119,10 @@
           for (var i = 0, len = data.link.length; i < len; i++) {
           
             //var minSrc = 'https://raw.githubusercontent.com/yourgithub/Blog_Album/master/min_photos/' + data.link[i];
-            var minSrc = 'https://github.com/mathewsHan/hexo_blog_pictreus/blob/master/abulmData/photos/' + data.link[i];
+            var minSrc = 'https://raw.githubusercontent.com/yourgithub/Blog_Album/master/min_photos/' + data.link[i];
 			
            // var src = 'https://raw.githubusercontent.com/yourgithub/Blog_Album/master/photos/' + data.link[i];
-            var src = 'https://github.com/mathewsHan/hexo_blog_pictreus/blob/master/abulmData/min_photos/' + data.link[i];
+            var src = 'https://raw.githubusercontent.com/yourgithub/Blog_Album/master/photos/' + data.link[i];
            
             var type = data.type[i];
             var target = src + (type === 'video' ? '.mp4' : '.jpg');
