@@ -5,6 +5,8 @@
 
 
 <html lang="zh-CN">
+<script src="/js/src/photoswipe.min.js?v="></script>
+<script src="/js/src/photoswipe-ui-default.min.js?v="></script>
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -56,7 +58,7 @@
 </script>
 
   <meta name="description" content="Photos     图片正在加载中…      (function() {     var loadScript = function(path) {       var $script = document.createElement(&apos;script&apos;)       document.getElementsByTagName(&apos;body&apos;)[0].appendChild($sc">
-<meta name="keywords" content="Java">
+<meta name="keywords" content="Java,kotlin">
 <meta property="og:type" content="website">
 <meta property="og:title" content="相片">
 <meta property="og:url" content="http://yoursite.com/photos/index.html">
@@ -121,6 +123,47 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+  </div>
+
   <div class="container use-motion">
     <div class="headband"></div>
 
@@ -217,6 +260,19 @@
   </li>
       
     
+      
+      
+        
+        
+        <li class="menu-item menu-item-photos">
+      
+    
+
+    <a href="/photos" rel="section"><i class="fa fa-fw fa-camera"></i>photos</a>
+
+  </li>
+      
+    
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger">
         
@@ -269,6 +325,9 @@
         <div class="content-wrap">
             
 
+  
+    
+    
   
     
     
@@ -393,7 +452,7 @@
       src="/images/avatar.jpeg"
       alt="MathewsHan">
   <p class="site-author-name" itemprop="name">MathewsHan</p>
-  <div class="site-description" itemprop="description">前沿工程技术实战,源码阅读分享,计算机基础知识分享</div>
+  <div class="site-description" itemprop="description">前沿工程技术实战,源码阅读分享,计算机基础知识分享,转载不写源地址必喷</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -401,7 +460,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
