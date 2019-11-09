@@ -155,6 +155,19 @@
       
         
         
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
         <li class="menu-item menu-item-home">
       
     
@@ -199,19 +212,6 @@
     
 
     <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-archives">
-      
-    
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
   </li>
       
@@ -302,6 +302,379 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/报表相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享,转载不写源地址必喷">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/09/报表相关/" class="post-title-link" itemprop="url">报表相关</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-09 13:59:46" itemprop="dateCreated datePublished" datetime="2019-11-09T13:59:46+08:00">2019-11-09</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享,转载不写源地址必喷">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/07/docker/" class="post-title-link" itemprop="url">docker</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-07 00:24:54 / 修改时间：11:10:11" itemprop="dateCreated datePublished" datetime="2019-11-07T00:24:54+08:00">2019-11-07</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Docker-使用的基本命令"><a href="#Docker-使用的基本命令" class="headerlink" title="Docker  使用的基本命令"></a>Docker  使用的基本命令</h1><p>//查询所有容器,包括已经停止的<br>docker ps -a<br>// 启动一个已经存在的容器<br>docker  start  d33bc8d7387a<br>//docker启动 mysql 命令<br>$ docker run  —restart=always  —name  mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest</p>
+<p>—name 后面的是docker容器名<br>-p 32xxx:3306 这里需要注意 <code>32xxx</code> 是你<strong>链接mysql的时候的<code>Port</code>。</strong><br>-e MYSQL_ROOT_PASSWORD 是设置mysql的root账号密码<br>-d mysql 是你的镜像标签</p>
+<ol>
+<li><p>在shell中访问mysql<br>docker exec -it mingxie-mysql bash<br>root@7c289aa0ca95:/#<br>mysql -uroot -p -h localhost<br>Enter password:<br>输入密码即可。</p>
+</li>
+<li><p>在shell中访问mysql日志<br>$ docker logs mingxie-mysql<br>// docker 启动<br>docker run —name d33bc8d7387a  -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6</p>
+</li>
+</ol>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/秒杀方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享,转载不写源地址必喷">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/05/秒杀方案/" class="post-title-link" itemprop="url">秒杀方案</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-05 16:38:04" itemprop="dateCreated datePublished" datetime="2019-11-05T16:38:04+08:00">2019-11-05</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-07 14:32:52" itemprop="dateModified" datetime="2019-11-07T14:32:52+08:00">2019-11-07</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>来源：<a href="https://juejin.im/post/5d84e21f6fb9a06ac8248149" target="_blank" rel="noopener">https://juejin.im/post/5d84e21f6fb9a06ac8248149</a></p>
+<p>12306 抢票，极限并发带来的思考</p>
+<p>虽然现在大多数情况下都能订到票，但是放票瞬间即无票的场景，相信大家都深有体会。</p>
+<p>尤其是春节期间，大家不仅使用 12306，还会考虑“智行”和其他的抢票软件，全国上下几亿人在这段时间都在抢票。</p>
+<p>“12306 服务”承受着这个世界上任何秒杀系统都无法超越的 QPS，上百万的并发再正常不过了！</p>
+<p>笔者专门研究了一下“12306”的服务端架构，学习到了其系统设计上很多亮点，在这里和大家分享一下并模拟一个例子：如何在 100 万人同时抢 1 万张火车票时，系统提供正常、稳定的服务。</p>
+<p>Github代码地址：<br><a href="https://github.com/GuoZhaoran/spikeSystem" target="_blank" rel="noopener">https://github.com/GuoZhaoran/spikeSystem</a></p>
+<p>大型高并发系统架构</p>
+<p>高并发的系统架构都会采用分布式集群部署，服务上层有着层层负载均衡，并提供各种容灾手段（双火机房、节点容错、服务器灾备等）保证系统的高可用，流量也会根据不同的负载能力和配置策略均衡到不同的服务器上。</p>
+<p>下边是一个简单的示意图：<br><img src="/2019/11/05/秒杀方案/高并发系统架构.png" alt></p>
+<p>负载均衡简介</p>
+<p>上图中描述了用户请求到服务器经历了三层的负载均衡，下边分别简单介绍一下这三种负载均衡。</p>
+<p>①OSPF（开放式最短链路优先）是一个内部网关协议（Interior Gateway Protocol，简称 IGP）</p>
+<p>OSPF 通过路由器之间通告网络接口的状态来建立链路状态数据库，生成最短路径树，OSPF 会自动计算路由接口上的 Cost 值，但也可以通过手工指定该接口的 Cost 值，手工指定的优先于自动计算的值。</p>
+<p>OSPF 计算的 Cost，同样是和接口带宽成反比，带宽越高，Cost 值越小。到达目标相同 Cost 值的路径，可以执行负载均衡，最多 6 条链路同时执行负载均衡。</p>
+<p>②LVS （Linux Virtual Server）</p>
+<p>它是一种集群（Cluster）技术，采用 IP 负载均衡技术和基于内容请求分发技术。</p>
+<p>调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器。</p>
+<p>③Nginx</p>
+<p>想必大家都很熟悉了，是一款非常高性能的 HTTP 代理/反向代理服务器，服务开发中也经常使用它来做负载均衡。</p>
+<p>Nginx 实现负载均衡的方式主要有三种：</p>
+<p>轮询</p>
+<p>加权轮询</p>
+<p>IP Hash 轮询</p>
+<p>下面我们就针对 Nginx 的加权轮询做专门的配置和测试。</p>
+<p>Nginx 加权轮询的演示</p>
+<p>Nginx 实现负载均衡通过 Upstream 模块实现，其中加权轮询的配置是可以给相关的服务加上一个权重值，配置的时候可能根据服务器的性能、负载能力设置相应的负载。</p>
+<p>下面是一个加权轮询负载的配置，我将在本地的监听 3001-3004 端口，分别配置 1，2，3，4 的权重：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#配置负载均衡</span><br><span class="line">    upstream load_rule &#123;</span><br><span class="line">       server 127.0.0.1:3001 weight=1;</span><br><span class="line">       server 127.0.0.1:3002 weight=2;</span><br><span class="line">       server 127.0.0.1:3003 weight=3;</span><br><span class="line">       server 127.0.0.1:3004 weight=4;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  load_balance.com www.load_balance.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">       proxy_pass http://load_rule;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我在本地 /etc/hosts 目录下配置了 www.load_balance.com 的虚拟域名地址。</p>
+<p>接下来使用 Go 语言开启四个 HTTP 端口监听服务，下面是监听在 3001 端口的 Go 程序，其他几个只需要修改端口即可：</p>
+<p>package main</p>
+<p>import (<br>    “net/http”<br>    “os”<br>    “strings”<br>)</p>
+<p>func main() {<br>    http.HandleFunc(“/buy/ticket”, handleReq)<br>    http.ListenAndServe(“:3001”, nil)<br>}</p>
+<p>//处理请求函数,根据请求将响应结果信息写入日志<br>func handleReq(w http.ResponseWriter, r *http.Request) {<br>    failedMsg :=  “handle in port:”<br>    writeLog(failedMsg, “./stat.log”)<br>}</p>
+<p>//写入日志<br>func writeLog(msg string, logPath string) {<br>    fd, _ := os.OpenFile(logPath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)<br>    defer fd.Close()<br>    content := strings.Join([]string{msg, “\r\n”}, “3001”)<br>    buf := []byte(content)<br>    fd.Write(buf)<br>}</p>
+<p>我将请求的端口日志信息写到了 ./stat.log 文件当中，然后使用 AB 压测工具做压测：</p>
+<p>ab -n 1000 -c 100 <a href="http://www.load_balance.com/buy/ticket" target="_blank" rel="noopener">http://www.load_balance.com/buy/ticket</a></p>
+<p>统计日志中的结果，3001-3004 端口分别得到了 100、200、300、400 的请求量。</p>
+<p>这和我在 Nginx 中配置的权重占比很好的吻合在了一起，并且负载后的流量非常的均匀、随机。</p>
+<p>具体的实现大家可以参考 Nginx 的 Upsteam 模块实现源码，这里推荐一篇文章《Nginx 中 Upstream 机制的负载均衡》：</p>
+<p><a href="https://www.kancloud.cn/digest/understandingnginx/202607" target="_blank" rel="noopener">https://www.kancloud.cn/digest/understandingnginx/202607</a></p>
+<p>秒杀抢购系统选型</p>
+<p>回到我们最初提到的问题中来：火车票秒杀系统如何在高并发情况下提供正常、稳定的服务呢？</p>
+<p>从上面的介绍我们知道用户秒杀流量通过层层的负载均衡，均匀到了不同的服务器上，即使如此，集群中的单机所承受的 QPS 也是非常高的。如何将单机性能优化到极致呢？</p>
+<p>要解决这个问题，我们就要想明白一件事：通常订票系统要处理生成订单、减扣库存、用户支付这三个基本的阶段。</p>
+<p>我们系统要做的事情是要保证火车票订单不超卖、不少卖，每张售卖的车票都必须支付才有效，还要保证系统承受极高的并发。</p>
+<p>这三个阶段的先后顺序该怎么分配才更加合理呢？我们来分析一下：</p>
+<h1 id="下单减库存"><a href="#下单减库存" class="headerlink" title="下单减库存"></a>下单减库存</h1><p><img src="/2019/11/05/秒杀方案/下单减库存.jpg" alt><br>当用户并发请求到达服务端时，首先创建订单，然后扣除库存，等待用户支付。<br>这种顺序是我们一般人首先会想到的解决方案，这种情况下也能保证订单不会超卖，<br>因为创建订单之后就会减库存，这是一个原子操作。</p>
+<p>但是这样也会产生一些问题：<br>在极限并发情况下，任何一个内存操作的细节都至关影响性能，尤其像创建订单这种逻辑，一般都需要存储到磁盘数据库的，对数据库的压力是可想而知的。</p>
+<p>如果用户存在恶意下单的情况，只下单不支付这样库存就会变少，会少卖很多订单，虽然服务端可以限制 IP 和用户的购买订单数量，这也不算是一个好方法。</p>
+<h1 id="支付减库存"><a href="#支付减库存" class="headerlink" title="支付减库存"></a>支付减库存</h1><p><img src="/2019/11/05/秒杀方案/支付减库存.png" alt><br>如果等待用户支付了订单在减库存，第一感觉就是不会少卖。但是这是并发架构的大忌，因为在极限并发情况下，用户可能会创建很多订单。</p>
+<p>当库存减为零的时候很多用户发现抢到的订单支付不了了，这也就是所谓的“超卖”。也不能避免并发操作数据库磁盘 IO。</p>
+<h1 id="常用方案-预扣库存"><a href="#常用方案-预扣库存" class="headerlink" title="常用方案:预扣库存"></a>常用方案:预扣库存</h1><p><img src="/2019/11/05/秒杀方案/预扣库存.jpg" alt><br>从上边两种方案的考虑，我们可以得出结论：只要创建订单，就要频繁操作数据库 IO。</p>
+<p>那么有没有一种不需要直接操作数据库 IO 的方案呢，这就是预扣库存。先扣除了库存，保证不超卖，然后异步生成用户订单，这样响应给用户的速度就会快很多；那么怎么保证不少卖呢？用户拿到了订单，不支付怎么办？</p>
+<p>我们都知道现在订单都有有效期，比如说用户五分钟内不支付，订单就失效了，订单一旦失效，就会加入新的库存，这也是现在很多网上零售企业保证商品不少卖采用的方案。</p>
+<p>订单的生成是异步的，一般都会放到 MQ、Kafka 这样的即时消费队列中处理，订单量比较少的情况下，生成订单非常快，用户几乎不用排队。</p>
+<p>扣库存的艺术</p>
+<p>从上面的分析可知，显然预扣库存的方案最合理。我们进一步分析扣库存的细节，这里还有很大的优化空间，库存存在哪里？怎样保证高并发下，正确的扣库存，还能快速的响应用户请求？</p>
+<p>在单机低并发情况下，我们实现扣库存通常是这样的：</p>
+<p>为了保证扣库存和生成订单的原子性，需要采用事务处理，然后取库存判断、减库存，最后提交事务，整个流程有很多 IO，对数据库的操作又是阻塞的。</p>
+<p>这种方式根本不适合高并发的秒杀系统。接下来我们对单机扣库存的方案做优化：本地扣库存。</p>
+<p>我们把一定的库存量分配到本地机器，直接在内存中减库存，然后按照之前的逻辑异步创建订单。</p>
+<p>改进过之后的单机系统是这样的：</p>
+<p>这样就避免了对数据库频繁的 IO 操作，只在内存中做运算，极大的提高了单机抗并发的能力。</p>
+<p>但是百万的用户请求量单机是无论如何也抗不住的，虽然 Nginx 处理网络请求使用 Epoll 模型，c10k 的问题在业界早已得到了解决。</p>
+<p>但是 Linux 系统下，一切资源皆文件，网络请求也是这样，大量的文件描述符会使操作系统瞬间失去响应。</p>
+<p>上面我们提到了 Nginx 的加权均衡策略，我们不妨假设将 100W 的用户请求量平均均衡到 100 台服务器上，这样单机所承受的并发量就小了很多。</p>
+<p>然后我们每台机器本地库存 100 张火车票，100 台服务器上的总库存还是 1 万，这样保证了库存订单不超卖，下面是我们描述的集群架构：</p>
+<p>问题接踵而至，在高并发情况下，现在我们还无法保证系统的高可用，假如这 100 台服务器上有两三台机器因为扛不住并发的流量或者其他的原因宕机了。那么这些服务器上的订单就卖不出去了，这就造成了订单的少卖。</p>
+<p>要解决这个问题，我们需要对总订单量做统一的管理，这就是接下来的容错方案。服务器不仅要在本地减库存，另外要远程统一减库存。</p>
+<p>有了远程统一减库存的操作，我们就可以根据机器负载情况，为每台机器分配一些多余的“Buffer 库存”用来防止机器中有机器宕机的情况。</p>
+<p>我们结合下面架构图具体分析一下：</p>
+<p>我们采用 Redis 存储统一库存，因为 Redis 的性能非常高，号称单机 QPS 能抗 10W 的并发。</p>
+<p>在本地减库存以后，如果本地有订单，我们再去请求 Redis 远程减库存，本地减库存和远程减库存都成功了，才返回给用户抢票成功的提示，这样也能有效的保证订单不会超卖。</p>
+<p>当机器中有机器宕机时，因为每个机器上有预留的 Buffer 余票，所以宕机机器上的余票依然能够在其他机器上得到弥补，保证了不少卖。</p>
+<p>Buffer 余票设置多少合适呢，理论上 Buffer 设置的越多，系统容忍宕机的机器数量就越多，但是 Buffer 设置的太大也会对 Redis 造成一定的影响。</p>
+<p>虽然 Redis 内存数据库抗并发能力非常高，请求依然会走一次网络 IO，其实抢票过程中对 Redis 的请求次数是本地库存和 Buffer 库存的总量。</p>
+<p>因为当本地库存不足时，系统直接返回用户“已售罄”的信息提示，就不会再走统一扣库存的逻辑。</p>
+<p>这在一定程度上也避免了巨大的网络请求量把 Redis 压跨，所以 Buffer 值设置多少，需要架构师对系统的负载能力做认真的考量。</p>
+<p>代码演示</p>
+<p>Go 语言原生为并发设计，我采用 Go 语言给大家演示一下单机抢票的具体流程。</p>
+<p>初始化工作</p>
+<p>Go 包中的 Init 函数先于 Main 函数执行，在这个阶段主要做一些准备性工作。</p>
+<p>我们系统需要做的准备工作有：初始化本地库存、初始化远程 Redis 存储统一库存的 Hash 键值、初始化 Redis 连接池。</p>
+<p>另外还需要初始化一个大小为 1 的 Int 类型 Chan，目的是实现分布式锁的功能。</p>
+<p>也可以直接使用读写锁或者使用 Redis 等其他的方式避免资源竞争，但使用 Channel 更加高效，这就是 Go 语言的哲学：不要通过共享内存来通信，而要通过通信来共享内存。</p>
+<p>Redis 库使用的是 Redigo，下面是代码实现：</p>
+<p>…<br>//localSpike包结构体定义<br>package localSpike</p>
+<p>type LocalSpike struct {<br>    LocalInStock     int64<br>    LocalSalesVolume int64<br>}<br>…<br>//remoteSpike对hash结构的定义和redis连接池<br>package remoteSpike<br>//远程订单存储健值<br>type RemoteSpikeKeys struct {<br>    SpikeOrderHashKey string    //redis中秒杀订单hash结构key<br>    TotalInventoryKey string    //hash结构中总订单库存key<br>    QuantityOfOrderKey string   //hash结构中已有订单数量key<br>}</p>
+<p>//初始化redis连接池<br>func NewPool() *redis.Pool {<br>    return &amp;redis.Pool{<br>        MaxIdle:   10000,<br>        MaxActive: 12000, // max number of connections<br>        Dial: func() (redis.Conn, error) {<br>            c, err := redis.Dial(“tcp”, “:6379”)<br>            if err != nil {<br>                panic(err.Error())<br>            }<br>            return c, err<br>        },<br>    }<br>}<br>…<br>func init() {<br>    localSpike = localSpike2.LocalSpike{<br>        LocalInStock:     150,<br>        LocalSalesVolume: 0,<br>    }<br>    remoteSpike = remoteSpike2.RemoteSpikeKeys{<br>        SpikeOrderHashKey:  “ticket_hash_key”,<br>        TotalInventoryKey:  “ticket_total_nums”,<br>        QuantityOfOrderKey: “ticket_sold_nums”,<br>    }<br>    redisPool = remoteSpike2.NewPool()<br>    done = make(chan int, 1)<br>    done &lt;- 1<br>}</p>
+<p>本地扣库存和统一扣库存</p>
+<p>本地扣库存逻辑非常简单，用户请求过来，添加销量，然后对比销量是否大于本地库存，返回 Bool 值：</p>
+<p>package localSpike<br>//本地扣库存,返回bool值<br>func (spike *LocalSpike) LocalDeductionStock() bool{<br>    spike.LocalSalesVolume = spike.LocalSalesVolume + 1<br>    return spike.LocalSalesVolume &lt; spike.LocalInStock<br>}</p>
+<p>注意这里对共享数据 LocalSalesVolume 的操作是要使用锁来实现的，但是因为本地扣库存和统一扣库存是一个原子性操作，所以在最上层使用 Channel 来实现，这块后边会讲。</p>
+<p>统一扣库存操作 Redis，因为 Redis 是单线程的，而我们要实现从中取数据，写数据并计算一些列步骤，我们要配合 Lua 脚本打包命令，保证操作的原子性：</p>
+<p>package remoteSpike<br>……<br>const LuaScript = <code>local ticket_key = KEYS[1]
+        local ticket_total_key = ARGV[1]
+        local ticket_sold_key = ARGV[2]
+        local ticket_total_nums = tonumber(redis.call(&#39;HGET&#39;, ticket_key, ticket_total_key))
+        local ticket_sold_nums = tonumber(redis.call(&#39;HGET&#39;, ticket_key, ticket_sold_key))
+        -- 查看是否还有余票,增加订单数量,返回结果值
+       if(ticket_total_nums &gt;= ticket_sold_nums) then
+            return redis.call(&#39;HINCRBY&#39;, ticket_key, ticket_sold_key, 1)
+        end
+        return 0</code><br>//远端统一扣库存<br>func (RemoteSpikeKeys *RemoteSpikeKeys) RemoteDeductionStock(conn redis.Conn) bool {<br>    lua := redis.NewScript(1, LuaScript)<br>    result, err := redis.Int(lua.Do(conn, RemoteSpikeKeys.SpikeOrderHashKey, RemoteSpikeKeys.TotalInventoryKey, RemoteSpikeKeys.QuantityOfOrderKey))<br>    if err != nil {<br>        return false<br>    }<br>    return result != 0<br>}</p>
+<p>我们使用 Hash 结构存储总库存和总销量的信息，用户请求过来时，判断总销量是否大于库存，然后返回相关的 Bool 值。</p>
+<p>在启动服务之前，我们需要初始化 Redis 的初始库存信息：<br>hmset ticket_hash_key “ticket_total_nums” 10000 “ticket_sold_nums” 0</p>
+<p>响应用户信息</p>
+<p>我们开启一个 HTTP 服务，监听在一个端口上：</p>
+<p>package main<br>…<br>func main() {<br>    http.HandleFunc(“/buy/ticket”, handleReq)<br>    http.ListenAndServe(“:3005”, nil)<br>}</p>
+<p>上面我们做完了所有的初始化工作，接下来 handleReq 的逻辑非常清晰，判断是否抢票成功，返回给用户信息就可以了。</p>
+<p>package main<br>//处理请求函数,根据请求将响应结果信息写入日志<br>func handleReq(w http.ResponseWriter, r *http.Request) {<br>    redisConn := redisPool.Get()<br>    LogMsg := “”<br>    &lt;-done<br>    //全局读写锁<br>    if localSpike.LocalDeductionStock() &amp;&amp; remoteSpike.RemoteDeductionStock(redisConn) {<br>        util.RespJson(w, 1,  “抢票成功”, nil)<br>        LogMsg = LogMsg + “result:1,localSales:” + strconv.FormatInt(localSpike.LocalSalesVolume, 10)<br>    } else {<br>        util.RespJson(w, -1, “已售罄”, nil)<br>        LogMsg = LogMsg + “result:0,localSales:” + strconv.FormatInt(localSpike.LocalSalesVolume, 10)<br>    }<br>    done &lt;- 1</p>
+<pre><code>//将抢票状态写入到log中
+writeLog(LogMsg, &quot;./stat.log&quot;)
+</code></pre><p>}</p>
+<p>func writeLog(msg string, logPath string) {<br>    fd, _ := os.OpenFile(logPath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)<br>    defer fd.Close()<br>    content := strings.Join([]string{msg, “\r\n”}, “”)<br>    buf := []byte(content)<br>    fd.Write(buf)<br>}</p>
+<p>前边提到我们扣库存时要考虑竞态条件，我们这里是使用 Channel 避免并发的读写，保证了请求的高效顺序执行。我们将接口的返回信息写入到了 ./stat.log 文件方便做压测统计。</p>
+<p>单机服务压测</p>
+<p>开启服务，我们使用 AB 压测工具进行测试：</p>
+<p>ab -n 10000 -c 100 <a href="http://127.0.0.1:3005/buy/ticket" target="_blank" rel="noopener">http://127.0.0.1:3005/buy/ticket</a></p>
+<p>下面是我本地低配 Mac 的压测信息：</p>
+<p>This is ApacheBench, Version 2.3 &lt;$revision: 1826891=””&gt;<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="noopener">http://www.zeustech.net/</a><br>Licensed to The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="noopener">http://www.apache.org/</a></p>
+<p>Benchmarking 127.0.0.1 (be patient)<br>Completed 1000 requests<br>Completed 2000 requests<br>Completed 3000 requests<br>Completed 4000 requests<br>Completed 5000 requests<br>Completed 6000 requests<br>Completed 7000 requests<br>Completed 8000 requests<br>Completed 9000 requests<br>Completed 10000 requests<br>Finished 10000 requests</p>
+<p>Server Software:<br>Server Hostname:        127.0.0.1<br>Server Port:            3005</p>
+<p>Document Path:          /buy/ticket<br>Document Length:        29 bytes</p>
+<p>Concurrency Level:      100<br>Time taken for tests:   2.339 seconds<br>Complete requests:      10000<br>Failed requests:        0<br>Total transferred:      1370000 bytes<br>HTML transferred:       290000 bytes<br>Requests per second:    4275.96 [#/sec] (mean)<br>Time per request:       23.387 [ms] (mean)<br>Time per request:       0.234 [ms] (mean, across all concurrent requests)<br>Transfer rate:          572.08 [Kbytes/sec] received</p>
+<p>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:        0    8  14.7      6     223<br>Processing:     2   15  17.6     11     232<br>Waiting:        1   11  13.5      8     225<br>Total:          7   23  22.8     18     239</p>
+<p>Percentage of the requests served within a certain time (ms)<br>  50%     18<br>  66%     24<br>  75%     26<br>  80%     28<br>  90%     33<br>  95%     39<br>  98%     45<br>  99%     54<br> 100%    239 (longest request)</p>
+<p>根据指标显示，我单机每秒就能处理 4000+ 的请求，正常服务器都是多核配置，处理 1W+ 的请求根本没有问题。</p>
+<p>而且查看日志发现整个服务过程中，请求都很正常，流量均匀，Redis 也很正常：</p>
+<p>//stat.log<br>…<br>result:1,localSales:145<br>result:1,localSales:146<br>result:1,localSales:147<br>result:1,localSales:148<br>result:1,localSales:149<br>result:1,localSales:150<br>result:0,localSales:151<br>result:0,localSales:152<br>result:0,localSales:153<br>result:0,localSales:154<br>result:0,localSales:156<br>…</p>
+<p>总结回顾</p>
+<p>总体来说，秒杀系统是非常复杂的。我们这里只是简单介绍模拟了一下单机如何优化到高性能，集群如何避免单点故障，保证订单不超卖、不少卖的一些策略</p>
+<p>完整的订单系统还有订单进度的查看，每台服务器上都有一个任务，定时的从总库存同步余票和库存信息展示给用户，还有用户在订单有效期内不支付，释放订单，补充到库存等等。</p>
+<p>我们实现了高并发抢票的核心逻辑，可以说系统设计的非常的巧妙，巧妙的避开了对 DB 数据库 IO 的操作。</p>
+<p>对 Redis 网络 IO 的高并发请求，几乎所有的计算都是在内存中完成的，而且有效的保证了不超卖、不少卖，还能够容忍部分机器的宕机。</p>
+<p>我觉得其中有两点特别值得学习总结：</p>
+<p>①负载均衡，分而治之</p>
+<p>通过负载均衡，将不同的流量划分到不同的机器上，每台机器处理好自己的请求，将自己的性能发挥到极致。</p>
+<p>这样系统的整体也就能承受极高的并发了，就像工作的一个团队，每个人都将自己的价值发挥到了极致，团队成长自然是很大的。</p>
+<p>②合理的使用并发和异步</p>
+<p>自 Epoll 网络架构模型解决了 c10k 问题以来，异步越来越被服务端开发人员所接受，能够用异步来做的工作，就用异步来做，在功能拆解上能达到意想不到的效果。</p>
+<p>这点在 Nginx、Node.JS、Redis 上都能体现，他们处理网络请求使用的 Epoll 模型，用实践告诉了我们单线程依然可以发挥强大的威力。</p>
+<p>服务器已经进入了多核时代，Go 语言这种天生为并发而生的语言，完美的发挥了服务器多核优势，很多可以并发处理的任务都可以使用并发来解决，比如 Go 处理 HTTP 请求时每个请求都会在一个 Goroutine 中执行。</p>
+<p>总之，怎样合理的压榨 CPU，让其发挥出应有的价值，是我们一直需要探索学习的方向。</p>
+<p>热门内容：<br>1、《历史文章分类导读列表！精选优秀博文都在这里了！》<br>2、优化后的 Spring Boot 启动究竟能有多快？<br>3、Spring 常犯的十大错误，这坑你踩过吗？<br>4、不说“分布式事务”理论，直接上大厂解决方案，绝对实用！<br>5、阿里巴巴程序员常用的 15 款开发者工具！你知道几个？<br>6、七个开源的 Spring Boot 前后端分离项目，一定要收藏！<br>7、用 Git 和 Github 提高效率的 10 个技巧！<br>8、警惕，MyBatis的size()方法竟然有坑！<br>9、面试官：线程顺序执行,这么多答案你都答不上来？<br>10、手把手教你重构乱糟糟的代码</p>
+<p>微信扫一扫<br>关注该公众号<br>1.2 秒杀系统的实现方式</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/电商相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -343,7 +716,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-05 08:59:47" itemprop="dateModified" datetime="2019-11-05T08:59:47+08:00">2019-11-05</time>
+                <time title="修改时间：2019-11-05 16:35:38" itemprop="dateModified" datetime="2019-11-05T16:35:38+08:00">2019-11-05</time>
               </span>
             
           
@@ -377,9 +750,11 @@
 <p>虽然现在大多数情况下都能订到票，但是放票瞬间即无票的场景，相信大家都深有体会。</p>
 <p>尤其是春节期间，大家不仅使用 12306，还会考虑“智行”和其他的抢票软件，全国上下几亿人在这段时间都在抢票。</p>
 <p>“12306 服务”承受着这个世界上任何秒杀系统都无法超越的 QPS，上百万的并发再正常不过了！</p>
+<p>笔者专门研究了一下“12306”的服务端架构，学习到了其系统设计上很多亮点，在这里和大家分享一下并模拟一个例子：如何在 100 万人同时抢 1 万张火车票时，系统提供正常、稳定的服务。</p>
+<p>Github代码地址：<br><a href="https://github.com/GuoZhaoran/spikeSystem" target="_blank" rel="noopener">https://github.com/GuoZhaoran/spikeSystem</a></p>
 <p>大型高并发系统架构</p>
 <p>高并发的系统架构都会采用分布式集群部署，服务上层有着层层负载均衡，并提供各种容灾手段（双火机房、节点容错、服务器灾备等）保证系统的高可用，流量也会根据不同的负载能力和配置策略均衡到不同的服务器上。</p>
-<p>下边是一个简单的示意图：</p>
+<p>下边是一个简单的示意图：<br><img src="/2019/11/03/电商相关/高并发系统架构.png" alt></p>
 <p>负载均衡简介</p>
 <p>上图中描述了用户请求到服务器经历了三层的负载均衡，下边分别简单介绍一下这三种负载均衡。</p>
 <p>①OSPF（开放式最短链路优先）是一个内部网关协议（Interior Gateway Protocol，简称 IGP）</p>
@@ -732,7 +1107,7 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-01 15:18:18" itemprop="dateModified" datetime="2019-11-01T15:18:18+08:00">2019-11-01</time>
+                <time title="修改时间：2019-11-07 12:31:29" itemprop="dateModified" datetime="2019-11-07T12:31:29+08:00">2019-11-07</time>
               </span>
             
           
@@ -748,7 +1123,8 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="hexo-文章如何插入图片"><a href="#hexo-文章如何插入图片" class="headerlink" title="hexo 文章如何插入图片"></a>hexo 文章如何插入图片</h1><p>解决方法<br>设置站点配置_config.yml:将post_asset_folder: false改为post_asset_folder: true<br>安装插件:npm install <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="noopener">https://github.com/CodeFalling/hexo-asset-image</a> — save<br>运行hexo n “XXXXXX”,生成XXXXX.md博文时就会在/source/_posts目录下生成XXXXXX的文件夹，将你想在XXXXX博文中插入的照片放置到这个同名文件夹中即可，图片的命名随意。<br>添加图片:在想添加的位置写入<img src="/2019/10/30/hexo博客使用问题/图片名字.图片格式" alt>,例如<img src="/2019/10/30/hexo博客使用问题/1.png" alt>。</p>
+          <h1 id="hexo-文章如何插入图片"><a href="#hexo-文章如何插入图片" class="headerlink" title="hexo 文章如何插入图片"></a>hexo 文章如何插入图片</h1><p>解决方法</p>
+<p>设置站点配置_config.yml:将post_asset_folder: false改为post_asset_folder: true<br>安装插件:npm install <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="noopener">https://github.com/CodeFalling/hexo-asset-image</a> — save<br>运行hexo n “XXXXXX”,生成XXXXX.md博文时就会在/source/_posts目录下生成XXXXXX的文件夹，将你想在XXXXX博文中插入的照片放置到这个同名文件夹中即可，图片的命名随意。<br>添加图片:在想添加的位置写入<img src="/2019/10/30/hexo博客使用问题/图片名字.图片格式" alt>,例如<img src="/2019/10/30/hexo博客使用问题/1.png" alt>。</p>
 <p>Example<br><img src="/2019/10/30/hexo博客使用问题/holloween.jpg" alt></p>
 <p><br></p>
 <div class="pdf" target="./jvm.pdf" height></div>
@@ -1004,250 +1380,6 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/elasticsearch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享,转载不写源地址必喷">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/24/elasticsearch/" class="post-title-link" itemprop="url">elasticsearch</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-24 09:58:20 / 修改时间：10:00:37" itemprop="dateCreated datePublished" datetime="2019-10-24T09:58:20+08:00">2019-10-24</time>
-            </span>
-          
-            
-
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><p>Elasticsearch是面向文档(document oriented)的，这意味着它可以存储整个对象或文档(document)。然而它不仅仅是存储，还会索引(index)每个文档的内容使之可以被搜索。在Elasticsearch中，你可以对文档进行索引、搜索、排序、过滤。ES比传统关系型数据库，就像如下：</p>
-<p>Relation DB  -&gt; DataBase-&gt; Tables-&gt; Rows   -&gt; Colums</p>
-<p>ElasticSearch -&gt; Indeces -&gt; Types -&gt; Documents-&gt; Fields</p>
-<h1 id="2-特点"><a href="#2-特点" class="headerlink" title="2.特点"></a>2.特点</h1><p>Elasticsearch致力于隐藏分布式系统的复杂性。</p>
-<p>1）将你的文档分区到不同的容器或者分片(shards)中，它们可以存在于一个或多个节点中。<br>2）将分片均匀的分配到各个节点，对索引和搜索做负载均衡。<br>3）冗余每一个分片，防止硬件故障造成的数据丢失。<br>4）将集群中任意一个节点上的请求路由到相应数据所在的节点。<br>5）无论是增加节点，还是移除节点，分片都可以做到无缝的扩展和迁移</p>
-<h1 id="3-ES常见名词解释"><a href="#3-ES常见名词解释" class="headerlink" title="3.ES常见名词解释"></a>3.ES常见名词解释</h1><p>（1）接近实时（NRT）</p>
-<p>Elasticsearch是一个接近实时的搜索平台。</p>
-<p>（2）集群（cluster）</p>
-<p>一个集群就是由一个或多个节点组织在一起，它们共同持有你整个的数据，并一起提供索引和搜索功能。一个集群由一个唯一的名字标识，节点都是通过集群名加入到elasticsearch集群中的。</p>
-<p>（3）节点（node）</p>
-<p>一个节点是你集群中的一个服务器，作为集群的一部分，它存储你的数据，参与集群的索引和搜索功能。和集群类似，一个节点也是由一个名字来标识的。</p>
-<p>一个节点可以通过配置集群名称的方式来加入一个指定的集群。默认情况下，每个节点都会被安排加入到一个叫做“elasticsearch”的集群中，这意味着，如果你在你的网络中启动了若干个节点，并假定它们能够相互发现彼此，它们将会自动地形成并加入到一个叫做“elasticsearch”的集群中。</p>
-<p>在一个集群里，只要你想，可以拥有任意多个节点。而且，如果当前你的网络中没有运行任何Elasticsearch节点，这时启动一个节点，会默认创建并加入一个叫做“elasticsearch”的集群</p>
-<h1 id="（4）索引（index）"><a href="#（4）索引（index）" class="headerlink" title="（4）索引（index）"></a>（4）索引（index）</h1><p>一个索引就是一个拥有几分相似特征的文档的集合。</p>
-<h1 id="（5）类型（type）"><a href="#（5）类型（type）" class="headerlink" title="（5）类型（type）"></a>（5）类型（type）</h1><p>在一个索引中，你可以定义一种或多种类型。一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来定。通常，会为具有一组共同字段的文档定义一个类型。</p>
-<h1 id="（6）文档（document）"><a href="#（6）文档（document）" class="headerlink" title="（6）文档（document）"></a>（6）文档（document）</h1><p>一个文档是一个可被索引的基础信息单元。</p>
-<h1 id="（7）分片和复制（shard-amp-replica）"><a href="#（7）分片和复制（shard-amp-replica）" class="headerlink" title="（7）分片和复制（shard &amp; replica）"></a>（7）分片和复制（shard &amp; replica）</h1><p>一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任一节点都没有这样大的磁盘空间；或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch提供了将索引划分成多份的能力，这些份就叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。分片很重要，主要有两方面的原因：<br>1）允许你水平分割/扩展你的内容容量。<br>2）允许你在分片（潜在地，位于多个节点上）之上进行分布式的、并行的操作，进而提高性能/吞吐量。</p>
-<p>至于一个分片怎样分布，它的文档怎样聚合回搜索请求，是完全由Elasticsearch管理的，对于作为用户的你来说，这些都是透明的。</p>
-<p>在一个网络/云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于离线状态，或者由于任何原因消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。</p>
-<p>默认情况下，Elasticsearch中的每个索引被分片5个主分片和1个复制（一个索引的完全拷贝）。</p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/23/数据结构/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享,转载不写源地址必喷">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/23/数据结构/" class="post-title-link" itemprop="url">数据结构</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-23 21:51:25" itemprop="dateCreated datePublished" datetime="2019-10-23T21:51:25+08:00">2019-10-23</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/23/mybatis源码分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享,转载不写源地址必喷">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/23/mybatis源码分析/" class="post-title-link" itemprop="url">mybatis源码分析</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-23 21:50:22 / 修改时间：21:51:00" itemprop="dateCreated datePublished" datetime="2019-10-23T21:50:22+08:00">2019-10-23</time>
-            </span>
-          
-            
-
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<p>title: 设计模式<br>date: 2019-10-18 08:42:37<br>tags:</p>
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><pre><code>两次相同的查询从  sqlSession中取数据 
-</code></pre><p>2、怎么判断某两次查询是完全相同的查询？</p>
-<p>　　mybatis认为，对于两次查询，如果以下条件都完全一样，那么就认为它们是完全相同的两次查询。</p>
-<p>　　2.1 传入的statementId</p>
-<p>　　2.2 查询时要求的结果集中的结果范围</p>
-<p>　　2.3. 这次查询所产生的最终要传递给JDBC java.sql.Preparedstatement的Sql语句字符串（boundSql.getSql() ）</p>
-<p>　　2.4 传递给java.sql.Statement要设置的参数值</p>
-<p>​————————————-<br>    二级缓存<br><del>删除线</del></p>
-<ul>
-<li>二级缓存?<br>+</li>
-</ul>
-<div class="pdf" target="https://github.com/mathewsHan/-Note/blob/master/鸟哥的Linux私房菜–基础学习篇(第三版)%20.pdf" height></div> 
-<hr>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
@@ -1300,7 +1432,7 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

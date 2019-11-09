@@ -57,22 +57,24 @@
   };
 </script>
 
-  <meta name="description" content="经典的分布式电商系统架构 设置下标Service 层主要由几大模块组成: * 商品后台管理模块  * ES搜索服务 * 商品详情页展示 * 商城首页展示 * 用户管理CRM模块 * 购物车 * 订单服务 * 秒杀服务 ————-分割线—————— 经典的购物车实现方案1.1. 购物车常见实现方式传统的做法是使用关系型数据库，比如mysql，建立一个cat购物车表，把相关的购物车产品信息都放到数据库">
+  <meta name="description" content="来源：https://juejin.im/post/5d84e21f6fb9a06ac8248149 12306 抢票，极限并发带来的思考 虽然现在大多数情况下都能订到票，但是放票瞬间即无票的场景，相信大家都深有体会。 尤其是春节期间，大家不仅使用 12306，还会考虑“智行”和其他的抢票软件，全国上下几亿人在这段时间都在抢票。 “12306 服务”承受着这个世界上任何秒杀系统都无法超越的 QPS">
 <meta name="keywords" content="Java,kotlin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="电商相关">
-<meta property="og:url" content="http://yoursite.com/2019/11/03/电商相关/index.html">
+<meta property="og:title" content="秒杀方案">
+<meta property="og:url" content="http://yoursite.com/2019/11/05/秒杀方案/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="经典的分布式电商系统架构 设置下标Service 层主要由几大模块组成: * 商品后台管理模块  * ES搜索服务 * 商品详情页展示 * 商城首页展示 * 用户管理CRM模块 * 购物车 * 订单服务 * 秒杀服务 ————-分割线—————— 经典的购物车实现方案1.1. 购物车常见实现方式传统的做法是使用关系型数据库，比如mysql，建立一个cat购物车表，把相关的购物车产品信息都放到数据库">
+<meta property="og:description" content="来源：https://juejin.im/post/5d84e21f6fb9a06ac8248149 12306 抢票，极限并发带来的思考 虽然现在大多数情况下都能订到票，但是放票瞬间即无票的场景，相信大家都深有体会。 尤其是春节期间，大家不仅使用 12306，还会考虑“智行”和其他的抢票软件，全国上下几亿人在这段时间都在抢票。 “12306 服务”承受着这个世界上任何秒杀系统都无法超越的 QPS">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/11/03/电商相关/电商系统架构图.png">
-<meta property="og:image" content="http://yoursite.com/2019/11/03/电商相关/高并发系统架构.png">
-<meta property="og:updated_time" content="2019-11-05T08:35:38.864Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/05/秒杀方案/高并发系统架构.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/05/秒杀方案/下单减库存.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/11/05/秒杀方案/支付减库存.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/05/秒杀方案/预扣库存.jpg">
+<meta property="og:updated_time" content="2019-11-07T06:32:52.976Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="电商相关">
-<meta name="twitter:description" content="经典的分布式电商系统架构 设置下标Service 层主要由几大模块组成: * 商品后台管理模块  * ES搜索服务 * 商品详情页展示 * 商城首页展示 * 用户管理CRM模块 * 购物车 * 订单服务 * 秒杀服务 ————-分割线—————— 经典的购物车实现方案1.1. 购物车常见实现方式传统的做法是使用关系型数据库，比如mysql，建立一个cat购物车表，把相关的购物车产品信息都放到数据库">
-<meta name="twitter:image" content="http://yoursite.com/2019/11/03/电商相关/电商系统架构图.png">
-  <link rel="canonical" href="http://yoursite.com/2019/11/03/电商相关/">
+<meta name="twitter:title" content="秒杀方案">
+<meta name="twitter:description" content="来源：https://juejin.im/post/5d84e21f6fb9a06ac8248149 12306 抢票，极限并发带来的思考 虽然现在大多数情况下都能订到票，但是放票瞬间即无票的场景，相信大家都深有体会。 尤其是春节期间，大家不仅使用 12306，还会考虑“智行”和其他的抢票软件，全国上下几亿人在这段时间都在抢票。 “12306 服务”承受着这个世界上任何秒杀系统都无法超越的 QPS">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/05/秒杀方案/高并发系统架构.png">
+  <link rel="canonical" href="http://yoursite.com/2019/11/05/秒杀方案/">
 
 
 <script id="page-configurations">
@@ -86,7 +88,7 @@
   };
 </script>
 
-  <title>电商相关 | 我的个人博客</title>
+  <title>秒杀方案 | 我的个人博客</title>
   
 
 
@@ -306,7 +308,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/电商相关/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/秒杀方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -320,7 +322,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            电商相关
+            秒杀方案
             
 
           
@@ -337,7 +339,7 @@
                 
               
 
-              <time title="创建时间：2019-11-03 10:15:10" itemprop="dateCreated datePublished" datetime="2019-11-03T10:15:10+08:00">2019-11-03</time>
+              <time title="创建时间：2019-11-05 16:38:04" itemprop="dateCreated datePublished" datetime="2019-11-05T16:38:04+08:00">2019-11-05</time>
             </span>
           
             
@@ -348,7 +350,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-05 16:35:38" itemprop="dateModified" datetime="2019-11-05T16:35:38+08:00">2019-11-05</time>
+                <time title="修改时间：2019-11-07 14:32:52" itemprop="dateModified" datetime="2019-11-07T14:32:52+08:00">2019-11-07</time>
               </span>
             
           
@@ -364,20 +366,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="经典的分布式电商系统架构"><a href="#经典的分布式电商系统架构" class="headerlink" title="经典的分布式电商系统架构"></a>经典的分布式电商系统架构</h1><p><img src="/2019/11/03/电商相关/电商系统架构图.png" alt></p>
-<p><sub>设置下标</sub><br>Service 层主要由几大模块组成:</p>
-<pre><code>* 商品后台管理模块 
-* ES搜索服务
-* 商品详情页展示
-* 商城首页展示
-* 用户管理CRM模块
-* 购物车
-* 订单服务
-* 秒杀服务
-</code></pre><p><font size="3" color="green" fece="微软雅黑">————-分割线——————</font></p>
-<h1 id="经典的购物车实现方案"><a href="#经典的购物车实现方案" class="headerlink" title="经典的购物车实现方案"></a>经典的购物车实现方案</h1><p>1.1. 购物车常见实现方式<br>传统的做法是使用关系型数据库，比如mysql，建立一个cat购物车表，把相关的购物车产品信息都放到数据库里面。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>来源：<a href="https://juejin.im/post/5d84e21f6fb9a06ac8248149" target="_blank" rel="noopener">https://juejin.im/post/5d84e21f6fb9a06ac8248149</a></p>
+        <p>来源：<a href="https://juejin.im/post/5d84e21f6fb9a06ac8248149" target="_blank" rel="noopener">https://juejin.im/post/5d84e21f6fb9a06ac8248149</a></p>
 <p>12306 抢票，极限并发带来的思考</p>
 <p>虽然现在大多数情况下都能订到票，但是放票瞬间即无票的场景，相信大家都深有体会。</p>
 <p>尤其是春节期间，大家不仅使用 12306，还会考虑“智行”和其他的抢票软件，全国上下几亿人在这段时间都在抢票。</p>
@@ -386,7 +375,7 @@
 <p>Github代码地址：<br><a href="https://github.com/GuoZhaoran/spikeSystem" target="_blank" rel="noopener">https://github.com/GuoZhaoran/spikeSystem</a></p>
 <p>大型高并发系统架构</p>
 <p>高并发的系统架构都会采用分布式集群部署，服务上层有着层层负载均衡，并提供各种容灾手段（双火机房、节点容错、服务器灾备等）保证系统的高可用，流量也会根据不同的负载能力和配置策略均衡到不同的服务器上。</p>
-<p>下边是一个简单的示意图：<br><img src="/2019/11/03/电商相关/高并发系统架构.png" alt></p>
+<p>下边是一个简单的示意图：<br><img src="/2019/11/05/秒杀方案/高并发系统架构.png" alt></p>
 <p>负载均衡简介</p>
 <p>上图中描述了用户请求到服务器经历了三层的负载均衡，下边分别简单介绍一下这三种负载均衡。</p>
 <p>①OSPF（开放式最短链路优先）是一个内部网关协议（Interior Gateway Protocol，简称 IGP）</p>
@@ -405,20 +394,7 @@
 <p>Nginx 加权轮询的演示</p>
 <p>Nginx 实现负载均衡通过 Upstream 模块实现，其中加权轮询的配置是可以给相关的服务加上一个权重值，配置的时候可能根据服务器的性能、负载能力设置相应的负载。</p>
 <p>下面是一个加权轮询负载的配置，我将在本地的监听 3001-3004 端口，分别配置 1，2，3，4 的权重：</p>
-<h1 id="配置负载均衡"><a href="#配置负载均衡" class="headerlink" title="配置负载均衡"></a>配置负载均衡</h1><pre><code>upstream load_rule {
-   server 127.0.0.1:3001 weight=1;
-   server 127.0.0.1:3002 weight=2;
-   server 127.0.0.1:3003 weight=3;
-   server 127.0.0.1:3004 weight=4;
-}
-...
-server {
-listen       80;
-server_name  load_balance.com www.load_balance.com;
-location / {
-   proxy_pass http://load_rule;
-}
-</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#配置负载均衡</span><br><span class="line">    upstream load_rule &#123;</span><br><span class="line">       server 127.0.0.1:3001 weight=1;</span><br><span class="line">       server 127.0.0.1:3002 weight=2;</span><br><span class="line">       server 127.0.0.1:3003 weight=3;</span><br><span class="line">       server 127.0.0.1:3004 weight=4;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  load_balance.com www.load_balance.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">       proxy_pass http://load_rule;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我在本地 /etc/hosts 目录下配置了 www.load_balance.com 的虚拟域名地址。</p>
 <p>接下来使用 Go 语言开启四个 HTTP 端口监听服务，下面是监听在 3001 端口的 Go 程序，其他几个只需要修改端口即可：</p>
 <p>package main</p>
@@ -438,16 +414,12 @@ location / {
 <p>要解决这个问题，我们就要想明白一件事：通常订票系统要处理生成订单、减扣库存、用户支付这三个基本的阶段。</p>
 <p>我们系统要做的事情是要保证火车票订单不超卖、不少卖，每张售卖的车票都必须支付才有效，还要保证系统承受极高的并发。</p>
 <p>这三个阶段的先后顺序该怎么分配才更加合理呢？我们来分析一下：</p>
-<p>下单减库存</p>
-<p>当用户并发请求到达服务端时，首先创建订单，然后扣除库存，等待用户支付。</p>
-<p>这种顺序是我们一般人首先会想到的解决方案，这种情况下也能保证订单不会超卖，因为创建订单之后就会减库存，这是一个原子操作。</p>
+<h1 id="下单减库存"><a href="#下单减库存" class="headerlink" title="下单减库存"></a>下单减库存</h1><p><img src="/2019/11/05/秒杀方案/下单减库存.jpg" alt><br>当用户并发请求到达服务端时，首先创建订单，然后扣除库存，等待用户支付。<br>这种顺序是我们一般人首先会想到的解决方案，这种情况下也能保证订单不会超卖，<br>因为创建订单之后就会减库存，这是一个原子操作。</p>
 <p>但是这样也会产生一些问题：<br>在极限并发情况下，任何一个内存操作的细节都至关影响性能，尤其像创建订单这种逻辑，一般都需要存储到磁盘数据库的，对数据库的压力是可想而知的。</p>
 <p>如果用户存在恶意下单的情况，只下单不支付这样库存就会变少，会少卖很多订单，虽然服务端可以限制 IP 和用户的购买订单数量，这也不算是一个好方法。</p>
-<p>支付减库存</p>
-<p>如果等待用户支付了订单在减库存，第一感觉就是不会少卖。但是这是并发架构的大忌，因为在极限并发情况下，用户可能会创建很多订单。</p>
+<h1 id="支付减库存"><a href="#支付减库存" class="headerlink" title="支付减库存"></a>支付减库存</h1><p><img src="/2019/11/05/秒杀方案/支付减库存.png" alt><br>如果等待用户支付了订单在减库存，第一感觉就是不会少卖。但是这是并发架构的大忌，因为在极限并发情况下，用户可能会创建很多订单。</p>
 <p>当库存减为零的时候很多用户发现抢到的订单支付不了了，这也就是所谓的“超卖”。也不能避免并发操作数据库磁盘 IO。</p>
-<p>预扣库存</p>
-<p>从上边两种方案的考虑，我们可以得出结论：只要创建订单，就要频繁操作数据库 IO。</p>
+<h1 id="常用方案-预扣库存"><a href="#常用方案-预扣库存" class="headerlink" title="常用方案:预扣库存"></a>常用方案:预扣库存</h1><p><img src="/2019/11/05/秒杀方案/预扣库存.jpg" alt><br>从上边两种方案的考虑，我们可以得出结论：只要创建订单，就要频繁操作数据库 IO。</p>
 <p>那么有没有一种不需要直接操作数据库 IO 的方案呢，这就是预扣库存。先扣除了库存，保证不超卖，然后异步生成用户订单，这样响应给用户的速度就会快很多；那么怎么保证不少卖呢？用户拿到了订单，不支付怎么办？</p>
 <p>我们都知道现在订单都有有效期，比如说用户五分钟内不支付，订单就失效了，订单一旦失效，就会加入新的库存，这也是现在很多网上零售企业保证商品不少卖采用的方案。</p>
 <p>订单的生成是异步的，一般都会放到 MQ、Kafka 这样的即时消费队列中处理，订单量比较少的情况下，生成订单非常快，用户几乎不用排队。</p>
@@ -558,8 +530,8 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/10/30/hadoop集群/" rel="next" title="hadoop集群">
-                  <i class="fa fa-chevron-left"></i> hadoop集群
+                <a href="/2019/11/03/电商相关/" rel="next" title="电商相关">
+                  <i class="fa fa-chevron-left"></i> 电商相关
                 </a>
               
             </div>
@@ -568,8 +540,8 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/11/05/秒杀方案/" rel="prev" title="秒杀方案">
-                  秒杀方案 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/07/docker/" rel="prev" title="docker">
+                  docker <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -619,7 +591,7 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#经典的分布式电商系统架构"><span class="nav-number">1.</span> <span class="nav-text">经典的分布式电商系统架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#经典的购物车实现方案"><span class="nav-number">2.</span> <span class="nav-text">经典的购物车实现方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置负载均衡"><span class="nav-number">3.</span> <span class="nav-text">配置负载均衡</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下单减库存"><span class="nav-number">1.</span> <span class="nav-text">下单减库存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支付减库存"><span class="nav-number">2.</span> <span class="nav-text">支付减库存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用方案-预扣库存"><span class="nav-number">3.</span> <span class="nav-text">常用方案:预扣库存</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -761,7 +733,7 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
       repo: 'mathewsHan.github.io',
       owner: 'mathewsHan',
       admin: ['mathewsHan'],
-      id: 'b1d37a0b22102e511062fe39a2c13f61',
+      id: '362d7dde547d0242ed231189aae0c077',
         language: 'zh-CN',
       
       distractionFreeMode: 'false'
