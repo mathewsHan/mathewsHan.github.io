@@ -57,19 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="Docker  使用的基本命令//查询所有容器,包括已经停止的docker ps -a// 启动一个已经存在的容器docker  start  d33bc8d7387a//docker启动 mysql 命令$ docker run  —restart=always  —name  mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d">
+  <meta name="description" content="1、BIO编程    1.1、传统的BIO编程网络编程的基本模型是C/S模型，即两个进程间的通信。简单描述就是并发请求会使得服务器，开启对应相应链接的很多编程,效率低下服务端提供IP和监听端口，客户端通过连接操作想服务端监听的地址发起连接请求，通过三次握手连接，如果连接成功建立，双方就可以通过套接字进行通信。传统的同步阻塞模型开发中，ServerSocket负责绑定IP地址，启动监听端口；Sock">
 <meta name="keywords" content="Java,kotlin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker">
-<meta property="og:url" content="http://yoursite.com/2019/11/07/docker/index.html">
+<meta property="og:title" content="网络通信相关">
+<meta property="og:url" content="http://yoursite.com/2019/11/11/网络通信相关/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="Docker  使用的基本命令//查询所有容器,包括已经停止的docker ps -a// 启动一个已经存在的容器docker  start  d33bc8d7387a//docker启动 mysql 命令$ docker run  —restart=always  —name  mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d">
+<meta property="og:description" content="1、BIO编程    1.1、传统的BIO编程网络编程的基本模型是C/S模型，即两个进程间的通信。简单描述就是并发请求会使得服务器，开启对应相应链接的很多编程,效率低下服务端提供IP和监听端口，客户端通过连接操作想服务端监听的地址发起连接请求，通过三次握手连接，如果连接成功建立，双方就可以通过套接字进行通信。传统的同步阻塞模型开发中，ServerSocket负责绑定IP地址，启动监听端口；Sock">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-07T03:10:11.200Z">
+<meta property="og:updated_time" content="2019-11-11T10:35:57.582Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker">
-<meta name="twitter:description" content="Docker  使用的基本命令//查询所有容器,包括已经停止的docker ps -a// 启动一个已经存在的容器docker  start  d33bc8d7387a//docker启动 mysql 命令$ docker run  —restart=always  —name  mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d">
-  <link rel="canonical" href="http://yoursite.com/2019/11/07/docker/">
+<meta name="twitter:title" content="网络通信相关">
+<meta name="twitter:description" content="1、BIO编程    1.1、传统的BIO编程网络编程的基本模型是C/S模型，即两个进程间的通信。简单描述就是并发请求会使得服务器，开启对应相应链接的很多编程,效率低下服务端提供IP和监听端口，客户端通过连接操作想服务端监听的地址发起连接请求，通过三次握手连接，如果连接成功建立，双方就可以通过套接字进行通信。传统的同步阻塞模型开发中，ServerSocket负责绑定IP地址，启动监听端口；Sock">
+  <link rel="canonical" href="http://yoursite.com/2019/11/11/网络通信相关/">
 
 
 <script id="page-configurations">
@@ -83,7 +83,7 @@
   };
 </script>
 
-  <title>docker | 我的个人博客</title>
+  <title>网络通信相关 | 我的个人博客</title>
   
 
 
@@ -303,7 +303,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/docker/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/11/网络通信相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -317,7 +317,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            docker
+            网络通信相关
             
 
           
@@ -334,7 +334,7 @@
                 
               
 
-              <time title="创建时间：2019-11-07 00:24:54 / 修改时间：11:10:11" itemprop="dateCreated datePublished" datetime="2019-11-07T00:24:54+08:00">2019-11-07</time>
+              <time title="创建时间：2019-11-11 02:59:22 / 修改时间：18:35:57" itemprop="dateCreated datePublished" datetime="2019-11-11T02:59:22+08:00">2019-11-11</time>
             </span>
           
             
@@ -353,15 +353,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Docker-使用的基本命令"><a href="#Docker-使用的基本命令" class="headerlink" title="Docker  使用的基本命令"></a>Docker  使用的基本命令</h1><p>//查询所有容器,包括已经停止的<br>docker ps -a<br>// 启动一个已经存在的容器<br>docker  start  d33bc8d7387a<br>//docker启动 mysql 命令<br>$ docker run  —restart=always  —name  mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest</p>
-<p>—name 后面的是docker容器名<br>-p 32xxx:3306 这里需要注意 <code>32xxx</code> 是你<strong>链接mysql的时候的<code>Port</code>。</strong><br>-e MYSQL_ROOT_PASSWORD 是设置mysql的root账号密码<br>-d mysql 是你的镜像标签</p>
-<ol>
-<li><p>在shell中访问mysql<br>docker exec -it mingxie-mysql bash<br>root@7c289aa0ca95:/#<br>mysql -uroot -p -h localhost<br>Enter password:<br>输入密码即可。</p>
-</li>
-<li><p>在shell中访问mysql日志<br>$ docker logs mingxie-mysql<br>// docker 启动<br>docker run —name d33bc8d7387a  -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6</p>
-</li>
-</ol>
-
+        <p>1、BIO编程<br>    1.1、传统的BIO编程<br>网络编程的基本模型是C/S模型，即两个进程间的通信。简单描述就是并发请求会使得服务器，开启对应相应链接的很多编程,效率低下<br>服务端提供IP和监听端口，客户端通过连接操作想服务端监听的地址发起连接请求，通过三次握手连接，如果连接成功建立，双方就可以通过套接字进行通信。<br>传统的同步阻塞模型开发中，ServerSocket负责绑定IP地址，启动监听端口；Socket负责发起连接操作。连接成功后，双方通过输入和输出流进行同步阻塞式通信。 </p>
+<p>简单的描述一下BIO的服务端通信模型：采用BIO通信模型的服务端，通常由一个独立的Acceptor线程负责监听客户端的连接，它接收到客户端连接请求之后为每个<br>客户端创建一个新的线程进行链路处理没处理完成后，通过输出流返回应答给客户端，线程销毁。即典型的一请求一应答通宵模型。<br>每个服务器端处理请求的线程代码,服务端将以多线程形式启动此 Handler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.bio;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"> </span><br><span class="line">import com.anxpp.io.utils.Calculator;</span><br><span class="line">/**</span><br><span class="line"> * 客户端线程</span><br><span class="line"> * @author yangtao__anxpp.com</span><br><span class="line"> * 用于处理一个客户端的Socket链路</span><br><span class="line"> */</span><br><span class="line">public class ServerHandler implements Runnable&#123;</span><br><span class="line">	private Socket socket;</span><br><span class="line">	public ServerHandler(Socket socket) &#123;</span><br><span class="line">		this.socket = socket;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		BufferedReader in = null;</span><br><span class="line">		PrintWriter out = null;</span><br><span class="line">		try&#123;</span><br><span class="line">			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));</span><br><span class="line">			out = new PrintWriter(socket.getOutputStream(),true);</span><br><span class="line">			String expression;</span><br><span class="line">			String result;</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				//通过BufferedReader读取一行</span><br><span class="line">				//如果已经读到输入流尾部，返回null,退出循环</span><br><span class="line">				//如果得到非空值，就尝试计算结果并返回</span><br><span class="line">				if((expression = in.readLine())==null) break;</span><br><span class="line">				System.out.println(&quot;服务器收到消息：&quot; + expression);</span><br><span class="line">				try&#123;</span><br><span class="line">					result = Calculator.cal(expression).toString();</span><br><span class="line">				&#125;catch(Exception e)&#123;</span><br><span class="line">					result = &quot;计算错误：&quot; + e.getMessage();</span><br><span class="line">				&#125;</span><br><span class="line">				out.println(result);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			//一些必要的清理工作</span><br><span class="line">			if(in != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					in.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				in = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(out != null)&#123;</span><br><span class="line">				out.close();</span><br><span class="line">				out = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(socket != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					socket.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				socket = null;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-伪异步-，其实就是服务端用线程池管理了多线程"><a href="#2-伪异步-，其实就是服务端用线程池管理了多线程" class="headerlink" title="2.伪异步 ，其实就是服务端用线程池管理了多线程"></a>2.伪异步 ，其实就是服务端用线程池管理了多线程</h1><p>   为了改进这种一连接一线程的模型，我们可以使用线程池来管理这些线程（需要了解更多请参考前面提供的文章），<br>   实现1个或多个线程处理N个客户端的模型（但是底层还是使用的同步阻塞I/O），通常被称为“伪异步I/O模型“。<br>总结：<br>    serverHandler 和阻塞IO一样 ，只不过  </p>
+<h1 id="3-NIO-新思路"><a href="#3-NIO-新思路" class="headerlink" title="3.NIO, 新思路"></a>3.NIO, 新思路</h1>
     </div>
 
     
@@ -377,8 +372,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/11/05/秒杀方案/" rel="next" title="秒杀方案">
-                  <i class="fa fa-chevron-left"></i> 秒杀方案
+                <a href="/2019/11/09/报表相关/" rel="next" title="报表相关">
+                  <i class="fa fa-chevron-left"></i> 报表相关
                 </a>
               
             </div>
@@ -386,10 +381,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/11/09/报表相关/" rel="prev" title="报表相关">
-                  报表相关 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -438,7 +429,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-使用的基本命令"><span class="nav-number">1.</span> <span class="nav-text">Docker  使用的基本命令</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-伪异步-，其实就是服务端用线程池管理了多线程"><span class="nav-number">1.</span> <span class="nav-text">2.伪异步 ，其实就是服务端用线程池管理了多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-NIO-新思路"><span class="nav-number">2.</span> <span class="nav-text">3.NIO, 新思路</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -580,7 +571,7 @@
       repo: 'mathewsHan.github.io',
       owner: 'mathewsHan',
       admin: ['mathewsHan'],
-      id: '7e816f895573cc45d00015f12bca89c0',
+      id: 'f7316870d21ff12e54db64949a6a6940',
         language: 'zh-CN',
       
       distractionFreeMode: 'false'
