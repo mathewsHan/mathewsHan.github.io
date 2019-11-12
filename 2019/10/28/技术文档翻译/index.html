@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="我的个人博客">
 <meta property="og:description" content="ssh.comPuTTY for Mac is a port of the Windows version of PuTTY. However, there are many options for SSH clients for Mac, and this page discusses several of them. ContentsUsing the built-in SSH client">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-01T17:22:38.222Z">
+<meta property="og:updated_time" content="2019-11-11T20:53:57.076Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="技术文档翻译">
 <meta name="twitter:description" content="ssh.comPuTTY for Mac is a port of the Windows version of PuTTY. However, there are many options for SSH clients for Mac, and this page discusses several of them. ContentsUsing the built-in SSH client">
@@ -345,7 +345,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-02 01:22:38" itemprop="dateModified" datetime="2019-11-02T01:22:38+08:00">2019-11-02</time>
+                <time title="修改时间：2019-11-12 04:53:57" itemprop="dateModified" datetime="2019-11-12T04:53:57+08:00">2019-11-12</time>
               </span>
             
           
@@ -363,6 +363,9 @@
       
         <h1 id="ssh-com"><a href="#ssh-com" class="headerlink" title="ssh.com"></a>ssh.com</h1><p>PuTTY for Mac is a port of the Windows version of PuTTY. However, there are many options for SSH clients for Mac, and this page discusses several of them.</p>
 <p>Contents<br>Using the built-in SSH client in Mac OS X<br>Running SSH from the terminal command line<br>Running SSH with a graphical user interface<br>How to use PuTTY SSH keys with the built-in OpenSSH<br>Ported PuTTY for Mac<br>Installation using HomeBrew<br>Installation using MacPorts<br>Alternatives to PuTTY on the Mac</p>
+<p>页面导入pdf 文档<br><br></p>
+<div class="pdf" target="jvm.pdf" height></div>
+<p><br></p>
 
     </div>
 
@@ -558,6 +561,25 @@
 
 
 
+<script>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
 
 
 

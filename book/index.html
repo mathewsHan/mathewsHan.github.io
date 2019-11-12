@@ -57,15 +57,18 @@
   };
 </script>
 
-  <meta name="keywords" content="Java,kotlin">
+  <meta name="description" content="JVM 书籍">
+<meta name="keywords" content="Java,kotlin">
 <meta property="og:type" content="website">
 <meta property="og:title" content="book">
 <meta property="og:url" content="http://yoursite.com/book/index.html">
 <meta property="og:site_name" content="我的个人博客">
+<meta property="og:description" content="JVM 书籍">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-01T07:19:22.959Z">
+<meta property="og:updated_time" content="2019-11-11T20:01:18.208Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="book">
+<meta name="twitter:description" content="JVM 书籍">
   <link rel="canonical" href="http://yoursite.com/book/">
 
 
@@ -345,7 +348,8 @@
       
       
       <div class="post-body">
-          <div class="pdf" target="./jvm.pdf" height></div>
+          <p>JVM 书籍<br><div class="pdf" target="./jvm.pdf" height></div></p>
+<div class="pdf" target="http://7xov2f.com1.z0.glb.clouddn.com/bash_freshman.pdf" height></div>
 
         
       </div>
@@ -511,6 +515,25 @@
 
 
 
+<script>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
 
 
 
