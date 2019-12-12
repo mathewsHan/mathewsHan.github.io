@@ -5,9 +5,9 @@ const ap = new APlayer({
     audio: [
       
       {
-        name: '9420',
+        name: 'just the  way  you are',
         artist: '麦小兜',
-        url: 'http://up.mcyt.net/?down/45967.mp3',
+        url: 'http://k006.kiwi6.com/hotlink/zzhyo2pcgw/bruno_mars_-_just_the_way_you_are_chris_.mp3',
         cover: 'http://oeff2vktt.bkt.clouddn.com/image/8.jpg',
       }
       
