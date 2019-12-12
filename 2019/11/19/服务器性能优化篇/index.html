@@ -6,7 +6,8 @@
 
 <html lang="zh-CN">
 <script src="/js/src/photoswipe.min.js?v="></script>
-<script src="/js/src/photoswipe-ui-default.min.js?v="></script>
+<script src="/js/src/photoswipe-ui-default.min.js?v=">
+</script>
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -57,18 +58,18 @@
   };
 </script>
 
-  <meta name="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+  <meta name="description" content="数据库优化1.数据库设计和表创建时就要考虑性能设计表时要注意： 表字段避免null值出现，null值很难查询优化且占用额外的索引空间，推荐默认数字0代替null。——&amp;gt;(mysql索引是可以使用索引来查询 有NULL值存在的字段1.EXPLAIN select  from j_copy where a is null; —执行计划可以看到是否走了索引)尽量使用INT而非BIGINT，如果非负">
 <meta name="keywords" content="Java,kotlin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="服务器性能优化篇">
 <meta property="og:url" content="http://yoursite.com/2019/11/19/服务器性能优化篇/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+<meta property="og:description" content="数据库优化1.数据库设计和表创建时就要考虑性能设计表时要注意： 表字段避免null值出现，null值很难查询优化且占用额外的索引空间，推荐默认数字0代替null。——&amp;gt;(mysql索引是可以使用索引来查询 有NULL值存在的字段1.EXPLAIN select  from j_copy where a is null; —执行计划可以看到是否走了索引)尽量使用INT而非BIGINT，如果非负">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-19T05:59:16.217Z">
+<meta property="og:updated_time" content="2019-12-11T13:53:49.235Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="服务器性能优化篇">
-<meta name="twitter:description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+<meta name="twitter:description" content="数据库优化1.数据库设计和表创建时就要考虑性能设计表时要注意： 表字段避免null值出现，null值很难查询优化且占用额外的索引空间，推荐默认数字0代替null。——&amp;gt;(mysql索引是可以使用索引来查询 有NULL值存在的字段1.EXPLAIN select  from j_copy where a is null; —执行计划可以看到是否走了索引)尽量使用INT而非BIGINT，如果非负">
   <link rel="canonical" href="http://yoursite.com/2019/11/19/服务器性能优化篇/">
 
 
@@ -120,6 +121,10 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
 
   <div class="container use-motion">
     <div class="headband"></div>
@@ -337,6 +342,18 @@
               <time title="创建时间：2019-11-19 13:59:16" itemprop="dateCreated datePublished" datetime="2019-11-19T13:59:16+08:00">2019-11-19</time>
             </span>
           
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-11 21:53:49" itemprop="dateModified" datetime="2019-12-11T21:53:49+08:00">2019-12-11</time>
+              </span>
+            
+          
 
           
 
@@ -349,7 +366,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="数据库优化"><a href="#数据库优化" class="headerlink" title="数据库优化"></a>数据库优化</h1><h1 id="1-数据库设计和表创建时就要考虑性能"><a href="#1-数据库设计和表创建时就要考虑性能" class="headerlink" title="1.数据库设计和表创建时就要考虑性能"></a>1.数据库设计和表创建时就要考虑性能</h1><pre><code>设计表时要注意：
+</code></pre><p>表字段避免null值出现，null值很难查询优化且占用额外的索引空间，推荐默认数字0代替null。<br>——&gt;(mysql索引是可以使用索引来查询 有NULL值存在的字段<br>1.EXPLAIN select <em> from j_copy where a is null; —执行计划可以看到是否走了索引<br>)<br>尽量使用INT而非BIGINT，如果非负则加上UNSIGNED(这样数值容量会扩大一倍)，当然能使用TINYINT、SMALLINT、MEDIUM_INT更好。<br>使用枚举或整数代替字符串类型<br>尽量使用TIMESTAMP而非DATETIME<br>单表不要有太多字段，建议在20以内, （表拆分）<br>用整型来存IP地址, 即32位的无符号整数（UNSIGNED INT）， mysql 提供了转换函数,select inet_ntoa(3232235521);<br>    索引<br>索引并不是越多越好，要根据查询有针对性的创建，考虑在WHERE和ORDER BY命令上涉及的列建立索引，可根据EXPLAIN来查看是否用了索引还是全表扫描<br>应尽量避免在WHERE子句中对字段进行NULL值判断，否则将导致引擎放弃使用索引而进行全表扫描<br>值分布很集中的字段不适合建索引，例如”性别”这种只有两三个值的字段<br>字符字段只建前缀索引<br>字符字段**</em>不要做主键<br>不用外键，由程序保证约束<br>尽量不用UNIQUE，由程序保证约束<br>使用多列索引时主意顺序和查询条件保持一致，同时删除不必要的单列索引</p>
+<h1 id="2-sql的编写需要注意优化"><a href="#2-sql的编写需要注意优化" class="headerlink" title="2.sql的编写需要注意优化"></a>2.sql的编写需要注意优化</h1><p>记录一次MySQL两千万数据的大表优化解决过程，提供三种解决方案<br>使用阿里云rds for MySQL数据库(就是MySQL5.6版本)，有个用户上网记录表6个月的数据量近2000万，保留最近一年的数据量达到4000万，查询速度极慢，日常卡死。严重影响业务。我尝试解决该问题，so，有个这个日志。</p>
+<p>作者：王帅来源：java版web项目|2019-02-26 13:18 收藏  分享<br>记录一次MySQL两千万数据的大表优化解决过程，提供三种解决方案<br>问题概述<br>使用阿里云rds for MySQL数据库(就是MySQL5.6版本)，有个用户上网记录表6个月的数据量近2000万，保留最近一年的数据量达到4000万，查询速度极慢，日常卡死。严重影响业务。</p>
+<p>问题前提：老系统，当时设计系统的人大概是大学没毕业，表设计和sql语句写的不仅仅是垃圾，简直无法直视。原开发人员都已离职，到我来维护，这就是传说中的维护不了就跑路，然后我就是掉坑的那个!!!</p>
+<p>我尝试解决该问题，so，有个这个日志。</p>
+<p>方案概述<br>方案一：优化现有mysql数据库。优点：不影响现有业务，源程序不需要修改代码，成本<em>*</em>。缺点：有优化瓶颈，数据量过亿就玩完了。<br>方案二：升级数据库类型，换一种100%兼容mysql的数据库。优点：不影响现有业务，源程序不需要修改代码，你几乎不需要做任何操作就能提升数据库性能，缺点：多花钱<br>方案三：一步到位，大数据解决方案，更换newsql/nosql数据库。优点：扩展性强，成本低，没有数据容量瓶颈，缺点：需要修改源程序代码<br>以上三种方案，按顺序使用即可，数据量在亿级别一下的没必要换nosql，开发成本太高。三种方案我都试了一遍，而且都形成了落地解决方案。该过程心中慰问跑路的那几个开发者一万遍 :)</p>
+<p>方案一详细说明：优化现有mysql数据库<br>跟阿里云数据库大佬电话沟通 and Google解决方案 and 问群里大佬，总结如下(都是精华)：</p>
+<p>1.数据库设计和表创建时就要考虑性能<br>2.sql的编写需要注意优化<br>3.分区<br>4.分表<br>5.分库<br>1、数据库设计和表创建时就要考虑性能</p>
+<p>mysql数据库本身高度灵活，造成性能不足，严重依赖开发人员能力。也就是说开发人员能力高，则mysql性能高。这也是很多关系型数据库的通病，所以公司的dba通常工资巨高。</p>
+<p>设计表时要注意：</p>
+<p>表字段避免null值出现，null值很难查询优化且占用额外的索引空间，推荐默认数字0代替null。<br>尽量使用INT而非BIGINT，如果非负则加上UNSIGNED(这样数值容量会扩大一倍)，当然能使用TINYINT、SMALLINT、MEDIUM_INT更好。<br>使用枚举或整数代替字符串类型<br>尽量使用TIMESTAMP而非DATETIME<br>单表不要有太多字段，建议在20以内<br>用整型来存IP</p>
+<p>索引<br>索引并不是越多越好，要根据查询有针对性的创建，考虑在WHERE和ORDER BY命令上涉及的列建立索引，可根据EXPLAIN来查看是否用了索引还是全表扫描<br>应尽量避免在WHERE子句中对字段进行NULL值判断，否则将导致引擎放弃使用索引而进行全表扫描<br>值分布很<strong><em>的字段不适合建索引，例如”性别”这种只有两三个值的字段<br>字符字段只建前缀索引<br>字符字段</em></strong>不要做主键<br>不用外键，由程序保证约束<br>尽量不用UNIQUE，由程序保证约束<br>使用多列索引时主意顺序和查询条件保持一致，同时删除不必要的单列索引<br>简言之就是使用合适的数据类型，选择合适的索引</p>
+<p>选择合适的数据类型 (1)使用可存下数据的最小的数据类型，整型 &lt; date,time &lt; char,varchar &lt; blob (2)使用简单的数据类型，整型比字符处理开销更小，因为字符串的比较更复杂。如，int类型存储时间类型，bigint类型转ip函数 (3)使用合理的字段属性长度，固定长度的表会更快。使用enum、char而不是varchar (4)尽可能使用not null定义字段 (5)尽量少用text，非用不可<em>*</em>分表 # 选择合适的索引列 (1)查询频繁的列，在where，group by，order by，on从句中出现的列 (2)where条件中&lt;，&lt;=，=，&gt;，&gt;=，between，in，以及like 字符串+通配符(%)出现的列 (3)长度小的列，索引字段越小越好，因为数据库的存储单位是页，一页中能存下的数据越多越好 (4)离散度大(不同的值多)的列，放在联合索引前面。查看离散度，通过统计不同的列值来实现，count越大，离散程度越高：</p>
+<p>2、sql的编写需要注意优化<br>使用limit对查询结果的记录进行限定<br>避免select *，将需要查找的字段列出来<br>使用连接(join)来代替子查询<br>拆分大的delete或insert语句<br>可通过开启慢查询日志来找出较慢的SQL<br>不做列运算：SELECT id WHERE age + 1 = 10，任何对列的操作都将导致表扫描，它包括数据库教程函数、计算表达式等等，查询时要尽可能将操作移至等号右边<br>sql语句尽可能简单：一条sql只能在一个cpu运算;大语句拆小语句，减少锁时间;一条大sql可以堵死整个库<br>OR改写成IN：OR的效率是n级别，IN的效率是log(n)级别，in的个数建议控制在200以内<br>不用函数和触发器，在应用程序实现<br>避免%xxx式查询<br>少用JOIN<br>使用同类型进行比较，比如用’123’和’123’比，123和123比<br>尽量避免在WHERE子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描<br>对于连续数值，使用BETWEEN不用IN：SELECT id FROM t WHERE num BETWEEN 1 AND 5<br>列表数据不要拿全表，要使用LIMIT来分页，每页数量也不要太大 (分页查询 )</p>
+<p>数据库引擎:</p>
+<pre><code>MyISAM
+不支持行锁，读取时对需要读到的所有表加锁，写入时则对表加排它锁
+不支持事务
+不支持外键
+不支持崩溃后的安全恢复
+在表有读取查询的同时，支持往表中插入新纪录
+支持BLOB和TEXT的前500个字符索引，支持全文索引
+支持延迟更新索引，极大提升写入性能
+对于不会进行修改的表，支持压缩表，极大减少磁盘空间占用
+INNODB:
+1.支持行锁，采用MVCC来支持高并发
+2.支持事务
+3.支持外键
+4.支持崩溃后的安全恢复
+5.不支持全文索引
+总体来讲，MyISAM适合SELECT密集型的表，而InnoDB适合INSERT和UPDATE密集型的表
+但是支持事务就必须使用 innodb
+</code></pre><h1 id="Mycat中间件"><a href="#Mycat中间件" class="headerlink" title="Mycat中间件"></a>Mycat中间件</h1><p>举例: db_user 逻辑库  对应  mySql中的两个 user_db实例<br>配置 {MYCAT_HOME}/conf/schema.xml 中  <schema>标签定义<br>分片表，全局表,  ER表， 非分片表 五种逻辑表类型 .</schema></p>
+<p>3.分区<br>水平拆分：</p>
+<p>4.分表<br>分表就是把一张大表，按照如上过程都优化了，还是查询卡死，那就把这个表分成多张表，把一次查询分成多次查询，然后把结果组合返回给用户。<br>分表分为垂直拆分和水平拆分，通常以某个字段做拆分项。比如以id字段拆分为100张表： 表名为 tableName_id%100<br>但：分表需要修改源程序代码，会给开发带来大量工作，极大的增加了开发成本，故：只适合在开发初期就考虑到了大量数据存在，做好了分表处理，不适合应用上线了再做修改，成本太高!!!而且选择这个方案，都不如选择我提供的第二第三个方案的成本低!故不建议采用。<br>5.分库</p>
+<h1 id="Freemarker"><a href="#Freemarker" class="headerlink" title="Freemarker"></a>Freemarker</h1><p>网页静态化技术和缓存技术的共同点都是为了减轻数据库的访问压力，但是具体的应用场景不同，缓存比较适合小规模的数据<br>，而网页静态化比较适合大规模且相对变化不太频繁的数据。另外网页静态化还有利于SEO。</p>
+<p>模板文件中四种元素:<br> 1、文本，直接输出的部分<br> 2、注释，即&lt;#—…—&gt;格式不会输出<br> 3、插值（Interpolation）：即${..}部分,将使用数据模型中的部分替代输出<br> 4、FTL指令：FreeMarker指令，和HTML标记类似，名字前加#予以区分，不会输出。</p>
+
     </div>
 
     
@@ -426,6 +481,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库优化"><span class="nav-number">1.</span> <span class="nav-text">数据库优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-数据库设计和表创建时就要考虑性能"><span class="nav-number">2.</span> <span class="nav-text">1.数据库设计和表创建时就要考虑性能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-sql的编写需要注意优化"><span class="nav-number">3.</span> <span class="nav-text">2.sql的编写需要注意优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mycat中间件"><span class="nav-number">4.</span> <span class="nav-text">Mycat中间件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Freemarker"><span class="nav-number">5.</span> <span class="nav-text">Freemarker</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -443,7 +500,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

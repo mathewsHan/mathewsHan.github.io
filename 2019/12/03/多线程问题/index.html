@@ -58,19 +58,19 @@
   };
 </script>
 
-  <meta name="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+  <meta name="description" content="多线程 几种同步问题 synchronized关键字 s  2.同步代码块synchronized 关键字修饰的语句块所有 被修饰的语句块会被自动加上内置锁,从而实现同步  使用特殊域变量 volatile  实现线程同步a.volatile关键字为域变量的访问提供了一种免锁机制，b.使用volatile修饰域相当于告诉虚拟机该域可能会被其他线程更新，c.因此每次使用该域就要重新计算，而不是使用寄">
 <meta name="keywords" content="Java,kotlin">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程问题">
+<meta property="og:url" content="http://yoursite.com/2019/12/03/多线程问题/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+<meta property="og:description" content="多线程 几种同步问题 synchronized关键字 s  2.同步代码块synchronized 关键字修饰的语句块所有 被修饰的语句块会被自动加上内置锁,从而实现同步  使用特殊域变量 volatile  实现线程同步a.volatile关键字为域变量的访问提供了一种免锁机制，b.使用volatile修饰域相当于告诉虚拟机该域可能会被其他线程更新，c.因此每次使用该域就要重新计算，而不是使用寄">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-17T23:37:43.725Z">
+<meta property="og:updated_time" content="2019-12-03T18:16:51.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-  <link rel="canonical" href="http://yoursite.com/tags/">
+<meta name="twitter:title" content="多线程问题">
+<meta name="twitter:description" content="多线程 几种同步问题 synchronized关键字 s  2.同步代码块synchronized 关键字修饰的语句块所有 被修饰的语句块会被自动加上内置锁,从而实现同步  使用特殊域变量 volatile  实现线程同步a.volatile关键字为域变量的访问提供了一种免锁机制，b.使用volatile修饰域相当于告诉虚拟机该域可能会被其他线程更新，c.因此每次使用该域就要重新计算，而不是使用寄">
+  <link rel="canonical" href="http://yoursite.com/2019/12/03/多线程问题/">
 
 
 <script id="page-configurations">
@@ -78,16 +78,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
-    isPage: true,
+    isPost: true,
+    isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>
-      tags | 我的个人博客
-    
-  </title>
+  <title>多线程问题 | 我的个人博客</title>
   
 
 
@@ -303,80 +300,138 @@
         <div class="content-wrap">
             
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
           <div id="content" class="content">
             
 
   <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/多线程问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            多线程问题
+            
 
-<h1 class="post-title" itemprop="name headline">tags
-  
+          
+        </h1>
 
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-<div class="post-meta">
-  
+              
+                
+              
 
-</div>
+              <time title="创建时间：2019-12-03 11:43:06" itemprop="dateCreated datePublished" datetime="2019-12-03T11:43:06+08:00">2019-12-03</time>
+            </span>
+          
+            
 
-</header>
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-04 02:16:51" itemprop="dateModified" datetime="2019-12-04T02:16:51+08:00">2019-12-04</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+        <h1 id="多线程-几种同步问题"><a href="#多线程-几种同步问题" class="headerlink" title="多线程 几种同步问题"></a>多线程 几种同步问题</h1><ol>
+<li>synchronized关键字 s</li>
+</ol>
+<p>2.同步代码块<br>synchronized 关键字修饰的语句块<br>所有 被修饰的语句块会被自动加上内置锁,从而实现同步</p>
+<ol>
+<li><p>使用特殊域变量 volatile  实现线程同步<br>a.volatile关键字为域变量的访问提供了一种免锁机制，<br>b.使用volatile修饰域相当于告诉虚拟机该域可能会被其他线程更新，<br>c.因此每次使用该域就要重新计算，而不是使用寄存器中的值<br>d.volatile不会提供任何原子操作，它也不能用来修饰final类型的变量</p>
+</li>
+<li><p>使用重入锁  (一种可重了可递归调用的锁 ， 在外层使用后，内层仍然可以使用 ) </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Bank &#123;</span><br><span class="line"></span><br><span class="line">            private int account = 100;</span><br><span class="line">            //需要声明这个锁</span><br><span class="line">            private Lock lock = new ReentrantLock();</span><br><span class="line">            public int getAccount() &#123;</span><br><span class="line">                return account;</span><br><span class="line">            &#125;</span><br><span class="line">            //这里不再需要synchronized </span><br><span class="line">            public void save(int money) &#123;</span><br><span class="line">                lock.lock();</span><br><span class="line">                try&#123;</span><br><span class="line">                    account += money;</span><br><span class="line">                &#125;finally&#123;</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ｝</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>ReentrantLock类 是可重入,互斥,实现了Lock接口的锁<br>注：关于Lock对象和synchronized关键字的选择：<br>a.最好两个都不用，使用一种java.util.concurrent包提供的机制，<br>能够帮助用户处理所有与锁相关的代码。<br>b.如果synchronized关键字能满足用户的需求，就用synchronized，因为它能简化代码<br>c.如果需要更高级的功能，就用ReentrantLock类，此时要注意及时释放锁，否则会出现死锁，通常在finally代码释放锁</p>
+<ol>
+<li>使用局部变量 实现线程同步<br>如果使用ThreadLocal管理变量，则每一个使用该变量的线程都获得该变量的副本，<br>副本之间相互独立，这样每一个线程都可以随意修改自己的变量副本，而不会对其他线程产生影响。</li>
+</ol>
+<p>ThreadLocal 类的常用方法:<br>ThreadLocal() : 创建一个线程本地变量<br>get() : 返回此线程局部变量的当前线程副本中的值<br>initialValue() : 返回此线程局部变量的当前线程的”初始值”<br>set(T value) : 将此线程局部变量的当前线程副本中的值设置为value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Bank&#123;</span><br><span class="line">            //使用ThreadLocal类管理共享变量account</span><br><span class="line">            private static ThreadLocal&lt;Integer&gt; account = new ThreadLocal&lt;Integer&gt;()&#123;</span><br><span class="line">                @Override</span><br><span class="line">                protected Integer initialValue()&#123;</span><br><span class="line">                    return 100;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            public void save(int money)&#123;</span><br><span class="line">                account.set(account.get()+money);</span><br><span class="line">            &#125;</span><br><span class="line">            public int getAccount()&#123;</span><br><span class="line">                return account.get();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<p>//  ThreadLocal 设置内部 的ThreadLocalMap值  ，<br>这样对于不同的线程得到的就是不同的ThreadLocalMap</p>
+<p>threadLocal 被应用于  struts2(ActionContext) 和 hibernate 中 </p>
+
+    </div>
+
+    
+    
+    
+        
       
-      
-      <div class="post-body">
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-              目前共计 3 个标签
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/12/02/JVM相关/" rel="next" title="JVM相关">
+                  <i class="fa fa-chevron-left"></i> JVM相关
+                </a>
+              
             </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/实用技能/" style="font-size: 12px; color: #ccc">实用技能</a> <a href="/tags/文档技能/" style="font-size: 12px; color: #ccc">文档技能</a> <a href="/tags/消息队列/" style="font-size: 12px; color: #ccc">消息队列</a>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/04/redis/" rel="prev" title="redis">
+                  redis <i class="fa fa-chevron-right"></i>
+                </a>
+              
             </div>
           </div>
         
-      </div>
-      
-      
-      
-    </div>
+      </footer>
     
+  </article>
+  
+  
+  
 
-    
-    
-    
   </div>
 
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -406,6 +461,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程-几种同步问题"><span class="nav-number">1.</span> <span class="nav-text">多线程 几种同步问题</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -555,6 +612,24 @@ if (document.querySelectorAll('div.pdf').length) {
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'a64d2bcef2ab8fe94931',
+      clientSecret: '594131d48689be22d04a674030a85a5be46f4820',
+      repo: 'mathewsHan.github.io',
+      owner: 'mathewsHan',
+      admin: ['mathewsHan'],
+      id: 'b91c1343c557bc68264dd3ae4975726c',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'false'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 </body>
 </html>

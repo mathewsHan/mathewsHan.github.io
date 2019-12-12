@@ -6,7 +6,8 @@
 
 <html lang="zh-CN">
 <script src="/js/src/photoswipe.min.js?v="></script>
-<script src="/js/src/photoswipe-ui-default.min.js?v="></script>
+<script src="/js/src/photoswipe-ui-default.min.js?v=">
+</script>
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -119,6 +120,10 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
 
   <div class="container use-motion">
     <div class="headband"></div>
@@ -298,6 +303,541 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/服务器性能优化篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/19/服务器性能优化篇/" class="post-title-link" itemprop="url">服务器性能优化篇</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-19 13:59:16" itemprop="dateCreated datePublished" datetime="2019-11-19T13:59:16+08:00">2019-11-19</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-11 21:53:49" itemprop="dateModified" datetime="2019-12-11T21:53:49+08:00">2019-12-11</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数据库优化"><a href="#数据库优化" class="headerlink" title="数据库优化"></a>数据库优化</h1><h1 id="1-数据库设计和表创建时就要考虑性能"><a href="#1-数据库设计和表创建时就要考虑性能" class="headerlink" title="1.数据库设计和表创建时就要考虑性能"></a>1.数据库设计和表创建时就要考虑性能</h1><pre><code>设计表时要注意：
+</code></pre><p>表字段避免null值出现，null值很难查询优化且占用额外的索引空间，推荐默认数字0代替null。<br>——&gt;(mysql索引是可以使用索引来查询 有NULL值存在的字段<br>1.EXPLAIN select <em> from j_copy where a is null; —执行计划可以看到是否走了索引<br>)<br>尽量使用INT而非BIGINT，如果非负则加上UNSIGNED(这样数值容量会扩大一倍)，当然能使用TINYINT、SMALLINT、MEDIUM_INT更好。<br>使用枚举或整数代替字符串类型<br>尽量使用TIMESTAMP而非DATETIME<br>单表不要有太多字段，建议在20以内, （表拆分）<br>用整型来存IP地址, 即32位的无符号整数（UNSIGNED INT）， mysql 提供了转换函数,select inet_ntoa(3232235521);<br>    索引<br>索引并不是越多越好，要根据查询有针对性的创建，考虑在WHERE和ORDER BY命令上涉及的列建立索引，可根据EXPLAIN来查看是否用了索引还是全表扫描<br>应尽量避免在WHERE子句中对字段进行NULL值判断，否则将导致引擎放弃使用索引而进行全表扫描<br>值分布很集中的字段不适合建索引，例如”性别”这种只有两三个值的字段<br>字符字段只建前缀索引<br>字符字段**</em>不要做主键<br>不用外键，由程序保证约束<br>尽量不用UNIQUE，由程序保证约束<br>使用多列索引时主意顺序和查询条件保持一致，同时删除不必要的单列索引</p>
+<h1 id="2-sql的编写需要注意优化"><a href="#2-sql的编写需要注意优化" class="headerlink" title="2.sql的编写需要注意优化"></a>2.sql的编写需要注意优化</h1><p>记录一次MySQL两千万数据的大表优化解决过程，提供三种解决方案<br>使用阿里云rds for MySQL数据库(就是MySQL5.6版本)，有个用户上网记录表6个月的数据量近2000万，保留最近一年的数据量达到4000万，查询速度极慢，日常卡死。严重影响业务。我尝试解决该问题，so，有个这个日志。</p>
+<p>作者：王帅来源：java版web项目|2019-02-26 13:18 收藏  分享<br>记录一次MySQL两千万数据的大表优化解决过程，提供三种解决方案<br>问题概述<br>使用阿里云rds for MySQL数据库(就是MySQL5.6版本)，有个用户上网记录表6个月的数据量近2000万，保留最近一年的数据量达到4000万，查询速度极慢，日常卡死。严重影响业务。</p>
+<p>问题前提：老系统，当时设计系统的人大概是大学没毕业，表设计和sql语句写的不仅仅是垃圾，简直无法直视。原开发人员都已离职，到我来维护，这就是传说中的维护不了就跑路，然后我就是掉坑的那个!!!</p>
+<p>我尝试解决该问题，so，有个这个日志。</p>
+<p>方案概述<br>方案一：优化现有mysql数据库。优点：不影响现有业务，源程序不需要修改代码，成本<em>*</em>。缺点：有优化瓶颈，数据量过亿就玩完了。<br>方案二：升级数据库类型，换一种100%兼容mysql的数据库。优点：不影响现有业务，源程序不需要修改代码，你几乎不需要做任何操作就能提升数据库性能，缺点：多花钱<br>方案三：一步到位，大数据解决方案，更换newsql/nosql数据库。优点：扩展性强，成本低，没有数据容量瓶颈，缺点：需要修改源程序代码<br>以上三种方案，按顺序使用即可，数据量在亿级别一下的没必要换nosql，开发成本太高。三种方案我都试了一遍，而且都形成了落地解决方案。该过程心中慰问跑路的那几个开发者一万遍 :)</p>
+<p>方案一详细说明：优化现有mysql数据库<br>跟阿里云数据库大佬电话沟通 and Google解决方案 and 问群里大佬，总结如下(都是精华)：</p>
+<p>1.数据库设计和表创建时就要考虑性能<br>2.sql的编写需要注意优化<br>3.分区<br>4.分表<br>5.分库<br>1、数据库设计和表创建时就要考虑性能</p>
+<p>mysql数据库本身高度灵活，造成性能不足，严重依赖开发人员能力。也就是说开发人员能力高，则mysql性能高。这也是很多关系型数据库的通病，所以公司的dba通常工资巨高。</p>
+<p>设计表时要注意：</p>
+<p>表字段避免null值出现，null值很难查询优化且占用额外的索引空间，推荐默认数字0代替null。<br>尽量使用INT而非BIGINT，如果非负则加上UNSIGNED(这样数值容量会扩大一倍)，当然能使用TINYINT、SMALLINT、MEDIUM_INT更好。<br>使用枚举或整数代替字符串类型<br>尽量使用TIMESTAMP而非DATETIME<br>单表不要有太多字段，建议在20以内<br>用整型来存IP</p>
+<p>索引<br>索引并不是越多越好，要根据查询有针对性的创建，考虑在WHERE和ORDER BY命令上涉及的列建立索引，可根据EXPLAIN来查看是否用了索引还是全表扫描<br>应尽量避免在WHERE子句中对字段进行NULL值判断，否则将导致引擎放弃使用索引而进行全表扫描<br>值分布很<strong><em>的字段不适合建索引，例如”性别”这种只有两三个值的字段<br>字符字段只建前缀索引<br>字符字段</em></strong>不要做主键<br>不用外键，由程序保证约束<br>尽量不用UNIQUE，由程序保证约束<br>使用多列索引时主意顺序和查询条件保持一致，同时删除不必要的单列索引<br>简言之就是使用合适的数据类型，选择合适的索引</p>
+<p>选择合适的数据类型 (1)使用可存下数据的最小的数据类型，整型 &lt; date,time &lt; char,varchar &lt; blob (2)使用简单的数据类型，整型比字符处理开销更小，因为字符串的比较更复杂。如，int类型存储时间类型，bigint类型转ip函数 (3)使用合理的字段属性长度，固定长度的表会更快。使用enum、char而不是varchar (4)尽可能使用not null定义字段 (5)尽量少用text，非用不可<em>*</em>分表 # 选择合适的索引列 (1)查询频繁的列，在where，group by，order by，on从句中出现的列 (2)where条件中&lt;，&lt;=，=，&gt;，&gt;=，between，in，以及like 字符串+通配符(%)出现的列 (3)长度小的列，索引字段越小越好，因为数据库的存储单位是页，一页中能存下的数据越多越好 (4)离散度大(不同的值多)的列，放在联合索引前面。查看离散度，通过统计不同的列值来实现，count越大，离散程度越高：</p>
+<p>2、sql的编写需要注意优化<br>使用limit对查询结果的记录进行限定<br>避免select *，将需要查找的字段列出来<br>使用连接(join)来代替子查询<br>拆分大的delete或insert语句<br>可通过开启慢查询日志来找出较慢的SQL<br>不做列运算：SELECT id WHERE age + 1 = 10，任何对列的操作都将导致表扫描，它包括数据库教程函数、计算表达式等等，查询时要尽可能将操作移至等号右边<br>sql语句尽可能简单：一条sql只能在一个cpu运算;大语句拆小语句，减少锁时间;一条大sql可以堵死整个库<br>OR改写成IN：OR的效率是n级别，IN的效率是log(n)级别，in的个数建议控制在200以内<br>不用函数和触发器，在应用程序实现<br>避免%xxx式查询<br>少用JOIN<br>使用同类型进行比较，比如用’123’和’123’比，123和123比<br>尽量避免在WHERE子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描<br>对于连续数值，使用BETWEEN不用IN：SELECT id FROM t WHERE num BETWEEN 1 AND 5<br>列表数据不要拿全表，要使用LIMIT来分页，每页数量也不要太大 (分页查询 )</p>
+<p>数据库引擎:</p>
+<pre><code>MyISAM
+不支持行锁，读取时对需要读到的所有表加锁，写入时则对表加排它锁
+不支持事务
+不支持外键
+不支持崩溃后的安全恢复
+在表有读取查询的同时，支持往表中插入新纪录
+支持BLOB和TEXT的前500个字符索引，支持全文索引
+支持延迟更新索引，极大提升写入性能
+对于不会进行修改的表，支持压缩表，极大减少磁盘空间占用
+INNODB:
+1.支持行锁，采用MVCC来支持高并发
+2.支持事务
+3.支持外键
+4.支持崩溃后的安全恢复
+5.不支持全文索引
+总体来讲，MyISAM适合SELECT密集型的表，而InnoDB适合INSERT和UPDATE密集型的表
+但是支持事务就必须使用 innodb
+</code></pre><h1 id="Mycat中间件"><a href="#Mycat中间件" class="headerlink" title="Mycat中间件"></a>Mycat中间件</h1><p>举例: db_user 逻辑库  对应  mySql中的两个 user_db实例<br>配置 {MYCAT_HOME}/conf/schema.xml 中  <schema>标签定义<br>分片表，全局表,  ER表， 非分片表 五种逻辑表类型 .</schema></p>
+<p>3.分区<br>水平拆分：</p>
+<p>4.分表<br>分表就是把一张大表，按照如上过程都优化了，还是查询卡死，那就把这个表分成多张表，把一次查询分成多次查询，然后把结果组合返回给用户。<br>分表分为垂直拆分和水平拆分，通常以某个字段做拆分项。比如以id字段拆分为100张表： 表名为 tableName_id%100<br>但：分表需要修改源程序代码，会给开发带来大量工作，极大的增加了开发成本，故：只适合在开发初期就考虑到了大量数据存在，做好了分表处理，不适合应用上线了再做修改，成本太高!!!而且选择这个方案，都不如选择我提供的第二第三个方案的成本低!故不建议采用。<br>5.分库</p>
+<h1 id="Freemarker"><a href="#Freemarker" class="headerlink" title="Freemarker"></a>Freemarker</h1><p>网页静态化技术和缓存技术的共同点都是为了减轻数据库的访问压力，但是具体的应用场景不同，缓存比较适合小规模的数据<br>，而网页静态化比较适合大规模且相对变化不太频繁的数据。另外网页静态化还有利于SEO。</p>
+<p>模板文件中四种元素:<br> 1、文本，直接输出的部分<br> 2、注释，即&lt;#—…—&gt;格式不会输出<br> 3、插值（Interpolation）：即${..}部分,将使用数据模型中的部分替代输出<br> 4、FTL指令：FreeMarker指令，和HTML标记类似，名字前加#予以区分，不会输出。</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/18/分布式事务解决方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/18/分布式事务解决方案/" class="post-title-link" itemprop="url">分布式事务解决方案</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-18 11:28:35" itemprop="dateCreated datePublished" datetime="2019-11-18T11:28:35+08:00">2019-11-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-02 03:30:48" itemprop="dateModified" datetime="2019-12-02T03:30:48+08:00">2019-12-02</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="幂等性的基本概念"><a href="#幂等性的基本概念" class="headerlink" title="幂等性的基本概念"></a>幂等性的基本概念</h1><p>幂等性：就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的,是与</p>
+<p>为什么要设计幂等性的服务<br>幂等可以使得客户端逻辑处理变得简单，但是却以服务逻辑变得复杂为代价。满足幂等服务的需要在逻辑中至少包含两点：</p>
+<p>首先去查询上一次的执行状态，如果没有则认为是第一次请求<br>在服务改变状态的业务逻辑前，保证防重复提交的逻辑</p>
+<p>3.2 分布式事务解决方案<br>3.2.1 —两阶段提交协议两阶段提交协议(Two-phase Commit，2PC)<br>经常被用来实现分布式事务。一般分为协调器 C 和若干事务执行者 Si<br>两种角色，这里的事务执行者就是具体的数据库，协调器可以和事务执行器在一台机器上。</p>
+<p><img src="/2019/11/18/分布式事务解决方案/TCC解决方案.png" alt><br>1) 我们的应用程序(client)发起一个开始请求到 TC;<br>2) TC 先将<prepare>消息写到本地日志，之后向所有的 Si 发起<prepare>消息。 以支付宝转账到余额宝为例，TC 给 A 的 prepare 消息是通知支付宝数据库相应账 目扣款 1 万，TC 给 B 的 prepare 消息是通知余额宝数据库相应账目增加 1w。为什 么在执行任务前需要先写本地日志，主要是为了故障后恢复用，本地日志起到现实 生活中凭证 的效果，如果没有本地日志(凭证)，出问题容易死无对证;<br>3) Si 收到<prepare>消息后，执行具体本机事务，但不会进行 commit，如果成功 返回<yes>，不成功返回<no>。同理，返回前都应把要返回的消息写到日志里，当 作凭证。<br>4) TC 收集所有执行器返回的消息，如果所有执行器都返回 yes，那么给所有执行 器发生送 commit 消息，执行器收到 commit 后执行本地事务的 commit 操作;如果 有任一个执行器返回 no，那么给所有执行器发送 abort 消息，执行器收到 abort 消息后执行事务 abort 操作。<br>注:TC 或 Si 把发送或接收到的消息先写到日志里，主要是为了故障后恢复用。如 某一 Si 从故障中恢复后，先检查本机的日志，如果已收到<commit>，则提交，如 果<abort>则回滚。如果是<yes>，则再向 TC 询问一下，确定下一步。如果什么都 没有，则很可能在<prepare>阶段 Si 就崩溃了，因此需要回滚。<br>现如今实现基于两阶段提交的分布式事务也没那么困难了，如果使用 java，那么 可以使用开源软件 atomikos(<a href="http://www.atomikos.com/)来快速实现。" target="_blank" rel="noopener">http://www.atomikos.com/)来快速实现。</a><br>优点: 尽量保证了数据的强一致，适合对数据强一致要求很高的关键领域。(其 实也不能 100%保证强一致)<br>缺点: 实现复杂，牺牲了可用性，对性能影响较大，不适合高并发高性能场景， 如果分布式系统跨接口调用。 </prepare></yes></abort></commit></no></yes></prepare></prepare></prepare></p>
+<h1 id="注意：但是上述两阶段提交都可以发现性能实在是太差，根本不适合-高并发的系统。"><a href="#注意：但是上述两阶段提交都可以发现性能实在是太差，根本不适合-高并发的系统。" class="headerlink" title="注意：但是上述两阶段提交都可以发现性能实在是太差，根本不适合 高并发的系统。"></a>注意：但是上述两阶段提交都可以发现性能实在是太差，根本不适合 高并发的系统。</h1><p>• 1)两阶段提交涉及多次节点间的网络通信，通信时间太长!<br>• 2)事务时间相对于变长了，锁定的资源的时间也变长了，造成资源等待时间 也增加好多!<br>正是由于分布式事务存在很严重的性能问题，大部分高并发服务都在避免使用，往<br>往通过其他途径来解决数据一致性问题。</p>
+<ol>
+<li>事务补偿机制(TCC)<br>3.2.2 事务补偿机制(TCC)<br>TCC 其实就是采用的补偿机制，其核心思想是:针对每个操作，都要注册一个与其对应 的确认和补偿(撤销)操作。它分为三个阶段:<br>Try 阶段主要是对业务系统做检测及资源预留<br>Confirm 阶段主要是对业务系统做确认提交，Try阶段执行成功并开始执行 Confirm阶段 时，默认 Confirm 阶段是不会出错的。即:只要 Try 成功，Confirm 一定成功。<br>Cancel 阶段主要是在业务执行错误，需要回滚的状态下执行的业务取消，预留资源释放。<br>举个例子:<br>假入 A 要向 B 转账，思路大概是:<br>我们有一个本地方法，里面依次调用<br>1、首先在 Try 阶段，要先调用远程接口把 B 和 A 的钱给冻结起来。<br>2、在 Confirm 阶段，执行远程调用的转账的操作，转账成功进行解冻。<br>3、如果第 2 步执行成功，那么转账成功，如果第二步执行失败，则调用远程冻结接口对应 的解冻方法 (Cancel)。<br>优点: 跟 2PC 比起来，实现以及流程相对简单了一些，但数据的一致性比 2PC 也要差一些 缺点:缺点还是比较明显的，在2,3步中都有可能失败。TCC属于应用层的一种补偿方式，<br>所以需要程序员在实现的时候多写很多补偿的代码，在一些场景中，一些业务流程可能用 TCC 不太好定义及处理。</li>
+</ol>
+<h1 id="3-使用消息队列-MQ-来避免分布式事务"><a href="#3-使用消息队列-MQ-来避免分布式事务" class="headerlink" title="3.使用消息队列 MQ 来避免分布式事务"></a>3.使用消息队列 MQ 来避免分布式事务</h1><p>点餐小票举例?付钱和取货动作分开,增强并发能力<br>A账户哦扣款1万, 我们只要生成一个消息（让B账户余额增加1万 ），<br>只要这个凭证消息能够保存 , 就可以拿着凭证完成最终一致性</p>
+<h1 id="如何保存凭证（消息）-有两种方法"><a href="#如何保存凭证（消息）-有两种方法" class="headerlink" title="如何保存凭证（消息）,有两种方法"></a>如何保存凭证（消息）,有两种方法</h1><ol>
+<li><p>业务与消息耦合的方式<br>支付宝在完成扣款的同时，同时记录消息数据，这个消息数据与业务数据保存在同一数据库实例里(消息记录表表名为 message)。<br><img src="/2019/11/18/分布式事务解决方案/业务与消息耦合.png" alt><br>上述事务能保证只要支付宝账户里被扣了钱，消息一定能保存下来。<br>当上述事务提交成功后，我们通过实时消息服务将此消息通知余额宝，余额宝处理 成功后发送回复成功消息，支付宝收到回复后删除该条消息数据。</p>
+</li>
+<li><p>业务与消息解耦方式上述保存消息的方式使得消息数据和业务数据紧耦合在一起，从架构上看不够优雅，而且容易诱发其他问题。为了解耦，可以采用以下方式。<br>1)支付宝在扣款事务提交之前，向实时消息服务请求发送消息，实时消息服务只 记录消息数据，而不真正发送，只有消息发送成功后才会提交事务;<br>2)当支付宝扣款事务被提交成功后，向实时消息服务确认发送。只有在得到确认 发送指令后，实时消息服务才真正发送该消息;<br>3)当支付宝扣款事务提交失败回滚后，向实时消息服务取消发送。在得到取消发 送指令后，该消息将不会被发送;<br>4)对于那些未确认的消息或者取消的消息，需要有一个消息状态确认系统定时去 支付宝系统查询这个消息的状态并进行更新。为什么需要这一步骤，举个例子:假设在第 2 步支付宝扣款事务被成功提交后，系统挂了，此时消息状态并未被更新为 “确认发送”，从而导致消息不能被发送。<br>优点:消息数据独立存储，降低业务系统与消息系统间的耦合; 缺点:一次消息发送需要两次请求;业务处理服务需要实现消息状态回查接口。</p>
+</li>
+</ol>
+<p>3.如何解决消息重复投递的问题还有一个很严重的问题就是消息重复投递，以我们支付宝转账到余额宝为例，如果相同的消息被重复投递两次，那么我们余额宝账户将会增加 2 万而不是 1 万了。<br>为什么相同的消息会被重复投递?比如余额宝处理完消息 msg 后，发送了处理成功 的消息给支付宝，正常情况下支付宝应该要删除消息 msg，但如果支付宝这时候悲 剧的挂了，重启后一看消息 msg 还在，就会继续发送消息 msg。<br>解决方法很简单，在余额宝这边增加消息应用状态表(message_apply)，通俗来 说就是个账本，用于记录消息的消费情况，每次来一个消息，在真正执行之前，先 去消息应用状态表中查询一遍，如果找到说明是重复消息，丢弃即可，如果没找到<br> 才执行，同时插入到消息应用状态表(同一事务)。</p>
+<p><img src="/2019/11/18/分布式事务解决方案/消息应用状态表.png" alt></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/18/索引优化与B-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/18/索引优化与B-tree/" class="post-title-link" itemprop="url">索引优化与B+tree</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-18 11:02:36" itemprop="dateCreated datePublished" datetime="2019-11-18T11:02:36+08:00">2019-11-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-01 10:31:39" itemprop="dateModified" datetime="2019-12-01T10:31:39+08:00">2019-12-01</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>分库分表， sql优化 ， 存储过程 ,  读写分离  </p>
+<h1 id="数据库语句优化的方法及原理"><a href="#数据库语句优化的方法及原理" class="headerlink" title="数据库语句优化的方法及原理"></a>数据库语句优化的方法及原理</h1><p>3、MySQL常用SQL查询语句优化方法, 使用explain 执行计划可以看到是否走了索引 </p>
+<p>⑴、应尽量避免在where子句中使用!=或&lt;&gt;操作符，否则引擎将放弃使用索引而进行全表扫描。</p>
+<p>⑵、对查询进行优化，应尽量避免全表扫描，首先考虑在where及order by涉及的列上建立索引。</p>
+<p>⑶、应尽量避免在where子句中字段进行null值判断，否则引擎将放弃使用索引而进行全表扫描。</p>
+<p>⑷、OR前后两个条件都要有索引整个SQL才会使用索引，只要有一个条件没索引整个SQL就不适用索引。</p>
+<p>⑸、MySQL将IN()列表中的数据先进行排序，然后通过二分查找的方式来确定列表中的值是否满足条件，这是一个O(log n)复杂度的操作，等价地转换成OR查询的复杂度为O(n)，对于IN()列表中大量取值的时候，MySQL的处理速度将会更快。</p>
+<p>⑹、左模糊查询将导致全表扫描。  %xxxx</p>
+<p>⑺、不要在where子句中对字段进行函数、表达式操作，这样将导致全表扫描。</p>
+<p>⑻、在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，应尽可能的让字段顺序与索引顺序一致。</p>
+<p>⑼、避免隐式类型转换，如字符串应加单引号，否则会导致全部扫描———————</p>
+<p>⑽、任何地方都不要使用select <em> from t，用具体的字段列表代替“</em>”，不要返回用不到的任何字段，这样会导致回表。</p>
+<p>⑾、尽量避免向客户端返回大数据量，若数据量过大，应该<br>//——————b+tree———————————-<br><img src="/2019/11/18/索引优化与B-tree/典型的B+tree.png" alt><br>如图：其中非叶子节点存储的是key值 ，叶子节点的data 一般存储的是数据节点的地址值</p>
+<h1 id="查询key值等于30的过程"><a href="#查询key值等于30的过程" class="headerlink" title="查询key值等于30的过程"></a>查询key值等于30的过程</h1><p>1) 读取根节点 Page 0，将其中的信息导入内存，根据二分查找算法，发现 15 &lt; 30 &lt; 56，因此我们其指向Page 1</p>
+<p>2) 读取 Page 1内容，导入内存，根据算法发现 20 &lt; 30 &lt; 49,找到Page 3</p>
+<p>3)读取Page 3 内容，根据二分查找，找到KEY = 30的记录</p>
+<p>分析上面的过程，发现需要3次磁盘IO操作和3次内存查找操作。由于是B+Tree在内存中<br>有序表结构，可以利用二分查找提高效率。至于IO操作是影响整个B树查找效率的决定因素。</p>
+<h1 id="索引原理"><a href="#索引原理" class="headerlink" title="索引原理"></a>索引原理</h1><p>当我们用MySQL InnoDB引擎创建表的时候，必须有一个且只能有一个主键，如果没有显式指定，<br>则MySQL系统会自动选择一个可以唯一标识数据记录的列作为主键，如果不存在这种列，则MySQL自动为InnoDB表生成一个隐含字段作为主键，这个字段长度为6个字节，类型为长整形。<br>除了主键外，还可以建N个索引。这些主键和索引其实就是B+Tree。</p>
+<p>新建表就是新建了一个按照主键为KEY，按照主键排序的B+Tree 结构，我们称之为聚集索引 </p>
+<p>新建索引时，也是新建了一个以索引字段为KEY,且按照索引字段排序的B+Tree结构，我们称之为非聚集索引 </p>
+<p>这2种索引在结构上是一样的，都是B+Tree，**不同的是叶节点里存储的数据。<br>区别 ：<color="blue">聚集索引叶节点存储的是原始数据，而非聚集索引叶节点存储的是主键的值。</color="blue"></p>
+<p>【图1】为聚集索引 【图2】为非聚集索引。</p>
+<p>下面我们新建一个表table1：主键是 id，一个索引name ,来举例说明。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `table1` (</span><br><span class="line"></span><br><span class="line">  `id` int(11) NOT NULL COMMENT &apos;唯一标识&apos;,</span><br><span class="line"></span><br><span class="line">  `age` int(11) DEFAULT NULL COMMENT &apos;年龄&apos;,</span><br><span class="line"></span><br><span class="line">  `name` char(10) COLLATE utf8_bin DEFAULT NULL COMMENT &apos;姓名&apos;,</span><br><span class="line"></span><br><span class="line">  PRIMARY KEY (`id`),</span><br><span class="line"></span><br><span class="line">  KEY `idx_name` (`name`)</span><br><span class="line"></span><br><span class="line">) ENGINE=InnoDB</span><br></pre></td></tr></table></figure>
+<p>表结构:<br>字段 | 类型  |  PK |  备注<br>Id|  int   |  Y |  标识<br>Age| int  | N | 年龄<br>Name  |  char(10) |  N  | 姓名 </p>
+<p>表内容:<br>Id |  Age | Name<br>15  |  34  |  Bob<br>18  |   77  | Alice<br>20  |   5   |   Jim<br><img src="/2019/11/18/索引优化与B-tree/聚集索引.png" alt><br><img src="/2019/11/18/索引优化与B-tree/非聚集索引.png" alt><br>当我们新建表 table1 ,并插入数据后, 会建立主键索引<br>Select * from table1 where id =15 ： 直接查找聚集索引即可</p>
+<p>Select * from table1 where name = “Tom” ： 先在非聚集索引(图3)中查找出Tom所对应的主键值为49，<br>然后查找在聚集索引(图2)中查找主键为49的记录</p>
+<h1 id="强烈建议自增主键作为-id主键的原因"><a href="#强烈建议自增主键作为-id主键的原因" class="headerlink" title="强烈建议自增主键作为 id主键的原因"></a>强烈建议自增主键作为 id主键的原因</h1><p>我的理解：<br>Q: 自增ID，GUID的作为主键的区别<br>W: 除了自增ID占用空间小，GUID占用空间大之外，最主要的区别是 自增ID的插入速度大大快于GUID的插入速度，因为自增ID的ID是排序好的，意味着其在插入的过程中，不会引起页分裂，而GUID恰恰相反，正因为其是随机生成的，每插入一条数据都会引起页分裂，造成数据大量的移动，消耗大量的磁盘IO。</p>
+<p>结论是：insert 速度 自增ID 明显快于 GUID，其他操作效率一样。建议用自增ID，或者自己生成的带有自增性质的ID。</p>
+<p>Q: 字节数 &gt; PAGE_SIZE的字段是如何存储的？</p>
+<p>W: 当字段字节数 &gt; PAGE_SIZE是，除了在原记录所在的Leaf Page中保留部分内容外，过多的内容会溢出到 Overflow Page中。</p>
+<p>Q: 为什么数据库表的字段个数都有限制?</p>
+<p>W:</p>
+<p>这是MySQL Innodb 给出的一些限制，从上面可以看出，表的最大字段个数为1000。<br>那为什么会有这样的限制呢，</p>
+<p>我的理解是：因为一个页是有大小限制的(mysql 为 16K)，为了保证每个页至少有1条(或N条)记录，必须限制字段的数量，如果字段数量太多，这条记录的空间超过了 16K，这时用btree这样的结构是无法存储的。</p>
+<p>最后我们再扩展一下，大家有没有想过，亿条记录在数据库中是个什么概念? 我们不妨基于上面所说的算一下。</p>
+<p>一个PAGE 在磁盘上为 16K，每条记录占用100 个字节的话，16 * 1024 /100  == 163.84，抛去PAGE_HEADER等内容，我们假设1个页可以存130条记录的，那么3层BTree，则可以存储 130^3 百万数量的级别，4层BTree,则可以存储亿级数量，5层BTree将达到百亿数据量的级别。</p>
+<p>所以对于有上亿条数据的Table来说，我们只需3次 磁盘IO即可查找到，速度还是很快<br>// 聚簇索引  ——更新成本高<br>和物理存储结构一致的一种索引，一个表<br>create   Noncluster index  XX-XX  on  Table(Name)</p>
+<p>//非聚簇索引(二次查询 ) </p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/11/网络通信相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/11/网络通信相关/" class="post-title-link" itemprop="url">网络通信相关</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-11 02:59:22" itemprop="dateCreated datePublished" datetime="2019-11-11T02:59:22+08:00">2019-11-11</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-05 03:47:51" itemprop="dateModified" datetime="2019-12-05T03:47:51+08:00">2019-12-05</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1、BIO编程<br>    1.1、传统的BIO编程<br>网络编程的基本模型是C/S模型，即两个进程间的通信。简单描述就是并发请求会使得服务器，开启对应相应链接的很多编程,效率低下<br>服务端提供IP和监听端口，客户端通过连接操作想服务端监听的地址发起连接请求，通过三次握手连接，如果连接成功建立，双方就可以通过套接字进行通信。<br>传统的同步阻塞模型开发中，ServerSocket负责绑定IP地址，启动监听端口；Socket负责发起连接操作。连接成功后，双方通过输入和输出流进行同步阻塞式通信。 </p>
+<p>简单的描述一下BIO的服务端通信模型：采用BIO通信模型的服务端，通常由一个独立的Acceptor线程负责监听客户端的连接，它接收到客户端连接请求之后为每个<br>客户端创建一个新的线程进行链路处理没处理完成后，通过输出流返回应答给客户端，线程销毁。即典型的一请求一应答通宵模型。<br>每个服务器端处理请求的线程代码,服务端将以多线程形式启动此 Handler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.bio;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"> </span><br><span class="line">import com.anxpp.io.utils.Calculator;</span><br><span class="line">/**</span><br><span class="line"> * 客户端线程</span><br><span class="line"> * @author yangtao__anxpp.com</span><br><span class="line"> * 用于处理一个客户端的Socket链路</span><br><span class="line"> */</span><br><span class="line">public class ServerHandler implements Runnable&#123;</span><br><span class="line">	private Socket socket;</span><br><span class="line">	public ServerHandler(Socket socket) &#123;</span><br><span class="line">		this.socket = socket;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		BufferedReader in = null;</span><br><span class="line">		PrintWriter out = null;</span><br><span class="line">		try&#123;</span><br><span class="line">			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));</span><br><span class="line">			out = new PrintWriter(socket.getOutputStream(),true);</span><br><span class="line">			String expression;</span><br><span class="line">			String result;</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				//通过BufferedReader读取一行</span><br><span class="line">				//如果已经读到输入流尾部，返回null,退出循环</span><br><span class="line">				//如果得到非空值，就尝试计算结果并返回</span><br><span class="line">				if((expression = in.readLine())==null) break;</span><br><span class="line">				System.out.println(&quot;服务器收到消息：&quot; + expression);</span><br><span class="line">				try&#123;</span><br><span class="line">					result = Calculator.cal(expression).toString();</span><br><span class="line">				&#125;catch(Exception e)&#123;</span><br><span class="line">					result = &quot;计算错误：&quot; + e.getMessage();</span><br><span class="line">				&#125;</span><br><span class="line">				out.println(result);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			//一些必要的清理工作</span><br><span class="line">			if(in != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					in.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				in = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(out != null)&#123;</span><br><span class="line">				out.close();</span><br><span class="line">				out = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(socket != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					socket.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				socket = null;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-伪异步-，其实就是服务端用线程池管理了多线程"><a href="#2-伪异步-，其实就是服务端用线程池管理了多线程" class="headerlink" title="2.伪异步 ，其实就是服务端用线程池管理了多线程"></a>2.伪异步 ，其实就是服务端用线程池管理了多线程</h1><p>   为了改进这种一连接一线程的模型，我们可以使用线程池来管理这些线程（需要了解更多请参考前面提供的文章），<br>   实现1个或多个线程处理N个客户端的模型（但是底层还是使用的同步阻塞I/O），通常被称为“伪异步I/O模型“。<br>总结：<br>    serverHandler 和阻塞IO一样 ，只不过服务端是使用线程池管理这些链接线程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.bio;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line">import java.util.concurrent.ExecutorService;</span><br><span class="line">import java.util.concurrent.Executors;</span><br><span class="line">/**</span><br><span class="line"> * BIO服务端源码__伪异步I/O</span><br><span class="line"> * @author yangtao__anxpp.com</span><br><span class="line"> * @version 1.0</span><br><span class="line"> */</span><br><span class="line">public final class ServerBetter &#123;</span><br><span class="line">	//默认的端口号</span><br><span class="line">	private static int DEFAULT_PORT = 12345;</span><br><span class="line">	//单例的ServerSocket</span><br><span class="line">	private static ServerSocket server;</span><br><span class="line">	//线程池 懒汉式的单例</span><br><span class="line">	private static ExecutorService executorService = Executors.newFixedThreadPool(60);</span><br><span class="line">	//根据传入参数设置监听端口，如果没有参数调用以下方法并使用默认值</span><br><span class="line">	public static void start() throws IOException&#123;</span><br><span class="line">		//使用默认值</span><br><span class="line">		start(DEFAULT_PORT);</span><br><span class="line">	&#125;</span><br><span class="line">	//这个方法不会被大量并发访问，不太需要考虑效率，直接进行方法同步就行了</span><br><span class="line">	public synchronized static void start(int port) throws IOException&#123;</span><br><span class="line">		if(server != null) return;</span><br><span class="line">		try&#123;</span><br><span class="line">			//通过构造函数创建ServerSocket</span><br><span class="line">			//如果端口合法且空闲，服务端就监听成功</span><br><span class="line">			server = new ServerSocket(port);</span><br><span class="line">			System.out.println(&quot;服务器已启动，端口号：&quot; + port);</span><br><span class="line">			//通过无线循环监听客户端连接</span><br><span class="line">			//如果没有客户端接入，将阻塞在accept操作上。</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				Socket socket = server.accept();</span><br><span class="line">				//当有新的客户端接入时，会执行下面的代码</span><br><span class="line">				//然后创建一个新的线程处理这条Socket链路</span><br><span class="line">				executorService.execute(new ServerHandler(socket));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			//一些必要的清理工作</span><br><span class="line">			if(server != null)&#123;</span><br><span class="line">				System.out.println(&quot;服务器已关闭。&quot;);</span><br><span class="line">				server.close();</span><br><span class="line">				server = null;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="3-NIO-新思路"><a href="#3-NIO-新思路" class="headerlink" title="3.NIO, 新思路"></a>3.NIO, 新思路</h1><p>Non-block I/O，即非阻塞I/O，因为这样叫，更能体现它的特点。而下文中的NIO，不是指整个新的I/O库，而是非阻塞I/O。</p>
+<p>NIO提供了与传统BIO模型中的Socket和ServerSocket相对应的<strong>SocketChannel和ServerSocketChannel</strong>两种不同的套接字通道实现。<br>新增的着两种通道都支持阻塞和非阻塞两种模式。<br>阻塞模式使用就像传统中的支持一样，比较简单，但是性能和可靠性都不好；非阻塞模式正好与之相反。<br>对于低负载、低并发的应用程序，可以使用同步阻塞I/O来提升开发速率和更好的维护性；对于高负载、高并发的（网络）应用，应使用NIO的非阻塞模式来开发。</p>
+<p>NIO的几个关键名词:<br>一 、Buffer:缓冲区  ，  实际上就是一个数组 , 并提供结构化访问及维护了读写位置信息<br>具体的缓存区有这些：ByteBuffe、CharBuffer、 ShortBuffer、IntBuffer、LongBuffer、<br>FloatBuffer、DoubleBuffer。他们实现了相同的接口：Buffer。<br>二 、通道 Channel<br>我们对数据的读取和写入要通过Channel，它就像水管一样，是一个通道。通道不同于流的地方就是通道是双向的，可以用于读、写和同时读写操作。<br>底层的操作系统的通道一般都是全双工(就是既能发也能收)的，所以全双工的Channel比流能更好的映射底层操作系统的API。<br>Channel主要分两大类：<br>    SelectableChannel：用户网络读写<br>    FileChannel：用于文件操作<br>    后面代码会涉及的ServerSocketChannel和SocketChannel都是SelectableChannel的子类<br>Channel:它代表了一个用于连接到实体如硬件设备、文件、网络套接字或程序组件,能够执行一个或多个不同的 I/O 操作（例如读或写）的开放连接。<br>2.4、多路复用器 Selector<br>Selector是Java  NIO 编程的基础。<br>Selector提供选择已经就绪的任务的能力：Selector会不断轮询注册在其上的Channel，如果某个Channel上面发生读或者写事件，这个Channel就处于就绪状态，会被Selector轮询出来，然后通过SelectionKey可以获取就绪Channel的集合，进行后续的I/O操作。<br>一个Selector可以同时轮询多个Channel，因为JDK使用了epoll()代替传统的select实现，所以没有最大连接句柄1024/2048的限制。所以，只需要一个线程负责Selector的轮询，就可以接入成千上万的客户端。<br>Futrue </p>
+<h1 id="NIO-效率相较于BIO高的主要原因是："><a href="#NIO-效率相较于BIO高的主要原因是：" class="headerlink" title="NIO 效率相较于BIO高的主要原因是："></a>NIO 效率相较于BIO高的主要原因是：</h1><p>   Processor线程不会 1：1客户端 且没有连接就阻塞<br>   Processor 在处理 read 或 wirte时非阻塞,立即返回的 </p>
+<h1 id="NIO创建的Server源码："><a href="#NIO创建的Server源码：" class="headerlink" title="NIO创建的Server源码："></a>NIO创建的Server源码：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.nio;</span><br><span class="line">public class Server &#123;</span><br><span class="line">	private static int DEFAULT_PORT = 12345;</span><br><span class="line">	private static ServerHandle serverHandle;</span><br><span class="line">	public static void start()&#123;</span><br><span class="line">		start(DEFAULT_PORT);</span><br><span class="line">	&#125;</span><br><span class="line">	public static synchronized void start(int port)&#123;</span><br><span class="line">		if(serverHandle!=null)</span><br><span class="line">			serverHandle.stop();</span><br><span class="line">		serverHandle = new ServerHandle(port);</span><br><span class="line">		new Thread(serverHandle,&quot;Server&quot;).start();</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		start();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ServerHandler"><a href="#ServerHandler" class="headerlink" title="ServerHandler"></a>ServerHandler</h1><p>public class ServerHandle implements Runnable{<br>    private Selector selector;<br>    private ServerSocketChannel serverChannel;<br>    private volatile boolean started;<br>    /**</p>
+<pre><code> * 构造方法
+ * @param port 指定要监听的端口号
+ */
+public ServerHandle(int port) {
+    try{
+        //创建选择器
+        selector = Selector.open();
+        //打开监听通道
+        serverChannel = ServerSocketChannel.open();
+        //如果为 true，则此通道将被置于阻塞模式；如果为 false，则此通道将被置于非阻塞模式
+        serverChannel.configureBlocking(false);//开启非阻塞模式
+        //绑定端口 backlog设为1024,  此处backlog 是
+        serverChannel.socket().bind(new InetSocketAddress(port),1024);
+        //监听客户端连接请求
+        serverChannel.register(selector, SelectionKey.OP_ACCEPT);
+        //标记服务器已开启
+        started = true;
+        System.out.println(&quot;服务器已启动，端口号：&quot; + port);
+    }catch(IOException e){
+        e.printStackTrace();
+        System.exit(1);
+    }
+}
+public void stop(){
+    started = false;
+}
+@Override
+public void run() {
+    //循环遍历selector
+    while(started){
+        try{
+            //无论是否有读写事件发生，selector每隔1s被唤醒一次
+            selector.select(1000);
+            //阻塞,只有当至少一个注册的事件发生的时候才会继续.
+</code></pre><p>//                selector.select();<br>                Set<selectionkey> keys = selector.selectedKeys();<br>                Iterator<selectionkey> it = keys.iterator();<br>                SelectionKey key = null;<br>                while(it.hasNext()){<br>                    key = it.next();<br>                    it.remove();<br>                    try{<br>                        handleInput(key);<br>                    }catch(Exception e){<br>                        if(key != null){<br>                            key.cancel();<br>                            if(key.channel() != null){<br>                                key.channel().close();<br>                            }<br>                        }<br>                    }<br>                }<br>            }catch(Throwable t){<br>                t.printStackTrace();<br>            }<br>        }<br>        //selector关闭后会自动释放里面管理的资源<br>        if(selector != null)<br>            try{<br>                selector.close();<br>            }catch (Exception e) {<br>                e.printStackTrace();<br>            }<br>    }<br>    private void handleInput(SelectionKey key) throws IOException{<br>        if(key.isValid()){<br>            //处理新接入的请求消息<br>            if(key.isAcceptable()){<br>                ServerSocketChannel ssc = (ServerSocketChannel) key.channel();<br>                //通过ServerSocketChannel的accept创建SocketChannel实例<br>                //完成该操作意味着完成TCP三次握手，TCP物理链路正式建立<br>                SocketChannel sc = ssc.accept();<br>                //设置为非阻塞的<br>                sc.configureBlocking(false);<br>                //注册为读<br>                sc.register(selector, SelectionKey.OP_READ);<br>            }<br>            //读消息<br>            if(key.isReadable()){<br>                SocketChannel sc = (SocketChannel) key.channel();<br>                //创建ByteBuffer，并开辟一个1M的缓冲区<br>                ByteBuffer buffer = ByteBuffer.allocate(1024);<br>                //读取请求码流，返回读取到的字节数<br>                int readBytes = sc.read(buffer);<br>                //读取到字节，对字节进行编解码<br>                if(readBytes&gt;0){<br>                    //将缓冲区当前的limit设置为position=0，用于后续对缓冲区的读取操作<br>                    buffer.flip();<br>                    //根据缓冲区可读字节数创建字节数组<br>                    byte[] bytes = new byte[buffer.remaining()];<br>                    //将缓冲区可读字节数组复制到新建的数组中<br>                    buffer.get(bytes);<br>                    String expression = new String(bytes,”UTF-8”);<br>                    System.out.println(“服务器收到消息：” + expression);<br>                    //处理数据<br>                    String result = null;<br>                    try{<br>                        result = Calculator.cal(expression).toString();<br>                    }catch(Exception e){<br>                        result = “计算错误：” + e.getMessage();<br>                    }<br>                    //发送应答消息<br>                    doWrite(sc,result);<br>                }<br>                //没有读取到字节 忽略<br>//                else if(readBytes==0);<br>                //链路已经关闭，释放资源<br>                else if(readBytes&lt;0){<br>                    key.cancel();<br>                    sc.close();<br>                }<br>            }<br>        }<br>    }<br>    //异步发送应答消息<br>    private void doWrite(SocketChannel channel,String response) throws IOException{<br>        //将消息编码为字节数组<br>        byte[] bytes = response.getBytes();<br>        //根据数组容量创建ByteBuffer<br>        ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);<br>        //将字节数组复制到缓冲区<br>        writeBuffer.put(bytes);<br>        //flip操作<br>        writeBuffer.flip();<br>        //发送缓冲区的字节数组<br>        channel.write(writeBuffer);<br>        //<em>**</em>此处不含处理“写半包”的代码<br>    }</selectionkey></selectionkey></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/报表相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/09/报表相关/" class="post-title-link" itemprop="url">报表相关</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-09 13:59:46" itemprop="dateCreated datePublished" datetime="2019-11-09T13:59:46+08:00">2019-11-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-07 06:34:57" itemprop="dateModified" datetime="2019-12-07T06:34:57+08:00">2019-12-07</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>已经删除</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
         
   
   
@@ -886,463 +1426,6 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/java13新特性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/28/java13新特性/" class="post-title-link" itemprop="url">1.8lambda表达式 和 java13新特性</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-28 21:41:49" itemprop="dateCreated datePublished" datetime="2019-10-28T21:41:49+08:00">2019-10-28</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-30 04:46:15" itemprop="dateModified" datetime="2019-11-30T04:46:15+08:00">2019-11-30</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="java-1-8中的-lambda表达式-和-stream-API"><a href="#java-1-8中的-lambda表达式-和-stream-API" class="headerlink" title="java  1.8中的  lambda表达式 和  stream API"></a>java  1.8中的  lambda表达式 和  stream API</h1><p>functional  programing  ，函数可以作为参数进行传递,把行为参数化<br>1.方法体为表达式, 该<br>(parameter)  -&gt;  expresssion<br>(ina ,int b ) -&gt;     return  a + b </p>
-<ol>
-<li>方法体为代码块, 必须用{}包裹起来,且需要一个 rerurn 返回值<br>(parameter)  -&gt;  expresssion<br>(int a )-&gt; {sout(”a=“+ a )}<br>(int a )-&gt;  {return  a * a }</li>
-</ol>
-<p>Java13的新特性主要有5的方面：</p>
-<p>翻译成中文：<br>350：动态CDS档案<br>351：ZGC：取消提交未使用的内存<br>353：重新实现旧版套接字API<br>354：switch表达式（预览）<br>355：文字块（预览）</p>
-<h1 id="新特性-354-switch-表达式增加-yield关键字"><a href="#新特性-354-switch-表达式增加-yield关键字" class="headerlink" title="新特性 354  switch 表达式增加 yield关键字"></a>新特性 354  switch 表达式增加 yield关键字</h1><p>yield 只是结束switch 结构, 原来的 return 直接结束方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">    public void test13()&#123;</span><br><span class="line">        int i=10;</span><br><span class="line">        int num = switch (i) &#123;</span><br><span class="line">            case 1:</span><br><span class="line">                yield 10;</span><br><span class="line">            case 2:</span><br><span class="line">                yield 20;</span><br><span class="line">            case 10:</span><br><span class="line">                yield 100;</span><br><span class="line">           default:</span><br><span class="line">                yield 0;</span><br><span class="line">        &#125;;</span><br><span class="line">        System.out.println(num);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="新特性-355-文字块"><a href="#新特性-355-文字块" class="headerlink" title="新特性  355 文字块"></a>新特性  355 文字块</h1><p> 可以把html或者sql , 直接拷贝后嵌入代码中<br> 在Java13中，三个双引号开始，三个双引号结束，如下效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">String html=&quot;&quot;&quot;</span><br><span class="line">   &lt;html&gt;</span><br><span class="line">     &lt;head&gt;</span><br><span class="line">     &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">     &lt;title&gt;&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">    &lt;p&gt;66666666666666&lt;/p&gt;</span><br><span class="line">    &lt;iframe src=&quot;1.html&quot; width=&quot;600&quot; height=&quot;800&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">  &lt;/html&gt;                   </span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  System.out.println(html);</span><br></pre></td></tr></table></figure></p>
-<p>特别地:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">文本块可以表示空串，可要写在两行，如：</span><br><span class="line"></span><br><span class="line">String str=&quot;&quot;&quot;</span><br><span class="line">&quot;&quot;&quot;;</span><br><span class="line"></span><br><span class="line">上述片段等价于，如下：</span><br><span class="line"></span><br><span class="line">String st=&quot;&quot;;</span><br></pre></td></tr></table></figure></p>
-<h1 id="新特性-353-重新实现旧版套接字API"><a href="#新特性-353-重新实现旧版套接字API" class="headerlink" title="新特性  353 重新实现旧版套接字API"></a>新特性  353 重新实现旧版套接字API</h1><p>在java.net.Socket和java.net.ServerSocketAPI，以及它们的底层实现，<br>可以追溯到JDK 1.0。该实现是传统Java和C代码的混合，很难维护和调试。该<br>实现使用线程堆栈作为I / O缓冲区，这种方法需要多次增加默认线程堆栈的大小。<br>该实现使用本机数据结构来支持异步关闭，这是多年来的可靠性和移植问题的来源。<br>该实现还存在一些并发问题，需要进行大修才能正确解决。<br>新实现了什么？<br>新的实现NioSocketImpl是的直接替代PlainSocketImpl。它被开发为易于维护<br>和调试。它与新I / O（NIO）实现共享相同的JDK内部基础结构，<br>。它与现有的缓冲区缓存机制集成在一起，因此不需要将线程堆栈用于I / O。它使<br>用java.util.concurrent锁而不是synchronized方法，以便将来可以与光纤<br>配合使用。在JDK 11中，大多数NIO SocketChannel和其他SelectableChan<br>nel实现都是在实现相同目标的情况下重新实现的。</p>
-<h1 id="350-动态CDS存档"><a href="#350-动态CDS存档" class="headerlink" title="350   动态CDS存档"></a>350   动态CDS存档</h1><p>目标：<br>提高应用程序类数据共享（AppCDS）的可用性。消除了用户进行试运行以为每个应用程序创建类列表的需求。</p>
-<p>该-Xshare:dump选项使用类列表启用的静态归档应继续工作。这包括内置类加载器和用户定义的类加载器的类。    </p>
-<h1 id="351-ZGC-取消提交未使用的内存"><a href="#351-ZGC-取消提交未使用的内存" class="headerlink" title="351  ZGC:取消提交未使用的内存"></a>351  ZGC:取消提交未使用的内存</h1><p>ZGC当前不会取消提交并将内存返回给操作系统，即使该内存已经使用了很长时间也是如此。对于所有类型的应用程序和环境，尤其是那些关注内存占用的应用程序和环境，此行为都不是最佳的。例如：</p>
-<p>通过使用付费资源的容器环境。</p>
-<p>应用程序可能长时间处于空闲状态并与许多其他应用程序共享资源或竞争资源的环境。</p>
-<p>应用程序在执行过程中可能会有非常不同的堆空间要求。例如，在启动过程中所需的堆可能会比在稳态执行过程中以后需要的堆大。</p>
-<p>HotSpot中的其他垃圾收集器（例如G1和Shenandoah）今天提供了此功能，某些类别的用户发现它非常有用。同一组用户将欢迎将此功能添加到ZGC。</p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/技术文档翻译/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/28/技术文档翻译/" class="post-title-link" itemprop="url">技术文档翻译</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-28 16:51:12" itemprop="dateCreated datePublished" datetime="2019-10-28T16:51:12+08:00">2019-10-28</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-12 03:18:10" itemprop="dateModified" datetime="2019-11-12T03:18:10+08:00">2019-11-12</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="ssh-com"><a href="#ssh-com" class="headerlink" title="ssh.com"></a>ssh.com</h1><p>PuTTY for Mac is a port of the Windows version of PuTTY. However, there are many options for SSH clients for Mac, and this page discusses several of them.</p>
-<p>Contents<br>Using the built-in SSH client in Mac OS X<br>Running SSH from the terminal command line<br>Running SSH with a graphical user interface<br>How to use PuTTY SSH keys with the built-in OpenSSH<br>Ported PuTTY for Mac<br>Installation using HomeBrew<br>Installation using MacPorts<br>Alternatives to PuTTY on the Mac</p>
-<p>页面导入pdf 文档 </p>
-<div class="pdf" target="./pdf名字.pdf" height></div>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/报表技术/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/24/报表技术/" class="post-title-link" itemprop="url">报表技术,   哎哎哎锁库了</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-24 10:35:31" itemprop="dateCreated datePublished" datetime="2019-10-24T10:35:31+08:00">2019-10-24</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-28 15:47:29" itemprop="dateModified" datetime="2019-10-28T15:47:29+08:00">2019-10-28</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、-生成Excel格式报表-根据条件查询导出数据"><a href="#一、-生成Excel格式报表-根据条件查询导出数据" class="headerlink" title="一、 生成Excel格式报表_根据条件查询导出数据"></a>一、 生成Excel格式报表_根据条件查询导出数据</h1><pre><code>  使用POI插件生成报表,前端highchart展示 
-*在action中完成数据写到excel文件中，和把文件使用流的形式写到浏览器
-
-
-逻辑：新建excel文件,新建sheet,新建row,新建cell单元格, 单元格中写数据
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">代码:</span><br><span class="line">	List&lt;WayBill&gt;  wayBills =  wayBillService.findData(model);</span><br><span class="line">	</span><br><span class="line">	//生成excel文件</span><br><span class="line">	HSSWorkbook  hssWorkbook  = new  HSSWorkBook();</span><br><span class="line">	HSSSheet   sheet   =  hssWorkbook.createSheet(&quot;下单数据&quot;)；</span><br><span class="line">	</span><br><span class="line">	HSSRow headRow  =  sheet.createRow(0);</span><br><span class="line">	headRow.createCell(0).setCellValue(&quot;运单号&quot;);</span><br><span class="line">	headRow.createCell(1).setCellValue(&quot;寄件人&quot;);</span><br><span class="line">	.......</span><br><span class="line">	headRow.createCell(6).setCellValue(&quot;收件人电话&quot;);</span><br><span class="line">	</span><br><span class="line">	//填充表格数据  </span><br><span class="line">	for(WayBill  wayBill   : wayBills )&#123;</span><br><span class="line">		HSSRow  dataRow =  sheet.createRow(sheet.getLastRowNum()+1);</span><br><span class="line">		dataRow.createCell(0).setCellValue(wayBill.getWayBillNum());</span><br><span class="line">		......</span><br><span class="line">		dataRow.crrateCell(6).setCellValue(waybill.getRecAddress());</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	.......</span><br><span class="line">	//下载导出  </span><br><span class="line">  //设置头信息</span><br><span class="line">  ServletApplicationContext.getResponse().setContentType(&quot;application/vnd.ms-excel&quot;);</span><br><span class="line">  String fileName =  &quot;运单数据&quot;；</span><br><span class="line">  String agent =  ServletActionContext.getRequest().getHeader(&quot;user-agent &quot;);</span><br><span class="line">  fileName = FileUtils.encoderDownloaderFileName(fileName ,  agent);</span><br><span class="line">  ServletActionContext.getResponse().setHeader(&quot;Content-Disposition&quot;, &quot;attachment;filename=&quot;+filemname);</span><br><span class="line">  ServletOutputStream  outputSteam = ServletActionContext.getResponse().getOutputStream();</span><br><span class="line">  //写流 </span><br><span class="line">  hssWorkbook.write(outputStream);</span><br><span class="line">  hssWorkbook.close();</span><br><span class="line">  //视图层不返回</span><br><span class="line">  return  NONE;</span><br></pre></td></tr></table></figure>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/elasticsearch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/24/elasticsearch/" class="post-title-link" itemprop="url">elasticsearch</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-24 09:58:20 / 修改时间：10:00:37" itemprop="dateCreated datePublished" datetime="2019-10-24T09:58:20+08:00">2019-10-24</time>
-            </span>
-          
-            
-
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><p>Elasticsearch是面向文档(document oriented)的，这意味着它可以存储整个对象或文档(document)。然而它不仅仅是存储，还会索引(index)每个文档的内容使之可以被搜索。在Elasticsearch中，你可以对文档进行索引、搜索、排序、过滤。ES比传统关系型数据库，就像如下：</p>
-<p>Relation DB  -&gt; DataBase-&gt; Tables-&gt; Rows   -&gt; Colums</p>
-<p>ElasticSearch -&gt; Indeces -&gt; Types -&gt; Documents-&gt; Fields</p>
-<h1 id="2-特点"><a href="#2-特点" class="headerlink" title="2.特点"></a>2.特点</h1><p>Elasticsearch致力于隐藏分布式系统的复杂性。</p>
-<p>1）将你的文档分区到不同的容器或者分片(shards)中，它们可以存在于一个或多个节点中。<br>2）将分片均匀的分配到各个节点，对索引和搜索做负载均衡。<br>3）冗余每一个分片，防止硬件故障造成的数据丢失。<br>4）将集群中任意一个节点上的请求路由到相应数据所在的节点。<br>5）无论是增加节点，还是移除节点，分片都可以做到无缝的扩展和迁移</p>
-<h1 id="3-ES常见名词解释"><a href="#3-ES常见名词解释" class="headerlink" title="3.ES常见名词解释"></a>3.ES常见名词解释</h1><p>（1）接近实时（NRT）</p>
-<p>Elasticsearch是一个接近实时的搜索平台。</p>
-<p>（2）集群（cluster）</p>
-<p>一个集群就是由一个或多个节点组织在一起，它们共同持有你整个的数据，并一起提供索引和搜索功能。一个集群由一个唯一的名字标识，节点都是通过集群名加入到elasticsearch集群中的。</p>
-<p>（3）节点（node）</p>
-<p>一个节点是你集群中的一个服务器，作为集群的一部分，它存储你的数据，参与集群的索引和搜索功能。和集群类似，一个节点也是由一个名字来标识的。</p>
-<p>一个节点可以通过配置集群名称的方式来加入一个指定的集群。默认情况下，每个节点都会被安排加入到一个叫做“elasticsearch”的集群中，这意味着，如果你在你的网络中启动了若干个节点，并假定它们能够相互发现彼此，它们将会自动地形成并加入到一个叫做“elasticsearch”的集群中。</p>
-<p>在一个集群里，只要你想，可以拥有任意多个节点。而且，如果当前你的网络中没有运行任何Elasticsearch节点，这时启动一个节点，会默认创建并加入一个叫做“elasticsearch”的集群</p>
-<h1 id="（4）索引（index）"><a href="#（4）索引（index）" class="headerlink" title="（4）索引（index）"></a>（4）索引（index）</h1><p>一个索引就是一个拥有几分相似特征的文档的集合。</p>
-<h1 id="（5）类型（type）"><a href="#（5）类型（type）" class="headerlink" title="（5）类型（type）"></a>（5）类型（type）</h1><p>在一个索引中，你可以定义一种或多种类型。一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来定。通常，会为具有一组共同字段的文档定义一个类型。</p>
-<h1 id="（6）文档（document）"><a href="#（6）文档（document）" class="headerlink" title="（6）文档（document）"></a>（6）文档（document）</h1><p>一个文档是一个可被索引的基础信息单元。</p>
-<h1 id="（7）分片和复制（shard-amp-replica）"><a href="#（7）分片和复制（shard-amp-replica）" class="headerlink" title="（7）分片和复制（shard &amp; replica）"></a>（7）分片和复制（shard &amp; replica）</h1><p>一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任一节点都没有这样大的磁盘空间；或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch提供了将索引划分成多份的能力，这些份就叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。分片很重要，主要有两方面的原因：<br>1）允许你水平分割/扩展你的内容容量。<br>2）允许你在分片（潜在地，位于多个节点上）之上进行分布式的、并行的操作，进而提高性能/吞吐量。</p>
-<p>至于一个分片怎样分布，它的文档怎样聚合回搜索请求，是完全由Elasticsearch管理的，对于作为用户的你来说，这些都是透明的。</p>
-<p>在一个网络/云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于离线状态，或者由于任何原因消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。</p>
-<p>默认情况下，Elasticsearch中的每个索引被分片5个主分片和1个复制（一个索引的完全拷贝）。</p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/23/数据结构/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/23/数据结构/" class="post-title-link" itemprop="url">数据结构</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-23 21:51:25" itemprop="dateCreated datePublished" datetime="2019-10-23T21:51:25+08:00">2019-10-23</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-02 13:28:48" itemprop="dateModified" datetime="2019-12-02T13:28:48+08:00">2019-12-02</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="有关hashMap-与ConcurrentHashMap"><a href="#有关hashMap-与ConcurrentHashMap" class="headerlink" title="有关hashMap  与ConcurrentHashMap"></a>有关hashMap  与ConcurrentHashMap</h1><p><img src="/2019/10/23/数据结构/1.7HashMap结构.png" alt> 散列列表,数组+ 链表的结合体<br>![])(1.8JHashMap.png)  链表在长度大于8的情况变成红黑树,</p>
-<h1 id="HashMap-与HashTable类似的，-只不过是线程安全的-将所有修改-hashTable的代码块都用synchronized-修饰"><a href="#HashMap-与HashTable类似的，-只不过是线程安全的-将所有修改-hashTable的代码块都用synchronized-修饰" class="headerlink" title="HashMap 与HashTable类似的， 只不过是线程安全的 , 将所有修改 hashTable的代码块都用synchronized 修饰"></a>HashMap 与HashTable类似的， 只不过是线程安全的 , 将所有修改 hashTable的代码块都用synchronized 修饰</h1><p>造成： 一个线程在put时 ,其余 线程get的时候被最 ，相当于一个重量级锁<br>HashMap的本质是一个可变长度的数组，在数组中每个位置保存的是一个Entry节点，该节点存储有hash、key、value、next等信息。<br>Java7中的HashMap实现与我们在数据结构中学习的类似，对key进行hash，如果冲突了，则添加到链表中。<br>然后查询的时候就先根据hash找到相应的位置，然后根据链表逐一比较，返回相应的value。时间复杂度取决于链表的长度，时间复杂度为O(N)。</p>
-<h1 id="有三种基本轮询查询-Key-Value-Entry-对象"><a href="#有三种基本轮询查询-Key-Value-Entry-对象" class="headerlink" title="有三种基本轮询查询 Key ,Value , Entry 对象"></a>有三种基本轮询查询 Key ,Value , Entry 对象</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">作者：全网搜索关注JavaEdge</span><br><span class="line">链接：https://www.nowcoder.com/discuss/151172</span><br><span class="line">来源：牛客网</span><br><span class="line"></span><br><span class="line">public class HashMapExam &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map map = new HashMap(16);</span><br><span class="line">        for (int i = 0; i &lt; 15; i++) &#123;</span><br><span class="line">            map.put(i, new String(new char[]&#123;(char) (&apos;A&apos;+ i)&#125;));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======keySet=======&quot;);</span><br><span class="line">        Set set = map.keySet();</span><br><span class="line">        Iterator iterator = set.iterator();</span><br><span class="line">        while (iterator.hasNext()) &#123;</span><br><span class="line">            System.out.println(iterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======values=======&quot;);</span><br><span class="line">        Collection values = map.values();</span><br><span class="line">        Iterator stringIterator=values.iterator();</span><br><span class="line">        while (stringIterator.hasNext()) &#123;</span><br><span class="line">            System.out.println(stringIterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======entrySet=======&quot;);</span><br><span class="line">        for (Map.Entry entry : map.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="concurrentHashMap"><a href="#concurrentHashMap" class="headerlink" title="concurrentHashMap"></a>concurrentHashMap</h1><p><img src="/2019/10/23/数据结构/1.7concurrentHashMap" alt><br><img src="/2019/10/23/数据结构/1.8concurrentHashMap" alt></p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//默认的初始容量16,且实际容量是2的整数幂</span><br><span class="line">    static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4;</span><br><span class="line">    //最大容量(传入容量过大将被这个值替换)</span><br><span class="line">    static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</span><br><span class="line">    // 默认加载因子为0.75(当表达到3/4满时,才会再散列),这个因子在时间和空间代价之间达到了平衡.更高的因子可以降低表所需的空间,但是会增加查找代价,而查找是最频繁操作</span><br><span class="line">    static final float DEFAULT_LOAD_FACTOR = 0.75f;</span><br><span class="line">    //桶的树化阈值：即 链表转成红黑树的阈值，在存储数据时，当链表长度 &gt;= 8时，则将链表转换成红黑树</span><br><span class="line">    static final int TREEIFY_THRESHOLD = 8;</span><br><span class="line">   // 桶的链表还原阈值：即 红黑树转为链表的阈值，当在扩容（resize（））时（HashMap的数据存储位置会重新计算），在重新计算存储位置后，当原有的红黑树内数量 &lt;= 6时，则将 红黑树转换成链表</span><br><span class="line">    static final int UNTREEIFY_THRESHOLD = 6;</span><br><span class="line">   //最小树形化容量阈值：即 当哈希表中的容量 &gt; 该值时，才允许树形化链表 （即 将链表 转换成红黑树）</span><br></pre></td></tr></table></figure>
-<p>关于6 ,7,8这三个值的含义 链表长度小于等于6, 查找速度为 6/2= 3 , 长度为8 的时候 ，查找长度为log(8)=3<br>所以设置8为 转换的临界点<br>7这个是一个差值 ，当一个 hashMap 不停的插入删除元素，  链表个数在 8左右时，会频繁发生 转换，<br>这样可以有效防止链表和树频繁转换</p>
-<h1 id="关于-tableSizeFor-函数的作用"><a href="#关于-tableSizeFor-函数的作用" class="headerlink" title="关于 tableSizeFor 函数的作用"></a>关于 tableSizeFor 函数的作用</h1><p>tableSizeFor方法保证函数返回值是大于等于给定参数initialCapacity最小的2的幂次方的数值<br>假设 initailCap =19  , tableSizeFor算出来的就是 2的5次方 =32</p>
-<h1 id="为什么-Cap要保证2的幂次方-？"><a href="#为什么-Cap要保证2的幂次方-？" class="headerlink" title="为什么 Cap要保证2的幂次方 ？"></a>为什么 Cap要保证2的幂次方 ？</h1><p>算索引index, 对key 值<br>如果 除数是2 的幂次 ，取余操作 等价于与其除数 减一 进行相与 (&amp;)操作<br>e.hash &amp; (newCap -1 ) = e<br>等价于<br>index  = e.hash %  newCap<br>因为是二进制 &amp;操作 ,所以cap值被要求 2幂次的原因 </p>
-<h1 id="java8-中的散列值优化函数"><a href="#java8-中的散列值优化函数" class="headerlink" title="java8 中的散列值优化函数"></a>java8 中的散列值优化函数</h1><p> int  hash(Object  key){<br>     int  h;<br>     return   (key == null )? 0 :( h = key.hashCode()) ^ (h&gt;&gt;&gt; 16);<br> }</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">static final int tableSizeFor(int cap) &#123;</span><br><span class="line">int n = cap - 1;</span><br><span class="line">n |= n &gt;&gt;&gt; 1;</span><br><span class="line">n |= n &gt;&gt;&gt; 2;</span><br><span class="line">n |= n &gt;&gt;&gt; 4;</span><br><span class="line">n |= n &gt;&gt;&gt; 8;</span><br><span class="line">n |= n &gt;&gt;&gt; 16;</span><br><span class="line">return (n = MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;</span><br><span class="line">&#125;</span><br><span class="line">a |= b 等同于 a = a|b</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="有关SQL语句的优化问题"><a href="#有关SQL语句的优化问题" class="headerlink" title="有关SQL语句的优化问题:"></a>有关SQL语句的优化问题:</h1><p>SQL的排序写法<br>写的顺序：select … from… where…. group by… having… order by..<br> 全值匹配我最爱，最左前缀要遵守；<br> 带头大哥不能死，中间兄弟不能断；<br> 索引列上少计算，范围之后全失效；<br> LIKE百分写最右，覆盖索引不写星；<br> 不等空值还有or，索引失效要少用。</p>
-<h1 id="索引结构与-B-tree"><a href="#索引结构与-B-tree" class="headerlink" title="索引结构与 B+tree"></a>索引结构与 B+tree</h1><p> sql 查询优化:走索引, 不走索引<br> 索引结构,现象和原因</p>
-<p> //这里涉及到数据库优化 ,</p>
-<h1 id="B-tree的定义"><a href="#B-tree的定义" class="headerlink" title="B+ tree的定义"></a>B+ tree的定义</h1><p> B+ tree 的特点 : 存储结构特殊，叶子节点是有顺序的（有利于范围查询）<br> 中间节点不存储卫星数据(表数据的地址值)</p>
-<ol>
-<li>b+ 树比较矮胖 , 中间节点不存数据,磁盘IO更少</li>
-<li><p>B+树每次都查到 叶子节点，而 B树不一定，所以B树的查询时间不够稳定</p>
-<p><img src="/2019/10/23/数据结构/典型的b+tree.png" alt><br>总结:<br>1.单节点可以存储更多的元素，使得查询磁盘IO次数更少。</p>
-<p>2.所有查询都要查找到叶子节点，查询性能稳定。</p>
-<p>3.所有叶子节点形成有序链表，便于范围查询。</p>
-</li>
-</ol>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
@@ -1395,7 +1478,7 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
