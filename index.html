@@ -512,7 +512,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-14 01:06:59" itemprop="dateModified" datetime="2019-12-14T01:06:59+08:00">2019-12-14</time>
+                <time title="修改时间：2019-12-15 17:37:14" itemprop="dateModified" datetime="2019-12-15T17:37:14+08:00">2019-12-15</time>
               </span>
             
           
@@ -535,7 +535,45 @@
 <li>依赖倒置  (Dependency   Inversion  Principle  ,DIP)实际上就是依赖注入</li>
 </ol>
 <p>3.迪米特原则</p>
-<h1 id="例子：多流程判断-，if-else"><a href="#例子：多流程判断-，if-else" class="headerlink" title="例子：多流程判断 ，if-else"></a>例子：多流程判断 ，if-else</h1>
+<h1 id="例子：多流程判断-，if-else"><a href="#例子：多流程判断-，if-else" class="headerlink" title="例子：多流程判断 ，if-else"></a>例子：多流程判断 ，if-else</h1><p>典型场景 ： 支付渠道<br>需求分析 ： 共性 ，个性 ?</p>
+<p>spring 1代  ： 配置文件</p>
+<p>/**</p>
+<ul>
+<li>计算金额使用 BigDecimal </li>
+<li><p>double 2 = 1.99999<br>/<br>public  interface  Strategy{</p>
+<p> BidDecimal   calRecharge(Integer channelId ,Integer  goodsId);<br>}</p>
+</li>
+</ul>
+<p>//工商银行支付 实现类<br>public class ICBCPay  implememts Strategy{</p>
+<pre><code>@Resource
+private  CodeChannelMapper  codeChannelMapper;
+
+@Resource 
+private   CodeeGoodsMapper   codeGoodsMapper;
+
+public BigDecimal  calRecharge (Integer  channelId , Interger goodsId){
+
+    CodeGoods  codeGoods =  codeGoodsMapper.selectByPrimaryKey(channelId);
+
+    CodeChannel   codeChannel  = codeChannelMapper.selectByPrimaryKey(goodsId);
+    if(codeGoods!=null &amp;&amp; codeChannel!=null){
+    return codeGoods.getAmout().multiply（codeChannel.getDisAmount()）;
+    }
+}
+</code></pre><p>}</p>
+<p>//状态机  if—&gt;对应的东西<br>public class  Context{</p>
+<pre><code>private  Strategy  strategy;
+
+//根据 type  把实现类返回
+
+public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
+    return  strategy.calRechage(channelId,goodsId)
+}
+</code></pre><p>}</p>
+<p>public  class   StrategyFactory{<br>    private  static  StrategyFactory factory  =  new  StrategyFactory();</p>
+<pre><code>public  static  StrategyFactory   F
+</code></pre><p>}</p>
+
         
       
     </div>
