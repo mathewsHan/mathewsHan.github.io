@@ -58,21 +58,21 @@
   };
 </script>
 
-  <meta name="description" content="幂等性的基本概念幂等性：就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的,是与 为什么要设计幂等性的服务幂等可以使得客户端逻辑处理变得简单，但是却以服务逻辑变得复杂为代价。满足幂等服务的需要在逻辑中至少包含两点： 首先去查询上一次的执行状态，如果没有则认为是第一次请求在服务改变状态的业务逻辑前，保证防重复提交的逻辑 3.2 分布式事务解决方案3.2.1 —两阶段提交协议两阶段提交协议(">
+  <meta name="description" content="分布式服务的问题服务发现 （Consumer 和 Provider） ,负载均衡1.传统集中式代理  ,由代理实现服务发现和 负载均衡，主要是F5和 ngix   客户端嵌入代理 , 代理（服务发现和负载均衡逻辑）以客户库的形式嵌入在应用程序中 ，这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。3.主机独立进程代理， 在同一台">
 <meta name="keywords" content="Java,kotlin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式事务解决方案">
 <meta property="og:url" content="http://yoursite.com/2019/11/18/分布式事务解决方案/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="幂等性的基本概念幂等性：就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的,是与 为什么要设计幂等性的服务幂等可以使得客户端逻辑处理变得简单，但是却以服务逻辑变得复杂为代价。满足幂等服务的需要在逻辑中至少包含两点： 首先去查询上一次的执行状态，如果没有则认为是第一次请求在服务改变状态的业务逻辑前，保证防重复提交的逻辑 3.2 分布式事务解决方案3.2.1 —两阶段提交协议两阶段提交协议(">
+<meta property="og:description" content="分布式服务的问题服务发现 （Consumer 和 Provider） ,负载均衡1.传统集中式代理  ,由代理实现服务发现和 负载均衡，主要是F5和 ngix   客户端嵌入代理 , 代理（服务发现和负载均衡逻辑）以客户库的形式嵌入在应用程序中 ，这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。3.主机独立进程代理， 在同一台">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/11/18/分布式事务解决方案/TCC解决方案.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/18/分布式事务解决方案/业务与消息耦合.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/18/分布式事务解决方案/消息应用状态表.png">
-<meta property="og:updated_time" content="2019-12-01T19:30:48.165Z">
+<meta property="og:updated_time" content="2020-03-13T19:29:15.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式事务解决方案">
-<meta name="twitter:description" content="幂等性的基本概念幂等性：就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的,是与 为什么要设计幂等性的服务幂等可以使得客户端逻辑处理变得简单，但是却以服务逻辑变得复杂为代价。满足幂等服务的需要在逻辑中至少包含两点： 首先去查询上一次的执行状态，如果没有则认为是第一次请求在服务改变状态的业务逻辑前，保证防重复提交的逻辑 3.2 分布式事务解决方案3.2.1 —两阶段提交协议两阶段提交协议(">
+<meta name="twitter:description" content="分布式服务的问题服务发现 （Consumer 和 Provider） ,负载均衡1.传统集中式代理  ,由代理实现服务发现和 负载均衡，主要是F5和 ngix   客户端嵌入代理 , 代理（服务发现和负载均衡逻辑）以客户库的形式嵌入在应用程序中 ，这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。3.主机独立进程代理， 在同一台">
 <meta name="twitter:image" content="http://yoursite.com/2019/11/18/分布式事务解决方案/TCC解决方案.png">
   <link rel="canonical" href="http://yoursite.com/2019/11/18/分布式事务解决方案/">
 
@@ -350,7 +350,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-02 03:30:48" itemprop="dateModified" datetime="2019-12-02T03:30:48+08:00">2019-12-02</time>
+                <time title="修改时间：2020-03-14 03:29:15" itemprop="dateModified" datetime="2020-03-14T03:29:15+08:00">2020-03-14</time>
               </span>
             
           
@@ -366,7 +366,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="幂等性的基本概念"><a href="#幂等性的基本概念" class="headerlink" title="幂等性的基本概念"></a>幂等性的基本概念</h1><p>幂等性：就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的,是与</p>
+        <h1 id="分布式服务的问题"><a href="#分布式服务的问题" class="headerlink" title="分布式服务的问题"></a>分布式服务的问题</h1><p>服务发现 （Consumer 和 Provider） ,负载均衡<br>1.传统集中式代理  ,由代理实现服务发现和 负载均衡，主要是F5和 ngix </p>
+<ol>
+<li>客户端嵌入代理 , 代理（服务发现和负载均衡逻辑）以客户库的形式嵌入在应用程序中 ，<br>这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。<br>3.主机独立进程代理， 在同一台主机中，多个消费者公用这个代理</li>
+</ol>
+<h1 id="幂等性的基本概念"><a href="#幂等性的基本概念" class="headerlink" title="幂等性的基本概念"></a>幂等性的基本概念</h1><p>幂等性：就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的,是与</p>
 <p>为什么要设计幂等性的服务<br>幂等可以使得客户端逻辑处理变得简单，但是却以服务逻辑变得复杂为代价。满足幂等服务的需要在逻辑中至少包含两点：</p>
 <p>首先去查询上一次的执行状态，如果没有则认为是第一次请求<br>在服务改变状态的业务逻辑前，保证防重复提交的逻辑</p>
 <p>3.2 分布式事务解决方案<br>3.2.1 —两阶段提交协议两阶段提交协议(Two-phase Commit，2PC)<br>经常被用来实现分布式事务。一般分为协调器 C 和若干事务执行者 Si<br>两种角色，这里的事务执行者就是具体的数据库，协调器可以和事务执行器在一台机器上。</p>
@@ -463,7 +467,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#幂等性的基本概念"><span class="nav-number">1.</span> <span class="nav-text">幂等性的基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意：但是上述两阶段提交都可以发现性能实在是太差，根本不适合-高并发的系统。"><span class="nav-number">2.</span> <span class="nav-text">注意：但是上述两阶段提交都可以发现性能实在是太差，根本不适合 高并发的系统。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-使用消息队列-MQ-来避免分布式事务"><span class="nav-number">3.</span> <span class="nav-text">3.使用消息队列 MQ 来避免分布式事务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何保存凭证（消息）-有两种方法"><span class="nav-number">4.</span> <span class="nav-text">如何保存凭证（消息）,有两种方法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式服务的问题"><span class="nav-number">1.</span> <span class="nav-text">分布式服务的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#幂等性的基本概念"><span class="nav-number">2.</span> <span class="nav-text">幂等性的基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意：但是上述两阶段提交都可以发现性能实在是太差，根本不适合-高并发的系统。"><span class="nav-number">3.</span> <span class="nav-text">注意：但是上述两阶段提交都可以发现性能实在是太差，根本不适合 高并发的系统。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-使用消息队列-MQ-来避免分布式事务"><span class="nav-number">4.</span> <span class="nav-text">3.使用消息队列 MQ 来避免分布式事务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何保存凭证（消息）-有两种方法"><span class="nav-number">5.</span> <span class="nav-text">如何保存凭证（消息）,有两种方法</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

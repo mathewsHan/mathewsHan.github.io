@@ -58,18 +58,22 @@
   };
 </script>
 
-  <meta name="description" content="云原生概念 与  service-meshIDEA使用事项（1）war模式这种可以称之为是发布模式，看名字也知道，这是先打成war包，再发布；（2）war exploded模式是直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。 linux 脚本与常用命令使用 yum安装的软件 ,查找路径 rpm">
+  <meta name="description" content="云原生概念 与  service-meshdocker 与 K8sdocker是一种轻量级的虚拟化，类似于沙箱build ,ship, run搭建、发送、运行 docker的三大核心概念 ,  Image(书包里的镜像 )  , Container（建好的房子） , Repository （书包）kubernetes  含义是舵手或领航员一个 Master节点 ,一群Node节点 , Master">
 <meta name="keywords" content="Java,kotlin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker">
 <meta property="og:url" content="http://yoursite.com/2019/11/07/docker/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="云原生概念 与  service-meshIDEA使用事项（1）war模式这种可以称之为是发布模式，看名字也知道，这是先打成war包，再发布；（2）war exploded模式是直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。 linux 脚本与常用命令使用 yum安装的软件 ,查找路径 rpm">
+<meta property="og:description" content="云原生概念 与  service-meshdocker 与 K8sdocker是一种轻量级的虚拟化，类似于沙箱build ,ship, run搭建、发送、运行 docker的三大核心概念 ,  Image(书包里的镜像 )  , Container（建好的房子） , Repository （书包）kubernetes  含义是舵手或领航员一个 Master节点 ,一群Node节点 , Master">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-13T18:47:57.632Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/07/docker/k8s.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/07/docker/Master.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/07/docker/Node.png">
+<meta property="og:updated_time" content="2020-03-13T20:51:40.429Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker">
-<meta name="twitter:description" content="云原生概念 与  service-meshIDEA使用事项（1）war模式这种可以称之为是发布模式，看名字也知道，这是先打成war包，再发布；（2）war exploded模式是直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。 linux 脚本与常用命令使用 yum安装的软件 ,查找路径 rpm">
+<meta name="twitter:description" content="云原生概念 与  service-meshdocker 与 K8sdocker是一种轻量级的虚拟化，类似于沙箱build ,ship, run搭建、发送、运行 docker的三大核心概念 ,  Image(书包里的镜像 )  , Container（建好的房子） , Repository （书包）kubernetes  含义是舵手或领航员一个 Master节点 ,一群Node节点 , Master">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/07/docker/k8s.png">
   <link rel="canonical" href="http://yoursite.com/2019/11/07/docker/">
 
 
@@ -346,7 +350,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 02:47:57" itemprop="dateModified" datetime="2020-03-14T02:47:57+08:00">2020-03-14</time>
+                <time title="修改时间：2020-03-14 04:51:40" itemprop="dateModified" datetime="2020-03-14T04:51:40+08:00">2020-03-14</time>
               </span>
             
           
@@ -362,7 +366,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="云原生概念-与-service-mesh"><a href="#云原生概念-与-service-mesh" class="headerlink" title="云原生概念 与  service-mesh"></a>云原生概念 与  service-mesh</h1><h1 id="IDEA使用事项"><a href="#IDEA使用事项" class="headerlink" title="IDEA使用事项"></a>IDEA使用事项</h1><p>（1）war模式这种可以称之为是发布模式，看名字也知道，这是先打成war包，再发布；<br>（2）war exploded模式是直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。</p>
+        <h1 id="云原生概念-与-service-mesh"><a href="#云原生概念-与-service-mesh" class="headerlink" title="云原生概念 与  service-mesh"></a>云原生概念 与  service-mesh</h1><h1 id="docker-与-K8s"><a href="#docker-与-K8s" class="headerlink" title="docker 与 K8s"></a>docker 与 K8s</h1><p>docker是一种轻量级的虚拟化，类似于沙箱<br>build ,ship, run<br>搭建、发送、运行</p>
+<h1 id="docker的三大核心概念-Image-书包里的镜像-Container（建好的房子）-Repository-（书包）"><a href="#docker的三大核心概念-Image-书包里的镜像-Container（建好的房子）-Repository-（书包）" class="headerlink" title="docker的三大核心概念 ,  Image(书包里的镜像 )  , Container（建好的房子） , Repository （书包）"></a>docker的三大核心概念 ,  Image(书包里的镜像 )  , Container（建好的房子） , Repository （书包）</h1><h1 id="kubernetes-含义是舵手或领航员"><a href="#kubernetes-含义是舵手或领航员" class="headerlink" title="kubernetes  含义是舵手或领航员"></a>kubernetes  含义是舵手或领航员</h1><p>一个 Master节点 ,一群Node节点 , Master 负责管理和控制， Node工作负载节点<br><img src="/2019/11/07/docker/k8s.png" alt><br>Master节点包括API Server、Scheduler、Controller manager、etcd。<br><img src="/2019/11/07/docker/Master.png" alt><br>Node节点<br><img src="/2019/11/07/docker/Node.png" alt></p>
+<p>一个Pod代表着集群中运行的一个进程，它内部封装了一个或多个紧密相关的容器。除了Pod之外，K8S还有一个Service的概念，一个Service可以看作一组提供相同服务的Pod的对外访问接口</p>
+<h1 id="IDEA使用事项"><a href="#IDEA使用事项" class="headerlink" title="IDEA使用事项"></a>IDEA使用事项</h1><p>（1）war模式这种可以称之为是发布模式，看名字也知道，这是先打成war包，再发布；<br>（2）war exploded模式是直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。</p>
 <h1 id="linux-脚本与常用命令"><a href="#linux-脚本与常用命令" class="headerlink" title="linux 脚本与常用命令"></a>linux 脚本与常用命令</h1><pre><code>使用 yum安装的软件 ,查找路径
 rpm  -qa  | grep  redis 
 查找安装包的路径  rpm -ql redis-3.2.10-2.el7.x86_64
@@ -450,7 +457,7 @@ rpm  -qa  | grep  redis
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#云原生概念-与-service-mesh"><span class="nav-number">1.</span> <span class="nav-text">云原生概念 与  service-mesh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IDEA使用事项"><span class="nav-number">2.</span> <span class="nav-text">IDEA使用事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linux-脚本与常用命令"><span class="nav-number">3.</span> <span class="nav-text">linux 脚本与常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-使用的基本命令"><span class="nav-number">4.</span> <span class="nav-text">Docker  使用的基本命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在shell中访问mysql"><span class="nav-number">5.</span> <span class="nav-text">在shell中访问mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置docker-容器开机自启动"><span class="nav-number">6.</span> <span class="nav-text">设置docker 容器开机自启动</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#云原生概念-与-service-mesh"><span class="nav-number">1.</span> <span class="nav-text">云原生概念 与  service-mesh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-与-K8s"><span class="nav-number">2.</span> <span class="nav-text">docker 与 K8s</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker的三大核心概念-Image-书包里的镜像-Container（建好的房子）-Repository-（书包）"><span class="nav-number">3.</span> <span class="nav-text">docker的三大核心概念 ,  Image(书包里的镜像 )  , Container（建好的房子） , Repository （书包）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kubernetes-含义是舵手或领航员"><span class="nav-number">4.</span> <span class="nav-text">kubernetes  含义是舵手或领航员</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IDEA使用事项"><span class="nav-number">5.</span> <span class="nav-text">IDEA使用事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linux-脚本与常用命令"><span class="nav-number">6.</span> <span class="nav-text">linux 脚本与常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-使用的基本命令"><span class="nav-number">7.</span> <span class="nav-text">Docker  使用的基本命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在shell中访问mysql"><span class="nav-number">8.</span> <span class="nav-text">在shell中访问mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置docker-容器开机自启动"><span class="nav-number">9.</span> <span class="nav-text">设置docker 容器开机自启动</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
