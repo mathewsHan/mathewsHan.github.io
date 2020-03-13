@@ -66,7 +66,7 @@
 <meta property="og:site_name" content="我的个人博客">
 <meta property="og:description" content="解决Homebrew下载更新极慢的问题 Posted on 2019-05-04 |  |  Views: 6515近期使用Homebrew去下载安装软件的时候总是卡在update阶段，时间非常久，难以忍受。记录一下解决方法， 症状使用Homebrew安装软件的时候一直卡在Update阶段。同时发现从github.com下载文件也极度缓慢（几十 KB/s）。 问题定位使用brew update —">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-14T15:12:13.679Z">
+<meta property="og:updated_time" content="2020-03-13T16:11:40.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="macOS使用问题">
 <meta name="twitter:description" content="解决Homebrew下载更新极慢的问题 Posted on 2019-05-04 |  |  Views: 6515近期使用Homebrew去下载安装软件的时候总是卡在update阶段，时间非常久，难以忍受。记录一下解决方法， 症状使用Homebrew安装软件的时候一直卡在Update阶段。同时发现从github.com下载文件也极度缓慢（几十 KB/s）。 问题定位使用brew update —">
@@ -335,11 +335,19 @@
                 
               
 
-              <time title="创建时间：2019-12-14 23:11:58 / 修改时间：23:12:13" itemprop="dateCreated datePublished" datetime="2019-12-14T23:11:58+08:00">2019-12-14</time>
+              <time title="创建时间：2019-12-14 23:11:58" itemprop="dateCreated datePublished" datetime="2019-12-14T23:11:58+08:00">2019-12-14</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-14 00:11:40" itemprop="dateModified" datetime="2020-03-14T00:11:40+08:00">2020-03-14</time>
+              </span>
             
           
 
@@ -357,7 +365,7 @@
         <h1 id="解决Homebrew下载更新极慢的问题"><a href="#解决Homebrew下载更新极慢的问题" class="headerlink" title="解决Homebrew下载更新极慢的问题"></a>解决Homebrew下载更新极慢的问题</h1><p> Posted on 2019-05-04 |  |  Views: 6515<br>近期使用Homebrew去下载安装软件的时候总是卡在update阶段，时间非常久，难以忍受。记录一下解决方法，</p>
 <p>症状<br>使用Homebrew安装软件的时候一直卡在Update阶段。同时发现从github.com下载文件也极度缓慢（几十 KB/s）。</p>
 <p>问题定位<br>使用brew update —verbose观察update过程：</p>
-<p>brew update —verbose<br>Checking if we need to fetch /usr/local/Homebrew…<br>Checking if we need to fetch /usr/local/Homebrew/Library/Taps/caskroom/homebrew-fonts…<br>Fetching /usr/local/Homebrew…<br>Checking if we need to fetch /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask…<br>Checking if we need to fetch /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core…<br>Fetching /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask…<br>Fetching /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core…<br>remote: Enumerating objects: 337, done.<br>remote: Counting objects: 100% (337/337), done.<br>remote: Compressing objects: 100% (88/88), done.<br>remote: Total 298 (delta 221), reused 287 (delta 210), pack-reused 0<br>Receiving objects: 100% (298/298), 50.91 KiB | 39.00 KiB/s, done.<br>Resolving deltas: 100% (221/221), completed with 39 local objects.<br>From <a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core</a><br>   65a45a9..583b7f1  master     -&gt; origin/master<br>remote: Enumerating objects: 179429, done.<br>remote: Counting objects: 100% (179429/179429), done.<br>remote: Compressing objects: 100% (56607/56607), done.<br>Receiving objects:   4% (7628/177189), 1.48 MiB | 8.00 KiB/s<br>发现update卡在从github仓库获取文件的过程。这个结果与手动从github下载文件慢的症状相互印证。</p>
+<p>brew update —verbose<br>Checking if we need to fetch /usr/local/Homebrew…<br>Checking if we need to fetch /usr/local/Homebrew/Library/Taps/caskroom/homebrew-fonts…<br>…<br>remote: Enumerating objects: 179429, done.<br>remote: Counting objects: 100% (179429/179429), done.<br>remote: Compressing objects: 100% (56607/56607), done.<br>Receiving objects:   4% (7628/177189), 1.48 MiB | 8.00 KiB/s<br>发现update卡在从github仓库获取文件的过程。这个结果与手动从github下载文件慢的症状相互印证。</p>
 <p>解决<br>由于问题主要是在国内网络环境github下载慢，因此尝试：</p>
 <p>更换使用国内的homebrew镜像源；<br>使用代理访问github.com。<br>更换Homebrew源<br>使用以下命令更换国内阿里云上的homebrew镜像：</p>
 <h1 id="替换brew-git"><a href="#替换brew-git" class="headerlink" title="替换brew.git:"></a>替换brew.git:</h1><p>cd “$(brew —repo)”<br>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/brew.git" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/brew.git</a></p>
@@ -370,6 +378,9 @@
 <h1 id="替换homebrew-cask-git"><a href="#替换homebrew-cask-git" class="headerlink" title="替换homebrew-cask.git:"></a>替换homebrew-cask.git:</h1><p>cd “$(brew —repo)”/Library/Taps/homebrew/homebrew-cask<br>git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-cask.git" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/homebrew-cask.git</a><br>测试发现问题解决。</p>
 <p>Note: Homebrew Bottles源的更换方法详见这里。</p>
 <p>官方源地址：<br><a href="https://github.com/Homebrew/brew.git" target="_blank" rel="noopener">https://github.com/Homebrew/brew.git</a><br><a href="https://github.com/Homebrew/homebrew-core.git" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core.git</a><br><a href="https://github.com/Homebrew/homebrew-cask" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-cask</a></p>
+<h1 id="zsh-与-macOS原生bash"><a href="#zsh-与-macOS原生bash" class="headerlink" title="zsh 与  macOS原生bash"></a>zsh 与  macOS原生bash</h1><p>两者切换问题 ：zsh切换bash bash切换zsh<br>切换bash<br>chsh -s /bin/bash</p>
+<p>切换zsh<br>chsh -s /bin/zsh</p>
+<h1 id="macOS的环境变量配置"><a href="#macOS的环境变量配置" class="headerlink" title="macOS的环境变量配置"></a>macOS的环境变量配置</h1><p>Mac系统的环境变量，加载顺序为：<br>/etc/profile<br>/etc/paths<br>~/.bash_profile<br>~/.bash_login<br>~/.profile<br>~/.bashrc</p>
 
     </div>
 
@@ -445,7 +456,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#解决Homebrew下载更新极慢的问题"><span class="nav-number">1.</span> <span class="nav-text">解决Homebrew下载更新极慢的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换brew-git"><span class="nav-number">2.</span> <span class="nav-text">替换brew.git:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换homebrew-core-git"><span class="nav-number">3.</span> <span class="nav-text">替换homebrew-core.git:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换homebrew-bottles"><span class="nav-number">4.</span> <span class="nav-text">替换homebrew-bottles:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换homebrew-cask-git"><span class="nav-number">5.</span> <span class="nav-text">替换homebrew-cask.git:</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#解决Homebrew下载更新极慢的问题"><span class="nav-number">1.</span> <span class="nav-text">解决Homebrew下载更新极慢的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换brew-git"><span class="nav-number">2.</span> <span class="nav-text">替换brew.git:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换homebrew-core-git"><span class="nav-number">3.</span> <span class="nav-text">替换homebrew-core.git:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换homebrew-bottles"><span class="nav-number">4.</span> <span class="nav-text">替换homebrew-bottles:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换homebrew-cask-git"><span class="nav-number">5.</span> <span class="nav-text">替换homebrew-cask.git:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zsh-与-macOS原生bash"><span class="nav-number">6.</span> <span class="nav-text">zsh 与  macOS原生bash</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#macOS的环境变量配置"><span class="nav-number">7.</span> <span class="nav-text">macOS的环境变量配置</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -464,7 +475,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -500,7 +511,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 <div class="copyright">
   &copy; 
   <span itemprop="copyrightYear">2020</span>
@@ -517,6 +528,11 @@
     主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.1
   </div>
 
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
 
 
         
