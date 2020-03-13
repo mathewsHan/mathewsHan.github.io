@@ -791,7 +791,7 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-22 06:34:32" itemprop="dateModified" datetime="2019-12-22T06:34:32+08:00">2019-12-22</time>
+                <time title="修改时间：2020-03-05 21:31:24" itemprop="dateModified" datetime="2020-03-05T21:31:24+08:00">2020-03-05</time>
               </span>
             
           
@@ -826,6 +826,11 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
 <p>借用  Object.hashCode()函数, 得到 32位整形数 ,  2300927<br>控制整形数的范围  0-15 </p>
 <hr>
 <h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h1 id="有关SQL语句的优化问题，B-tree"><a href="#有关SQL语句的优化问题，B-tree" class="headerlink" title="有关SQL语句的优化问题，B+tree"></a>有关SQL语句的优化问题，B+tree</h1><p>SQL的排序写法<br>写的顺序：select … from… where…. group by… having… order by..<br> 全值匹配我最爱，最左前缀要遵守；<br> 带头大哥不能死，中间兄弟不能断；<br> 索引列上少计算，范围之后全失效；<br> LIKE百分写最右，覆盖索引不写星；<br> 不等空值还有or，索引失效要少用。</p>
+<h1 id="索引本质-一种数据结构"><a href="#索引本质-一种数据结构" class="headerlink" title="索引本质   一种数据结构"></a>索引本质   一种数据结构</h1><p> swinggo.cn<br>  一种索引  一棵树</p>
+<p> 全表扫描 ,<br> 物理地址 : 柱面, 扇区</p>
+<h1 id="hash表-，-缺点：不能排序，不能范围查询"><a href="#hash表-，-缺点：不能排序，不能范围查询" class="headerlink" title="hash表  ， 缺点：不能排序，不能范围查询"></a>hash表  ， 缺点：不能排序，不能范围查询</h1><h1 id="AVL-tree-维护成本高-插入数据-结构改动大"><a href="#AVL-tree-维护成本高-插入数据-结构改动大" class="headerlink" title="AVL tree  维护成本高 , 插入数据  结构改动大"></a>AVL tree  维护成本高 , 插入数据  结构改动大</h1><h1 id="B-tree"><a href="#B-tree" class="headerlink" title="B-tree"></a>B-tree</h1><p>degree   底层节点上面有 degree个数据<br>范围查找  会回表 </p>
+<h1 id="b-tree-叶子节点"><a href="#b-tree-叶子节点" class="headerlink" title="b+ tree    叶子节点"></a>b+ tree    叶子节点</h1><p>进行冗余 ，不用回表<br>mysql 一个节点大小 16K<br>局部性原理 ： 1k 附近的数据， 操作系统一页是4kb<br>show  global   status like ‘innodb_page_size’<br>16386/1024 = 16<br>一个节点 1170个数据,  14b一个数据加指针<br>16384/14= 1170<br>//innoDB(聚集索引，数据索引合在一起)   默认设置主键，默认主键创索引<br>用主键做索引 ，叶子节点存放  完整的数据<br>拿 name(非主键列)创索引 ，叶子节点存的是主键</p>
+<p>//两个字段  联合索引,<br>name  age<br> 11   13（张三）13（李四）    15 </p>
 <h1 id="索引结构与-B-tree"><a href="#索引结构与-B-tree" class="headerlink" title="索引结构与 B+tree"></a>索引结构与 B+tree</h1><p> sql 查询优化:走索引, 不走索引<br> 索引结构,现象和原因</p>
 <p> //这里涉及到数据库优化 ,</p>
 <h1 id="B-tree的定义"><a href="#B-tree的定义" class="headerlink" title="B+ tree的定义"></a>B+ tree的定义</h1><p> B+ tree 的特点 : 存储结构特殊，叶子节点是有顺序的（有利于范围查询）<br> 中间节点不存储卫星数据(表数据的地址值)</p>
@@ -995,7 +1000,7 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-24 02:37:25" itemprop="dateModified" datetime="2019-10-24T02:37:25+08:00">2019-10-24</time>
+                <time title="修改时间：2020-03-08 16:56:48" itemprop="dateModified" datetime="2020-03-08T16:56:48+08:00">2020-03-08</time>
               </span>
             
           
@@ -1011,7 +1016,8 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>mermaid是一款支持 maekdown语言的插件<br>mermaid官网：<a href="http://knsv.github.io/mermaid/#demos" target="_blank" rel="noopener">http://knsv.github.io/mermaid/#demos</a></p>
+          <p>hbuilderX<br>自定义主题 </p>
+<p>mermaid是一款支持 maekdown语言的插件<br>mermaid官网：<a href="http://knsv.github.io/mermaid/#demos" target="_blank" rel="noopener">http://knsv.github.io/mermaid/#demos</a></p>
 
         
       
@@ -1207,6 +1213,9 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
 
 
 
