@@ -3,25 +3,20 @@
   <entry>
     <title>macOS使用问题</title>
     <url>/2019/12/14/macOS%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h1 id="解决Homebrew下载更新极慢的问题"><a href="#解决Homebrew下载更新极慢的问题" class="headerlink" title="解决Homebrew下载更新极慢的问题"></a>解决Homebrew下载更新极慢的问题</h1><p> Posted on 2019-05-04 |  |  Views: 6515<br>近期使用Homebrew去下载安装软件的时候总是卡在update阶段，时间非常久，难以忍受。记录一下解决方法，</p>
+    <content><![CDATA[<h1 id="解决Homebrew下载更新极慢的问题"><a href="#解决Homebrew下载更新极慢的问题" class="headerlink" title="解决Homebrew下载更新极慢的问题"></a>解决Homebrew下载更新极慢的问题</h1><p> Posted on 2019-05-04<br>近期使用Homebrew去下载安装软件的时候总是卡在update阶段，时间非常久，难以忍受。记录一下解决方法，</p>
 <p>症状<br>使用Homebrew安装软件的时候一直卡在Update阶段。同时发现从github.com下载文件也极度缓慢（几十 KB/s）。</p>
 <p>问题定位<br>使用brew update —verbose观察update过程：</p>
-<p>brew update —verbose<br>Checking if we need to fetch /usr/local/Homebrew…<br>Checking if we need to fetch /usr/local/Homebrew/Library/Taps/caskroom/homebrew-fonts…<br>…<br>remote: Enumerating objects: 179429, done.<br>remote: Counting objects: 100% (179429/179429), done.<br>remote: Compressing objects: 100% (56607/56607), done.<br>Receiving objects:   4% (7628/177189), 1.48 MiB | 8.00 KiB/s<br>发现update卡在从github仓库获取文件的过程。这个结果与手动从github下载文件慢的症状相互印证。</p>
-<p>解决<br>由于问题主要是在国内网络环境github下载慢，因此尝试：</p>
+<p>发现update卡在从github仓库获取文件的过程。这个结果与手动从github下载文件慢的症状相互印证。<br>解决<br>由于问题主要是在国内网络环境github下载慢，因此尝试：</p>
 <p>更换使用国内的homebrew镜像源；<br>使用代理访问github.com。<br>更换Homebrew源<br>使用以下命令更换国内阿里云上的homebrew镜像：</p>
 <h1 id="替换brew-git"><a href="#替换brew-git" class="headerlink" title="替换brew.git:"></a>替换brew.git:</h1><p>cd “$(brew —repo)”<br>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/brew.git" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/brew.git</a></p>
 <h1 id="替换homebrew-core-git"><a href="#替换homebrew-core-git" class="headerlink" title="替换homebrew-core.git:"></a>替换homebrew-core.git:</h1><p>cd “$(brew —repo)/Library/Taps/homebrew/homebrew-core”<br>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/homebrew-core.git" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-core.git</a></p>
-<h1 id="替换homebrew-bottles"><a href="#替换homebrew-bottles" class="headerlink" title="替换homebrew-bottles:"></a>替换homebrew-bottles:</h1><p>echo ‘export HOMEBREW_BOTTLE_DOMAIN=<a href="https://mirrors.aliyun.com/homebrew/homebrew-bottles" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-bottles</a>‘ &gt;&gt; ~/.zshrc<br>source ~/.zshrc<br>替换后，问题依旧，继续查看日志：</p>
-<p>brew update —verbose<br>Checking if we need to fetch /usr/local/Homebrew…<br>Checking if we need to fetch /usr/local/Homebrew/Library/Taps/caskroom/homebrew-fonts…<br>Fetching /usr/local/Homebrew…<br>Checking if we need to fetch /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask…<br>Checking if we need to fetch /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core…<br>Fetching /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core…<br>From <a href="https://mirrors.aliyun.com/homebrew/homebrew-core" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-core</a></p>
-<ul>
-<li>583b7f1…8435590 master     -&gt; origin/master  (forced update)<br>Fetching /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask…<br>Fetching /usr/local/Homebrew/Library/Taps/caskroom/homebrew-fonts…<br>remote: Enumerating objects: 179429, done.<br>remote: Counting objects: 100% (179429/179429), done.<br>remote: Compressing objects: 100% (56607/56607), done.<br>Receiving objects:   6% (11170/177189), 2.16 MiB | 30.00 KiB/s<br>可以看到由于homebrew-cask的仓库依然指向了Github，这个过程还是慢。阿里云的镜像站没有提供homebrew-cask，进一步搜索找到USTC镜像站，该站提供了homebrew-cask的源。使用上述同样的命令更换源：</li>
-</ul>
+<h1 id="替换homebrew-bottles"><a href="#替换homebrew-bottles" class="headerlink" title="替换homebrew-bottles:"></a>替换homebrew-bottles:</h1><p>echo ‘export HOMEBREW_BOTTLE_DOMAIN=<a href="https://mirrors.aliyun.com/homebrew/homebrew-bottles" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-bottles</a>‘ &gt;&gt; ~/.zshrc<br>source ~/.zshrc<br>替换后，问题依旧，继续查看日志：<br>可以看到由于homebrew-cask的仓库依然指向了Github，这个过程还是慢。阿里云的镜像站没有提供homebrew-cask，进一步搜索找到USTC镜像站，该站提供了homebrew-cask的源。使用上述同样的命令更换源：</p>
 <h1 id="替换homebrew-cask-git"><a href="#替换homebrew-cask-git" class="headerlink" title="替换homebrew-cask.git:"></a>替换homebrew-cask.git:</h1><p>cd “$(brew —repo)”/Library/Taps/homebrew/homebrew-cask<br>git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-cask.git" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/homebrew-cask.git</a><br>测试发现问题解决。</p>
-<p>Note: Homebrew Bottles源的更换方法详见这里。</p>
-<p>官方源地址：<br><a href="https://github.com/Homebrew/brew.git" target="_blank" rel="noopener">https://github.com/Homebrew/brew.git</a><br><a href="https://github.com/Homebrew/homebrew-core.git" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core.git</a><br><a href="https://github.com/Homebrew/homebrew-cask" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-cask</a></p>
+<p>Note: Homebrew Bottles源的更换方法详见这里。<br>官方源地址：<br><a href="https://github.com/Homebrew/brew.git" target="_blank" rel="noopener">https://github.com/Homebrew/brew.git</a><br><a href="https://github.com/Homebrew/homebrew-core.git" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core.git</a><br><a href="https://github.com/Homebrew/homebrew-cask" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-cask</a></p>
 <h1 id="zsh-与-macOS原生bash"><a href="#zsh-与-macOS原生bash" class="headerlink" title="zsh 与  macOS原生bash"></a>zsh 与  macOS原生bash</h1><p>两者切换问题 ：zsh切换bash bash切换zsh<br>切换bash<br>chsh -s /bin/bash</p>
 <p>切换zsh<br>chsh -s /bin/zsh</p>
 <h1 id="macOS的环境变量配置"><a href="#macOS的环境变量配置" class="headerlink" title="macOS的环境变量配置"></a>macOS的环境变量配置</h1><p>Mac系统的环境变量，加载顺序为：<br>/etc/profile<br>/etc/paths<br>~/.bash_profile<br>~/.bash_login<br>~/.profile<br>~/.bashrc</p>
+<h1 id="macOS命令"><a href="#macOS命令" class="headerlink" title="macOS命令"></a>macOS命令</h1><p>空格 预览 word 等<br>Commacnd + n 新建窗口<br>command + shift  + 3  截取全屏<br>command + shift  + 3  截取区域<br>commoand  +  tab +  -&gt;<br>command + 2（数字 ） 跳到浏览器指定页面<br>command  +  option +  w  关闭所有窗口  </p>
 ]]></content>
   </entry>
   <entry>
@@ -131,7 +126,8 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
   <entry>
     <title>Spring</title>
     <url>/2019/12/02/Spring/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>可以被独立部署， 更新 ，scale  , 和重启</p>
+]]></content>
   </entry>
   <entry>
     <title>zookeeper</title>
@@ -417,21 +413,14 @@ public void run() {
 ]]></content>
   </entry>
   <entry>
-    <title>报表相关</title>
-    <url>/2019/11/09/%E6%8A%A5%E8%A1%A8%E7%9B%B8%E5%85%B3/</url>
-    <content><![CDATA[<p>已经删除</p>
-]]></content>
-  </entry>
-  <entry>
     <title>docker</title>
     <url>/2019/11/07/docker/</url>
-    <content><![CDATA[<h1 id="IDEA使用事项"><a href="#IDEA使用事项" class="headerlink" title="IDEA使用事项"></a>IDEA使用事项</h1><p>（1）war模式这种可以称之为是发布模式，看名字也知道，这是先打成war包，再发布；<br>（2）war exploded模式是直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。</p>
+    <content><![CDATA[<h1 id="云原生概念-与-service-mesh"><a href="#云原生概念-与-service-mesh" class="headerlink" title="云原生概念 与  service-mesh"></a>云原生概念 与  service-mesh</h1><h1 id="IDEA使用事项"><a href="#IDEA使用事项" class="headerlink" title="IDEA使用事项"></a>IDEA使用事项</h1><p>（1）war模式这种可以称之为是发布模式，看名字也知道，这是先打成war包，再发布；<br>（2）war exploded模式是直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。</p>
 <h1 id="linux-脚本与常用命令"><a href="#linux-脚本与常用命令" class="headerlink" title="linux 脚本与常用命令"></a>linux 脚本与常用命令</h1><pre><code>使用 yum安装的软件 ,查找路径
 rpm  -qa  | grep  redis 
 查找安装包的路径  rpm -ql redis-3.2.10-2.el7.x86_64
 </code></pre><p>// 查找文件夹和文件<br>find   /查找范围    -name  ‘关键字’  -type d</p>
 <p>//输出到文件<br>$ ls &gt; ls.txt    ＃或者 ls—&gt;ls.txt    ＃把ls命令的运行结果保存到文件ls.txt中</p>
-<h1 id="macOS命令"><a href="#macOS命令" class="headerlink" title="macOS命令"></a>macOS命令</h1><p>空格 预览 word 等<br>Commacnd + n 新建窗口<br>command + shift  + 3  截取全屏<br>command + shift  + 3  截取区域<br>commoand  +  tab +  -&gt;<br>command + 2（数字 ） 跳到浏览器指定页面<br>command  +  option +  w  关闭所有窗口  </p>
 <h1 id="Docker-使用的基本命令"><a href="#Docker-使用的基本命令" class="headerlink" title="Docker  使用的基本命令"></a>Docker  使用的基本命令</h1><p>//查询所有容器,包括已经停止的<br>docker ps -a<br>// 启动一个已经存在的容器<br>docker  start  d33bc8d7387a<br>//docker启动 mysql 命令<br>$ docker run  —restart=always  —name  mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--name 后面的是docker容器名</span><br><span class="line">-p 32xxx:3306 这里需要注意 `32xxx` 是你**链接mysql的时候的`Port`。**</span><br><span class="line">-e MYSQL_ROOT_PASSWORD 是设置mysql的root账号密码</span><br><span class="line">-d mysql 是你的镜像标签</span><br></pre></td></tr></table></figure></p>
 <h1 id="在shell中访问mysql"><a href="#在shell中访问mysql" class="headerlink" title="在shell中访问mysql"></a>在shell中访问mysql</h1><p>docker exec -it mingxie-mysql bash<br>root@7c289aa0ca95:/#<br>mysql -uroot -p -h localhost<br>Enter password:<br>输入密码即可。<br>在shell中访问mysql日志<br>$ docker logs mingxie-mysql<br>// docker 启动<br>docker run —name d33bc8d7387a  -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6</p>
 <h1 id="设置docker-容器开机自启动"><a href="#设置docker-容器开机自启动" class="headerlink" title="设置docker 容器开机自启动"></a>设置docker 容器开机自启动</h1><p>sudo docker run -t -p 80:80 registry.cn-hangzhou.aliyuncs.com/XXX/Name:[镜像版本号]<br>docekr ps 查看下容器id: 81bcb97c4f5e<br>$ docker update —restart=always 81bcb97c4f5e</p>
@@ -587,13 +576,7 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
 <p>服务器已经进入了多核时代，Go 语言这种天生为并发而生的语言，完美的发挥了服务器多核优势，很多可以并发处理的任务都可以使用并发来解决，比如 Go 处理 HTTP 请求时每个请求都会在一个 Goroutine 中执行。</p>
 <p>总之，怎样合理的压榨 CPU，让其发挥出应有的价值，是我们一直需要探索学习的方向。</p>
 <p>热门内容：<br>1、《历史文章分类导读列表！精选优秀博文都在这里了！》<br>2、优化后的 Spring Boot 启动究竟能有多快？<br>3、Spring 常犯的十大错误，这坑你踩过吗？<br>4、不说“分布式事务”理论，直接上大厂解决方案，绝对实用！<br>5、阿里巴巴程序员常用的 15 款开发者工具！你知道几个？<br>6、七个开源的 Spring Boot 前后端分离项目，一定要收藏！<br>7、用 Git 和 Github 提高效率的 10 个技巧！<br>8、警惕，MyBatis的size()方法竟然有坑！<br>9、面试官：线程顺序执行,这么多答案你都答不上来？<br>10、手把手教你重构乱糟糟的代码</p>
-<p>微信扫一扫<br>关注该公众号<br>1.2 秒杀系统的实现方式</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>电商相关</title>
-    <url>/2019/11/03/%E7%94%B5%E5%95%86%E7%9B%B8%E5%85%B3/</url>
-    <content><![CDATA[<h1 id="经典的分布式电商系统架构"><a href="#经典的分布式电商系统架构" class="headerlink" title="经典的分布式电商系统架构"></a>经典的分布式电商系统架构</h1><p><img src="/2019/11/03/电商相关/电商系统架构图.png" alt></p>
+<h1 id="经典的分布式电商系统架构"><a href="#经典的分布式电商系统架构" class="headerlink" title="经典的分布式电商系统架构"></a>经典的分布式电商系统架构</h1><p><img src="/2019/11/05/秒杀方案/电商系统架构图.png" alt></p>
 <p><sub>设置下标</sub><br>Service 层主要由几大模块组成:</p>
 <pre><code>* 商品后台管理模块 
 * ES搜索服务
@@ -607,6 +590,9 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
 <h1 id="经典的购物车实现方案"><a href="#经典的购物车实现方案" class="headerlink" title="经典的购物车实现方案"></a>经典的购物车实现方案</h1><p>1.1. 购物车常见实现方式<br>传统的做法是使用关系型数据库，比如mysql，建立一个cat购物车表，把相关的购物车产品信息都放到数据库里面。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
+      <tags>
+        <tag>电商相关</tag>
+      </tags>
   </entry>
   <entry>
     <title>hadoop集群</title>
@@ -699,7 +685,7 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
 ]]></content>
   </entry>
   <entry>
-    <title>报表技术,   哎哎哎锁库了</title>
+    <title>报表技术,</title>
     <url>/2019/10/24/%E6%8A%A5%E8%A1%A8%E6%8A%80%E6%9C%AF/</url>
     <content><![CDATA[<h1 id="一、-生成Excel格式报表-根据条件查询导出数据"><a href="#一、-生成Excel格式报表-根据条件查询导出数据" class="headerlink" title="一、 生成Excel格式报表_根据条件查询导出数据"></a>一、 生成Excel格式报表_根据条件查询导出数据</h1><pre><code>  使用POI插件生成报表,前端highchart展示 
 *在action中完成数据写到excel文件中，和把文件使用流的形式写到浏览器
