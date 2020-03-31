@@ -58,18 +58,18 @@
   };
 </script>
 
-  <meta name="description" content="Note  that  the  parent  and child  were  exeuting with  different registers :chaging   that avariable  in   one   does   not  affect  the  other  JDBC缺陷总结: 数据库链接创建,释放频繁造成 SQL硬编码, 不容易维护 使用prepareStat">
+  <meta name="description" content="Note  that  the  parent  and child  were  exeuting with  different registers :chaging   that avariable  in   one   does   not  affect  the  other  mybatis 使用 —#{}是预编译处理，${}是字符串替换， 建议使用#{}    通过使用一个预处">
 <meta name="keywords" content="Java,kotlin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mybatis源码分析">
 <meta property="og:url" content="http://yoursite.com/2019/10/23/mybatis源码分析/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="Note  that  the  parent  and child  were  exeuting with  different registers :chaging   that avariable  in   one   does   not  affect  the  other  JDBC缺陷总结: 数据库链接创建,释放频繁造成 SQL硬编码, 不容易维护 使用prepareStat">
+<meta property="og:description" content="Note  that  the  parent  and child  were  exeuting with  different registers :chaging   that avariable  in   one   does   not  affect  the  other  mybatis 使用 —#{}是预编译处理，${}是字符串替换， 建议使用#{}    通过使用一个预处">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-27T00:58:57.532Z">
+<meta property="og:updated_time" content="2020-03-28T17:48:37.894Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis源码分析">
-<meta name="twitter:description" content="Note  that  the  parent  and child  were  exeuting with  different registers :chaging   that avariable  in   one   does   not  affect  the  other  JDBC缺陷总结: 数据库链接创建,释放频繁造成 SQL硬编码, 不容易维护 使用prepareStat">
+<meta name="twitter:description" content="Note  that  the  parent  and child  were  exeuting with  different registers :chaging   that avariable  in   one   does   not  affect  the  other  mybatis 使用 —#{}是预编译处理，${}是字符串替换， 建议使用#{}    通过使用一个预处">
   <link rel="canonical" href="http://yoursite.com/2019/10/23/mybatis源码分析/">
 
 
@@ -346,7 +346,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 08:58:57" itemprop="dateModified" datetime="2019-11-27T08:58:57+08:00">2019-11-27</time>
+                <time title="修改时间：2020-03-29 01:48:37" itemprop="dateModified" datetime="2020-03-29T01:48:37+08:00">2020-03-29</time>
               </span>
             
           
@@ -363,6 +363,22 @@
 
       
         <h1 id><a href="#" class="headerlink" title=" "></a> </h1><p>Note  that  the  parent  and child  were  exeuting with  different registers :<br>chaging   that avariable  in   one   does   not  affect  the  other </p>
+<h1 id="mybatis-使用"><a href="#mybatis-使用" class="headerlink" title="mybatis 使用"></a>mybatis 使用</h1><ol>
+<li>—#{}是预编译处理，${}是字符串替换， 建议使用#{}    通过使用一个预处理语句你就可以避免重复分析、编译、优化的环节</li>
+<li>— mybatis 建议在java代码中 使用通配符<br>String   wildcardname  = “%smi”<br>list<name> names = mapper.selectlike(wildcardname);</name></li>
+</ol>
+<p><select id="”selectlike”"><br> select * from foo where bar like #{value}
+</select><br> //而在sql中拼接 通配符会引起sql注入<br> <select id="”selectlike”"><br>      select * from foo where bar like “%”${value}”%”
+ </select></p>
+<ol>
+<li>如何批量插入<br><insert id="”insertname”"><br> insert into names (name) values (#{value})
+</insert><!-- namemapper mapper = sqlsession.getmapper(namemapper.class);
+for (string name : names) {
+ mapper.insertname(name);
+} -->
+</li>
+</ol>
+<p>4.mybatis是否支持延迟加载？如果支持，它的实现原理是什么？<br>———-懒加载其实就是延时加载，即当对象需要用到的时候再去加载  A的内部对象B<br>Mybatis仅支持association关联对象和collection关联集合对象的延迟加载，association指的就是一对一，collection指的就是一对多查询。在Mybatis配置文件中，可以配置是否启用延迟加载lazyLoadingEnabled=true|false。<br>它的原理是，使用CGLIB创建目标对象的代理对象，当调用目标方法时，进入拦截器方法，比如调用a.getB().getName()，拦截器invoke()方法发现a.getB()是null值，那么就会单独发送事先保存好的查询关联B对象的sql，把B查询上来，然后调用a.setB(b)，于是a的对象b属性就有值了，接着完成a.getB().getName()方法的调用。这就是延迟加载的基本原理。<br>当然了，不光是Mybatis，几乎所有的包括Hibernate，支持延迟加载的原理都是一样的。<br>5.Mapper编写有哪几种方式？# 关于preparedStateemnt<br>    i<br>    ii<br>    iii  使用mapper Scanner</p>
 <h1 id="JDBC缺陷总结"><a href="#JDBC缺陷总结" class="headerlink" title="JDBC缺陷总结:"></a>JDBC缺陷总结:</h1><p> 数据库链接创建,释放频繁造成<br> SQL硬编码, 不容易维护<br> 使用prepareStatement向占有符号传参数存在硬编码, 因为where 条件不一定，可能多也可能少<br> 对结果集存在硬编码 ,(查询列名)，将数据库记录封装成pojo比较方便 </p>
 <pre><code>两次相同的查询从  sqlSession中取数据 
 </code></pre><p>2、怎么判断某两次查询是完全相同的查询？</p>
@@ -403,8 +419,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/10/23/数据结构/" rel="prev" title="数据结构">
-                  数据结构 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/10/24/elasticsearch/" rel="prev" title="elasticsearch">
+                  elasticsearch <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -456,7 +472,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDBC缺陷总结"><span class="nav-number">2.</span> <span class="nav-text">JDBC缺陷总结:</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mybatis-使用"><span class="nav-number">2.</span> <span class="nav-text">mybatis 使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDBC缺陷总结"><span class="nav-number">3.</span> <span class="nav-text">JDBC缺陷总结:</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -475,7 +491,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

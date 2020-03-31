@@ -66,7 +66,7 @@
 <meta property="og:site_name" content="我的个人博客">
 <meta property="og:description" content="所谓的钩子函数和拦截器的关系,hook函数shell只定义了一个非常简单的编程语言，所以，如果你的脚本程序复杂度较高，或者要操作的数据结构比较复杂，那么还是应该使用Python、Perl这样的脚本语言，或者是你本来就已经很擅长的高级语言。因为sh和bash在这方面很弱，比如说： 它的函数只能返回字串，无法返回数组它不支持面向对象，你无法实现一些优雅的设计模式它是解释型的，一边解释一边执行，连PHP">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-11T13:12:01.385Z">
+<meta property="og:updated_time" content="2020-03-29T21:52:04.007Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式">
 <meta name="twitter:description" content="所谓的钩子函数和拦截器的关系,hook函数shell只定义了一个非常简单的编程语言，所以，如果你的脚本程序复杂度较高，或者要操作的数据结构比较复杂，那么还是应该使用Python、Perl这样的脚本语言，或者是你本来就已经很擅长的高级语言。因为sh和bash在这方面很弱，比如说： 它的函数只能返回字串，无法返回数组它不支持面向对象，你无法实现一些优雅的设计模式它是解释型的，一边解释一边执行，连PHP">
@@ -346,7 +346,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-11 21:12:01" itemprop="dateModified" datetime="2020-03-11T21:12:01+08:00">2020-03-11</time>
+                <time title="修改时间：2020-03-30 05:52:04" itemprop="dateModified" datetime="2020-03-30T05:52:04+08:00">2020-03-30</time>
               </span>
             
           
@@ -363,15 +363,14 @@
 
       
         <p>所谓的钩子函数和拦截器的关系,hook函数<br>shell只定义了一个非常简单的编程语言，所以，如果你的脚本程序复杂度较高，或者要操作的数据结构比较复杂，那么还是应该使用Python、Perl这样的脚本语言，或者是你本来就已经很擅长的高级语言。因为sh和bash在这方面很弱，比如说：</p>
-<p>它的函数只能返回字串，无法返回数组<br>它不支持面向对象，你无法实现一些优雅的设计模式<br>它是解释型的，一边解释一边执行，连PHP那种预编译都不是，如果你的脚本包含错误(例如调用了不存在的函数)，只要没执行到这一行，就不会报错</p>
+<p>它的函数只能返回字串，无法返回数组<br>它不支持面向对象，你无法实现一些优雅的设计模式<br>它是解释型的，一边解释一边执行，连PHP那种预编译都不是</p>
 <h1 id="开发原则"><a href="#开发原则" class="headerlink" title="开发原则"></a>开发原则</h1><p>1.开闭  (OCP   open-close Principle )</p>
 <ol>
-<li>依赖倒置  (Dependency   Inversion  Principle  ,DIP)实际上就是依赖注入</li>
+<li>依赖倒置  (Dependency   Inversion  Principle  ,DIP)实际上就是依赖注入<br>3.迪米特原则</li>
 </ol>
-<p>3.迪米特原则</p>
 <hr>
 <p>华丽分割线</p>
-<h1 id="例子：多流程判断-，if-else"><a href="#例子：多流程判断-，if-else" class="headerlink" title="例子：多流程判断 ，if-else"></a>例子：多流程判断 ，if-else</h1><p>典型场景 ： 支付渠道<br>需求分析 ： 共性 ，个性 ?</p>
+<h1 id="例子：多流程判断-，干掉-if-else-的手段—策略模式"><a href="#例子：多流程判断-，干掉-if-else-的手段—策略模式" class="headerlink" title="例子：多流程判断 ，干掉 if-else 的手段—策略模式"></a>例子：多流程判断 ，干掉 if-else 的手段—策略模式</h1><p>典型场景 ： 支付渠道<br>需求分析 ： 共性 ，个性 ?</p>
 <p>spring 1代  ： 配置文件</p>
 <p>/**</p>
 <ul>
@@ -413,6 +412,34 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
 <p> //反射创建 实例<br> decalred<br> // InnerClassSingleton.getInstnce();获得实例</p>
 <p>——饿汉模式<br> hungrySingletonTest </p>
 <p> javac  -p -v  xxx .class </p>
+<h1 id="代理模式-和AOP编程"><a href="#代理模式-和AOP编程" class="headerlink" title="代理模式  和AOP编程"></a>代理模式  和AOP编程</h1><p>极简介绍代理模式，绝不花里胡哨<br>假设以一个Hell接口<br>public interface IHello {</p>
+<p>   void sayHello(String name);</p>
+<p>   void sayGoogBye(String name);</p>
+<p>}<br>和一个接口实现类<br>public class Helloimplements implements IHello {<br>    @Override<br>    public void sayHello(String name) {<br>        System.out.println(“Hello “ + name);<br>    }<br>    @Override<br>    public void sayGoogBye(String name) {<br>        System.out.println(name+” GoodBye!”);<br>    }<br>}<br>想要在 sayHello和sayGoodBye上都加入 操作日志这个动作咋办呢？<br>首先想到代理模式 传入被代理类的引用,在两个操作上都加上打印操作日志动作<br>public class StaticProxy implements IHello {</p>
+<p>  private IHello iHello;</p>
+<p>  public void setImpl(IHello impl){</p>
+<p>  this.iHello = impl;</p>
+<p>}<br>@Override</p>
+<p>public void sayHello(String name) {</p>
+<pre><code>System.out.println(&quot;问候之前的日志记录...&quot;);
+
+iHello.sayHello(name);
+</code></pre><p>}<br>@Override</p>
+<p>public void sayGoogBye(String name) {</p>
+<pre><code> System.out.println(&quot;问候之前的日志记录...&quot;);
+
+ iHello.sayGoogBye(name);
+</code></pre><p>}</p>
+<p>static public void main(String[] arg) {</p>
+<pre><code> Helloimplements hello = new Helloimplements();
+
+ StaticProxy proxy = new StaticProxy();
+
+ proxy.setImpl(hello);
+
+ proxy.sayHello(&quot;Jerry&quot;);
+</code></pre><p>  }</p>
+<p>}<br>s<br>InvocationHandler是一个JDK提供的标准接口。看下面的代码：<br>import java.lang.reflect.InvocationHandler;<br>import java.lang.reflect.Method;<br>import java.lang.reflect.Proxy;<br>public class DynaProxyHello implements InvocationHandler {<br>    private Object delegate;<br>    public Object bind(Object delegate) {<br>        this.delegate = delegate;<br>        return Proxy.newProxyInstance(<br>        this.delegate.getClass().getClassLoader(), this.delegate<br>        .getClass().getInterfaces(), this);<br>    }<br>    public Object invoke(Object proxy, Method method, Object[] args)<br>    throws Throwable {<br>        Object result = null;<br>        try {<br>            System.out.println(“问候之前的日志记录…”);<br>            // JVM通过这条语句执行原来的方法(反射机制)<br>            result = method.invoke(this.delegate, args);<br>        }<br>        catch (Exception e) {<br>            e.printStackTrace();<br>        }<br>        return result;<br>    }<br>如何使用jdk Proxy ,直接把实现类的引用绑定到 代理类上<br>static public void main(String[] arg) {<br>    DynaProxyHello helloproxy = new DynaProxyHello();<br>    Helloimplements hello = new Helloimplements();<br>    IHello ihello = (IHello) helloproxy.bind(hello);<br>    ihello.sayHello(“Jerry”);<br>}<br>这里的 invoke 实际是由jdk生成的代理类 DynaProxyHello.invoke执行的<br>而且invoke的正确理解应该是和方法绑定的一个切点,而不是方法本身 </p>
 
     </div>
 
@@ -492,7 +519,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开发原则"><span class="nav-number">1.</span> <span class="nav-text">开发原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#例子：多流程判断-，if-else"><span class="nav-number">2.</span> <span class="nav-text">例子：多流程判断 ，if-else</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单例模式"><span class="nav-number">3.</span> <span class="nav-text">单例模式</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开发原则"><span class="nav-number">1.</span> <span class="nav-text">开发原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#例子：多流程判断-，干掉-if-else-的手段—策略模式"><span class="nav-number">2.</span> <span class="nav-text">例子：多流程判断 ，干掉 if-else 的手段—策略模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单例模式"><span class="nav-number">3.</span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理模式-和AOP编程"><span class="nav-number">4.</span> <span class="nav-text">代理模式  和AOP编程</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -511,7 +538,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

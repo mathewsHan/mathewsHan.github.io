@@ -419,7 +419,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 03:02:27" itemprop="dateModified" datetime="2020-03-14T03:02:27+08:00">2020-03-14</time>
+                <time title="修改时间：2020-03-24 04:10:36" itemprop="dateModified" datetime="2020-03-24T04:10:36+08:00">2020-03-24</time>
               </span>
             
           
@@ -521,7 +521,7 @@
 <h1 id="数据库优化"><a href="#数据库优化" class="headerlink" title="数据库优化"></a>数据库优化</h1><h1 id="1-数据库设计和表创建时就要考虑性能"><a href="#1-数据库设计和表创建时就要考虑性能" class="headerlink" title="1.数据库设计和表创建时就要考虑性能"></a>1.数据库设计和表创建时就要考虑性能</h1><pre><code>设计表时要注意：
 </code></pre><p>表字段避免null值出现，null值很难查询优化且占用额外的索引空间，推荐默认数字0代替null。<br>——&gt;(mysql索引是可以使用索引来查询 有NULL值存在的字段<br>1.EXPLAIN select <em> from j_copy where a is null; —执行计划可以看到是否走了索引<br>)<br>尽量使用INT而非BIGINT，如果非负则加上UNSIGNED(这样数值容量会扩大一倍)，当然能使用TINYINT、SMALLINT、MEDIUM_INT更好。<br>使用枚举或整数代替字符串类型<br>尽量使用TIMESTAMP而非DATETIME<br>单表不要有太多字段，建议在20以内, （表拆分）<br>用整型来存IP地址, 即32位的无符号整数（UNSIGNED INT）， mysql 提供了转换函数,select inet_ntoa(3232235521);<br>    索引<br>索引并不是越多越好，要根据查询有针对性的创建，考虑在WHERE和ORDER BY命令上涉及的列建立索引，可根据EXPLAIN来查看是否用了索引还是全表扫描<br>应尽量避免在WHERE子句中对字段进行NULL值判断，否则将导致引擎放弃使用索引而进行全表扫描<br>值分布很集中的字段不适合建索引，例如”性别”这种只有两三个值的字段<br>字符字段只建前缀索引<br>字符字段**</em>不要做主键<br>不用外键，由程序保证约束<br>尽量不用UNIQUE，由程序保证约束<br>使用多列索引时主意顺序和查询条件保持一致，同时删除不必要的单列索引</p>
 <h1 id="2-sql的编写需要注意优化"><a href="#2-sql的编写需要注意优化" class="headerlink" title="2.sql的编写需要注意优化"></a>2.sql的编写需要注意优化</h1><p>记录一次MySQL两千万数据的大表优化解决过程，提供三种解决方案<br>使用阿里云rds for MySQL数据库(就是MySQL5.6版本)，有个用户上网记录表6个月的数据量近2000万，保留最近一年的数据量达到4000万，查询速度极慢，日常卡死。严重影响业务。我尝试解决该问题，so，有个这个日志。</p>
-<p>作者：王帅来源：java版web项目|2019-02-26 13:18 收藏  分享<br>记录一次MySQL两千万数据的大表优化解决过程，提供三种解决方案<br>问题概述<br>使用阿里云rds for MySQL数据库(就是MySQL5.6版本)，有个用户上网记录表6个月的数据量近2000万，保留最近一年的数据量达到4000万，查询速度极慢，日常卡死。严重影响业务。</p>
+<p>问题概述<br>使用阿里云rds for MySQL数据库(就是MySQL5.6版本)，有个用户上网记录表6个月的数据量近2000万，保留最近一年的数据量达到4000万，查询速度极慢，日常卡死。严重影响业务。</p>
 <p>问题前提：老系统，当时设计系统的人大概是大学没毕业，表设计和sql语句写的不仅仅是垃圾，简直无法直视。原开发人员都已离职，到我来维护，这就是传说中的维护不了就跑路，然后我就是掉坑的那个!!!</p>
 <p>我尝试解决该问题，so，有个这个日志。</p>
 <p>方案概述<br>方案一：优化现有mysql数据库。优点：不影响现有业务，源程序不需要修改代码，成本<em>*</em>。缺点：有优化瓶颈，数据量过亿就玩完了。<br>方案二：升级数据库类型，换一种100%兼容mysql的数据库。优点：不影响现有业务，源程序不需要修改代码，你几乎不需要做任何操作就能提升数据库性能，缺点：多花钱<br>方案三：一步到位，大数据解决方案，更换newsql/nosql数据库。优点：扩展性强，成本低，没有数据容量瓶颈，缺点：需要修改源程序代码<br>以上三种方案，按顺序使用即可，数据量在亿级别一下的没必要换nosql，开发成本太高。三种方案我都试了一遍，而且都形成了落地解决方案。该过程心中慰问跑路的那几个开发者一万遍 :)</p>
@@ -544,7 +544,7 @@
 支持延迟更新索引，极大提升写入性能
 对于不会进行修改的表，支持压缩表，极大减少磁盘空间占用
 INNODB:
-1.支持行锁，采用MVCC来支持高并发
+1.支持行锁，采用MVCC来支持高并发  *****
 2.支持事务
 3.支持外键
 4.支持崩溃后的安全恢复
@@ -552,8 +552,10 @@ INNODB:
 总体来讲，MyISAM适合SELECT密集型的表，而InnoDB适合INSERT和UPDATE密集型的表
 但是支持事务就必须使用 innodb
 </code></pre><h1 id="Mycat中间件"><a href="#Mycat中间件" class="headerlink" title="Mycat中间件"></a>Mycat中间件</h1><p>举例: db_user 逻辑库  对应  mySql中的两个 user_db实例<br>配置 {MYCAT_HOME}/conf/schema.xml 中  <schema>标签定义<br>分片表，全局表,  ER表， 非分片表 五种逻辑表类型 .</schema></p>
-<p>3.分区<br>水平拆分：</p>
-<p>4.分表<br>分表就是把一张大表，按照如上过程都优化了，还是查询卡死，那就把这个表分成多张表，把一次查询分成多次查询，然后把结果组合返回给用户。<br>分表分为垂直拆分和水平拆分，通常以某个字段做拆分项。比如以id字段拆分为100张表： 表名为 tableName_id%100<br>但：分表需要修改源程序代码，会给开发带来大量工作，极大的增加了开发成本，故：只适合在开发初期就考虑到了大量数据存在，做好了分表处理，不适合应用上线了再做修改，成本太高!!!而且选择这个方案，都不如选择我提供的第二第三个方案的成本低!故不建议采用。<br>5.分库</p>
+<h1 id="——————-分库分表——————"><a href="#——————-分库分表——————" class="headerlink" title="——————- 分库分表——————-"></a>——————- 分库分表——————-</h1><p>事务的ACID：原子，一致 ， 隔离 ，持久 </p>
+<p>1.分区<br>：<br>2.分表<br>水平拆分 :<br>    横向切割 , 一张表变两张<br>垂直拆分 :<br>    纵向一切两半 ,例 : 商品表中有 原来的  商品—促销两个字段  ，分到两张新表中<br>    复杂场景下优先垂直拆分<br>分表就是把一张大表，按照如上过程都优化了，还是查询卡死，那就把这个表分成多张表，把一次查询分成多次查询，然后把结果组合返回给用户。<br>分表分为垂直拆分和水平拆分，通常以某个字段做拆分项。比如以id字段拆分为100张表： 表名为 tableName_id%100<br>但：分表需要修改源程序代码，会给开发带来大量工作，极大的增加了开发成本，故：只适合在开发初期就考虑到了大量数据存在，做好了分表处理，不适合应用上线了再做修改，成本太高!!!而且选择这个方案，都不如选择我提供的第二第三个方案的成本低!故不建议采用。<br>5.分库</p>
+<p>6.冗余<br>故障转移</p>
+<p>再连接<br>去中心化与中心化</p>
 <h1 id="Freemarker"><a href="#Freemarker" class="headerlink" title="Freemarker"></a>Freemarker</h1><p>网页静态化技术和缓存技术的共同点都是为了减轻数据库的访问压力，但是具体的应用场景不同，缓存比较适合小规模的数据<br>，而网页静态化比较适合大规模且相对变化不太频繁的数据。另外网页静态化还有利于SEO。</p>
 <p>模板文件中四种元素:<br> 1、文本，直接输出的部分<br> 2、注释，即&lt;#—…—&gt;格式不会输出<br> 3、插值（Interpolation）：即${..}部分,将使用数据模型中的部分替代输出<br> 4、FTL指令：FreeMarker指令，和HTML标记类似，名字前加#予以区分，不会输出。</p>
 
@@ -619,7 +621,7 @@ INNODB:
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 03:29:15" itemprop="dateModified" datetime="2020-03-14T03:29:15+08:00">2020-03-14</time>
+                <time title="修改时间：2020-03-29 01:53:50" itemprop="dateModified" datetime="2020-03-29T01:53:50+08:00">2020-03-29</time>
               </span>
             
           
@@ -635,7 +637,20 @@ INNODB:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="分布式服务的问题"><a href="#分布式服务的问题" class="headerlink" title="分布式服务的问题"></a>分布式服务的问题</h1><p>服务发现 （Consumer 和 Provider） ,负载均衡<br>1.传统集中式代理  ,由代理实现服务发现和 负载均衡，主要是F5和 ngix </p>
+          <h1 id="数据库事务"><a href="#数据库事务" class="headerlink" title="数据库事务"></a>数据库事务</h1><p>不使用spring  框架 , 在同一个 conneciton 中控制事务</p>
+<p>CAP理论    强一致性 高可用  分区容错<br>在分布式系统中为了保证高可用，通常在不同的节点都保留数据的副本<br>大多数网站使用是AP  放弃强一致性，在一定latency之后达到最终一致性 </p>
+<h1 id="spring-cloud"><a href="#spring-cloud" class="headerlink" title="spring  cloud"></a>spring  cloud</h1><h1 id="springcloud-netflix全家桶"><a href="#springcloud-netflix全家桶" class="headerlink" title="springcloud  netflix全家桶"></a>springcloud  netflix全家桶</h1><p>zookeeper   CP<br>eruka    AP<br>服务发现——Netflix Eureka<br>客服端负载均衡——Netflix Ribbon<br>断路器——Netflix Hystrix<br>// 保障服务稳定， 防止服务器雪崩效应<br>服务网关——Netflix Zuul<br>分布式配置——Spring Cloud Config</p>
+<h1 id="spring-cloud-alibaba"><a href="#spring-cloud-alibaba" class="headerlink" title="spring  cloud alibaba"></a>spring  cloud alibaba</h1><p>几大组件 : </p>
+<hr>
+<p>1、事务的基本概念（ ACID ）</p>
+<p>2、理解分布式事务的应用场景及面临的问题</p>
+<p>3、认识分布式事务事务模型</p>
+<p>4、演示 LCN 框架分布式事务管理</p>
+<p>5、分布式事务解决方案（ Atomikos、LCN、TCC、MQ ）</p>
+<p>6、CAP 定理 &amp; Base 理论及柔性事务</p>
+<h1 id="一致性原理"><a href="#一致性原理" class="headerlink" title="一致性原理"></a>一致性原理</h1><p>1.异常  ：某节点操作不成功<br>2.网络分区 :  无法访问到某节点<br>3.应用故障 : 节点本身存在问题 </p>
+<p>多条链接的事务 </p>
+<h1 id="分布式服务的问题"><a href="#分布式服务的问题" class="headerlink" title="分布式服务的问题"></a>分布式服务的问题</h1><p>服务发现 （Consumer 和 Provider） ,负载均衡<br>1.传统集中式代理  ,由代理实现服务发现和 负载均衡，主要是F5和 ngix </p>
 <ol>
 <li>客户端嵌入代理 , 代理（服务发现和负载均衡逻辑）以客户库的形式嵌入在应用程序中 ，<br>这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。<br>3.主机独立进程代理， 在同一台主机中，多个消费者公用这个代理</li>
 </ol>
@@ -838,7 +853,7 @@ INNODB:
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-05 03:47:51" itemprop="dateModified" datetime="2019-12-05T03:47:51+08:00">2019-12-05</time>
+                <time title="修改时间：2020-03-28 12:43:45" itemprop="dateModified" datetime="2020-03-28T12:43:45+08:00">2020-03-28</time>
               </span>
             
           
@@ -854,11 +869,13 @@ INNODB:
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>1、BIO编程<br>    1.1、传统的BIO编程<br>网络编程的基本模型是C/S模型，即两个进程间的通信。简单描述就是并发请求会使得服务器，开启对应相应链接的很多编程,效率低下<br>服务端提供IP和监听端口，客户端通过连接操作想服务端监听的地址发起连接请求，通过三次握手连接，如果连接成功建立，双方就可以通过套接字进行通信。<br>传统的同步阻塞模型开发中，ServerSocket负责绑定IP地址，启动监听端口；Socket负责发起连接操作。连接成功后，双方通过输入和输出流进行同步阻塞式通信。 </p>
-<p>简单的描述一下BIO的服务端通信模型：采用BIO通信模型的服务端，通常由一个独立的Acceptor线程负责监听客户端的连接，它接收到客户端连接请求之后为每个<br>客户端创建一个新的线程进行链路处理没处理完成后，通过输出流返回应答给客户端，线程销毁。即典型的一请求一应答通宵模型。<br>每个服务器端处理请求的线程代码,服务端将以多线程形式启动此 Handler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.bio;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"> </span><br><span class="line">import com.anxpp.io.utils.Calculator;</span><br><span class="line">/**</span><br><span class="line"> * 客户端线程</span><br><span class="line"> * @author yangtao__anxpp.com</span><br><span class="line"> * 用于处理一个客户端的Socket链路</span><br><span class="line"> */</span><br><span class="line">public class ServerHandler implements Runnable&#123;</span><br><span class="line">	private Socket socket;</span><br><span class="line">	public ServerHandler(Socket socket) &#123;</span><br><span class="line">		this.socket = socket;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		BufferedReader in = null;</span><br><span class="line">		PrintWriter out = null;</span><br><span class="line">		try&#123;</span><br><span class="line">			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));</span><br><span class="line">			out = new PrintWriter(socket.getOutputStream(),true);</span><br><span class="line">			String expression;</span><br><span class="line">			String result;</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				//通过BufferedReader读取一行</span><br><span class="line">				//如果已经读到输入流尾部，返回null,退出循环</span><br><span class="line">				//如果得到非空值，就尝试计算结果并返回</span><br><span class="line">				if((expression = in.readLine())==null) break;</span><br><span class="line">				System.out.println(&quot;服务器收到消息：&quot; + expression);</span><br><span class="line">				try&#123;</span><br><span class="line">					result = Calculator.cal(expression).toString();</span><br><span class="line">				&#125;catch(Exception e)&#123;</span><br><span class="line">					result = &quot;计算错误：&quot; + e.getMessage();</span><br><span class="line">				&#125;</span><br><span class="line">				out.println(result);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			//一些必要的清理工作</span><br><span class="line">			if(in != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					in.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				in = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(out != null)&#123;</span><br><span class="line">				out.close();</span><br><span class="line">				out = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(socket != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					socket.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				socket = null;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <h1 id="tcp-的-keep-alive-心跳检测机制"><a href="#tcp-的-keep-alive-心跳检测机制" class="headerlink" title="tcp 的 keep alive 心跳检测机制"></a>tcp 的 keep alive 心跳检测机制</h1><p> keepalive就是为了监测链接可用性， tcp_keepalive_time ,   tcp_keepalive_intvl  ,   tcp_keepalive_probes<br>客户端和服务端三次握手后 ， 客户端和服务端都处于 ESTABLISH状态 , 这个时候正常的 PSH和 ACK交互<br>一旦一方服务中断, 另一方在距离上次的PSH时间 tcp_keepalive_time 发现对方未发送数据，则开始心跳检测<br>发送一个psh的 空心跳包, 报数据为空 ，但是头部的数据和标识和正常包一样<br>如果这个包获取带的是RST返回的话 , </p>
+<h1 id="1、BIO编程"><a href="#1、BIO编程" class="headerlink" title="1、BIO编程"></a>1、BIO编程</h1><pre><code>1.1、传统的BIO编程
+</code></pre><p>网络编程的基本模型是C/S模型，即两个进程间的通信。简单描述就是并发请求会使得服务器，开启对应相应链接的很多编程,效率低下<br>服务端提供IP和监听端口，客户端通过连接操作想服务端监听的地址发起连接请求，通过三次握手连接，如果连接成功建立，双方就可以通过套接字进行通信。<br>传统的同步阻塞模型开发中，ServerSocket负责绑定IP地址，启动监听端口；Socket负责发起连接操作。连接成功后，双方通过输入和输出流进行同步阻塞式通信。 </p>
+<p>简单的描述一下BIO的服务端通信模型：采用BIO通信模型的服务端，通常由一个独立的Acceptor线程负责监听客户端的连接，它接收到客户端连接请求之后为每个<br>客户端创建一个新的线程进行链路处理没处理完成后，通过输出流返回应答给客户端，线程销毁。即典型的一请求一应答通宵模型。<br>每个服务器端处理请求的线程代码,服务端将以多线程形式启动此 Handler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.bio;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"> </span><br><span class="line">import com.anxpp.io.utils.Calculator;</span><br><span class="line">/**</span><br><span class="line"> * 客户端线程</span><br><span class="line"> * @author yangtao__anxpp.com</span><br><span class="line"> */</span><br><span class="line">public class ServerHandler implements Runnable&#123;</span><br><span class="line">	private Socket socket;</span><br><span class="line">	public ServerHandler(Socket socket) &#123;</span><br><span class="line">		this.socket = socket;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		BufferedReader in = null;</span><br><span class="line">		PrintWriter out = null;</span><br><span class="line">		try&#123;</span><br><span class="line">			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));</span><br><span class="line">			out = new PrintWriter(socket.getOutputStream(),true);</span><br><span class="line">			String expression;</span><br><span class="line">			String result;</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				//通过BufferedReader读取一行</span><br><span class="line">				//如果已经读到输入流尾部，返回null,退出循环</span><br><span class="line">				//如果得到非空值，就尝试计算结果并返回</span><br><span class="line">				if((expression = in.readLine())==null) break;</span><br><span class="line">				System.out.println(&quot;服务器收到消息：&quot; + expression);</span><br><span class="line">				try&#123;</span><br><span class="line">					result = Calculator.cal(expression).toString();</span><br><span class="line">				&#125;catch(Exception e)&#123;</span><br><span class="line">					result = &quot;计算错误：&quot; + e.getMessage();</span><br><span class="line">				&#125;</span><br><span class="line">				out.println(result);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			//一些必要的清理工作</span><br><span class="line">			if(in != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					in.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				in = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(out != null)&#123;</span><br><span class="line">				out.close();</span><br><span class="line">				out = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(socket != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					socket.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				socket = null;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h1 id="2-伪异步-，其实就是服务端用线程池管理了多线程"><a href="#2-伪异步-，其实就是服务端用线程池管理了多线程" class="headerlink" title="2.伪异步 ，其实就是服务端用线程池管理了多线程"></a>2.伪异步 ，其实就是服务端用线程池管理了多线程</h1><p>   为了改进这种一连接一线程的模型，我们可以使用线程池来管理这些线程（需要了解更多请参考前面提供的文章），<br>   实现1个或多个线程处理N个客户端的模型（但是底层还是使用的同步阻塞I/O），通常被称为“伪异步I/O模型“。<br>总结：<br>    serverHandler 和阻塞IO一样 ，只不过服务端是使用线程池管理这些链接线程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.bio;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line">import java.util.concurrent.ExecutorService;</span><br><span class="line">import java.util.concurrent.Executors;</span><br><span class="line">/**</span><br><span class="line"> * BIO服务端源码__伪异步I/O</span><br><span class="line"> * @author yangtao__anxpp.com</span><br><span class="line"> * @version 1.0</span><br><span class="line"> */</span><br><span class="line">public final class ServerBetter &#123;</span><br><span class="line">	//默认的端口号</span><br><span class="line">	private static int DEFAULT_PORT = 12345;</span><br><span class="line">	//单例的ServerSocket</span><br><span class="line">	private static ServerSocket server;</span><br><span class="line">	//线程池 懒汉式的单例</span><br><span class="line">	private static ExecutorService executorService = Executors.newFixedThreadPool(60);</span><br><span class="line">	//根据传入参数设置监听端口，如果没有参数调用以下方法并使用默认值</span><br><span class="line">	public static void start() throws IOException&#123;</span><br><span class="line">		//使用默认值</span><br><span class="line">		start(DEFAULT_PORT);</span><br><span class="line">	&#125;</span><br><span class="line">	//这个方法不会被大量并发访问，不太需要考虑效率，直接进行方法同步就行了</span><br><span class="line">	public synchronized static void start(int port) throws IOException&#123;</span><br><span class="line">		if(server != null) return;</span><br><span class="line">		try&#123;</span><br><span class="line">			//通过构造函数创建ServerSocket</span><br><span class="line">			//如果端口合法且空闲，服务端就监听成功</span><br><span class="line">			server = new ServerSocket(port);</span><br><span class="line">			System.out.println(&quot;服务器已启动，端口号：&quot; + port);</span><br><span class="line">			//通过无线循环监听客户端连接</span><br><span class="line">			//如果没有客户端接入，将阻塞在accept操作上。</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				Socket socket = server.accept();</span><br><span class="line">				//当有新的客户端接入时，会执行下面的代码</span><br><span class="line">				//然后创建一个新的线程处理这条Socket链路</span><br><span class="line">				executorService.execute(new ServerHandler(socket));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			//一些必要的清理工作</span><br><span class="line">			if(server != null)&#123;</span><br><span class="line">				System.out.println(&quot;服务器已关闭。&quot;);</span><br><span class="line">				server.close();</span><br><span class="line">				server = null;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h1 id="3-NIO-新思路"><a href="#3-NIO-新思路" class="headerlink" title="3.NIO, 新思路"></a>3.NIO, 新思路</h1><p>Non-block I/O，即非阻塞I/O，因为这样叫，更能体现它的特点。而下文中的NIO，不是指整个新的I/O库，而是非阻塞I/O。</p>
-<p>NIO提供了与传统BIO模型中的Socket和ServerSocket相对应的<strong>SocketChannel和ServerSocketChannel</strong>两种不同的套接字通道实现。<br>新增的着两种通道都支持阻塞和非阻塞两种模式。<br>阻塞模式使用就像传统中的支持一样，比较简单，但是性能和可靠性都不好；非阻塞模式正好与之相反。<br>对于低负载、低并发的应用程序，可以使用同步阻塞I/O来提升开发速率和更好的维护性；对于高负载、高并发的（网络）应用，应使用NIO的非阻塞模式来开发。</p>
+<p>NIO提供了与传统BIO模型中的Socket和ServerSocket相对应的<strong>SocketChannel和ServerSocketChannel</strong>两种不同的套接字通道实现。<br>新增的着两种通道都支持阻塞和非阻塞两种模式。<br>阻塞模式使用就像传统中的支持一样, 不好<br>非阻塞模式</p>
 <p>NIO的几个关键名词:<br>一 、Buffer:缓冲区  ，  实际上就是一个数组 , 并提供结构化访问及维护了读写位置信息<br>具体的缓存区有这些：ByteBuffe、CharBuffer、 ShortBuffer、IntBuffer、LongBuffer、<br>FloatBuffer、DoubleBuffer。他们实现了相同的接口：Buffer。<br>二 、通道 Channel<br>我们对数据的读取和写入要通过Channel，它就像水管一样，是一个通道。通道不同于流的地方就是通道是双向的，可以用于读、写和同时读写操作。<br>底层的操作系统的通道一般都是全双工(就是既能发也能收)的，所以全双工的Channel比流能更好的映射底层操作系统的API。<br>Channel主要分两大类：<br>    SelectableChannel：用户网络读写<br>    FileChannel：用于文件操作<br>    后面代码会涉及的ServerSocketChannel和SocketChannel都是SelectableChannel的子类<br>Channel:它代表了一个用于连接到实体如硬件设备、文件、网络套接字或程序组件,能够执行一个或多个不同的 I/O 操作（例如读或写）的开放连接。<br>2.4、多路复用器 Selector<br>Selector是Java  NIO 编程的基础。<br>Selector提供选择已经就绪的任务的能力：Selector会不断轮询注册在其上的Channel，如果某个Channel上面发生读或者写事件，这个Channel就处于就绪状态，会被Selector轮询出来，然后通过SelectionKey可以获取就绪Channel的集合，进行后续的I/O操作。<br>一个Selector可以同时轮询多个Channel，因为JDK使用了epoll()代替传统的select实现，所以没有最大连接句柄1024/2048的限制。所以，只需要一个线程负责Selector的轮询，就可以接入成千上万的客户端。<br>Futrue </p>
 <h1 id="NIO-效率相较于BIO高的主要原因是："><a href="#NIO-效率相较于BIO高的主要原因是：" class="headerlink" title="NIO 效率相较于BIO高的主要原因是："></a>NIO 效率相较于BIO高的主要原因是：</h1><p>   Processor线程不会 1：1客户端 且没有连接就阻塞<br>   Processor 在处理 read 或 wirte时非阻塞,立即返回的 </p>
 <h1 id="NIO创建的Server源码："><a href="#NIO创建的Server源码：" class="headerlink" title="NIO创建的Server源码："></a>NIO创建的Server源码：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.nio;</span><br><span class="line">public class Server &#123;</span><br><span class="line">	private static int DEFAULT_PORT = 12345;</span><br><span class="line">	private static ServerHandle serverHandle;</span><br><span class="line">	public static void start()&#123;</span><br><span class="line">		start(DEFAULT_PORT);</span><br><span class="line">	&#125;</span><br><span class="line">	public static synchronized void start(int port)&#123;</span><br><span class="line">		if(serverHandle!=null)</span><br><span class="line">			serverHandle.stop();</span><br><span class="line">		serverHandle = new ServerHandle(port);</span><br><span class="line">		new Thread(serverHandle,&quot;Server&quot;).start();</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		start();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
@@ -961,7 +978,7 @@ public void run() {
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 04:51:40" itemprop="dateModified" datetime="2020-03-14T04:51:40+08:00">2020-03-14</time>
+                <time title="修改时间：2020-03-28 12:09:25" itemprop="dateModified" datetime="2020-03-28T12:09:25+08:00">2020-03-28</time>
               </span>
             
           
@@ -978,7 +995,7 @@ public void run() {
 
       
           <h1 id="云原生概念-与-service-mesh"><a href="#云原生概念-与-service-mesh" class="headerlink" title="云原生概念 与  service-mesh"></a>云原生概念 与  service-mesh</h1><h1 id="docker-与-K8s"><a href="#docker-与-K8s" class="headerlink" title="docker 与 K8s"></a>docker 与 K8s</h1><p>docker是一种轻量级的虚拟化，类似于沙箱<br>build ,ship, run<br>搭建、发送、运行</p>
-<h1 id="docker的三大核心概念-Image-书包里的镜像-Container（建好的房子）-Repository-（书包）"><a href="#docker的三大核心概念-Image-书包里的镜像-Container（建好的房子）-Repository-（书包）" class="headerlink" title="docker的三大核心概念 ,  Image(书包里的镜像 )  , Container（建好的房子） , Repository （书包）"></a>docker的三大核心概念 ,  Image(书包里的镜像 )  , Container（建好的房子） , Repository （书包）</h1><h1 id="kubernetes-含义是舵手或领航员"><a href="#kubernetes-含义是舵手或领航员" class="headerlink" title="kubernetes  含义是舵手或领航员"></a>kubernetes  含义是舵手或领航员</h1><p>一个 Master节点 ,一群Node节点 , Master 负责管理和控制， Node工作负载节点<br><img src="/2019/11/07/docker/k8s.png" alt><br>Master节点包括API Server、Scheduler、Controller manager、etcd。<br><img src="/2019/11/07/docker/Master.png" alt><br>Node节点<br><img src="/2019/11/07/docker/Node.png" alt></p>
+<h1 id="docker的三大核心概念-Im-书包里的镜像-Container（建好的房子）-Repository-（书包）"><a href="#docker的三大核心概念-Im-书包里的镜像-Container（建好的房子）-Repository-（书包）" class="headerlink" title="docker的三大核心概念 ,  Im(书包里的镜像 )  , Container（建好的房子） , Repository （书包）"></a>docker的三大核心概念 ,  Im(书包里的镜像 )  , Container（建好的房子） , Repository （书包）</h1><h1 id="kubernetes-含义是舵手或领航员"><a href="#kubernetes-含义是舵手或领航员" class="headerlink" title="kubernetes  含义是舵手或领航员"></a>kubernetes  含义是舵手或领航员</h1><p>一个 Master节点 ,age一群Node节点 , Master 负责管理和控制， Node工作负载节点<br><img src="/2019/11/07/docker/k8s.png" alt><br>Master节点包括API Server、Scheduler、Controller manager、etcd。<br><img src="/2019/11/07/docker/Master.png" alt><br>Node节点<br><img src="/2019/11/07/docker/Node.png" alt></p>
 <p>一个Pod代表着集群中运行的一个进程，它内部封装了一个或多个紧密相关的容器。除了Pod之外，K8S还有一个Service的概念，一个Service可以看作一组提供相同服务的Pod的对外访问接口</p>
 <h1 id="IDEA使用事项"><a href="#IDEA使用事项" class="headerlink" title="IDEA使用事项"></a>IDEA使用事项</h1><p>（1）war模式这种可以称之为是发布模式，看名字也知道，这是先打成war包，再发布；<br>（2）war exploded模式是直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。</p>
 <h1 id="linux-脚本与常用命令"><a href="#linux-脚本与常用命令" class="headerlink" title="linux 脚本与常用命令"></a>linux 脚本与常用命令</h1><pre><code>使用 yum安装的软件 ,查找路径
@@ -987,8 +1004,12 @@ rpm  -qa  | grep  redis
 </code></pre><p>// 查找文件夹和文件<br>find   /查找范围    -name  ‘关键字’  -type d</p>
 <p>//输出到文件<br>$ ls &gt; ls.txt    ＃或者 ls—&gt;ls.txt    ＃把ls命令的运行结果保存到文件ls.txt中</p>
 <h1 id="Docker-使用的基本命令"><a href="#Docker-使用的基本命令" class="headerlink" title="Docker  使用的基本命令"></a>Docker  使用的基本命令</h1><p>//查询所有容器,包括已经停止的<br>docker ps -a<br>// 启动一个已经存在的容器<br>docker  start  d33bc8d7387a<br>//docker启动 mysql 命令<br>$ docker run  —restart=always  —name  mingxie-mysql -p 32xxx:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:latest<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--name 后面的是docker容器名</span><br><span class="line">-p 32xxx:3306 这里需要注意 `32xxx` 是你**链接mysql的时候的`Port`。**</span><br><span class="line">-e MYSQL_ROOT_PASSWORD 是设置mysql的root账号密码</span><br><span class="line">-d mysql 是你的镜像标签</span><br></pre></td></tr></table></figure></p>
-<h1 id="在shell中访问mysql"><a href="#在shell中访问mysql" class="headerlink" title="在shell中访问mysql"></a>在shell中访问mysql</h1><p>docker exec -it mingxie-mysql bash<br>root@7c289aa0ca95:/#<br>mysql -uroot -p -h localhost<br>Enter password:<br>输入密码即可。<br>在shell中访问mysql日志<br>$ docker logs mingxie-mysql<br>// docker 启动<br>docker run —name d33bc8d7387a  -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6</p>
-<h1 id="设置docker-容器开机自启动"><a href="#设置docker-容器开机自启动" class="headerlink" title="设置docker 容器开机自启动"></a>设置docker 容器开机自启动</h1><p>sudo docker run -t -p 80:80 registry.cn-hangzhou.aliyuncs.com/XXX/Name:[镜像版本号]<br>docekr ps 查看下容器id: 81bcb97c4f5e<br>$ docker update —restart=always 81bcb97c4f5e</p>
+<h1 id="在shell中访问mysql"><a href="#在shell中访问mysql" class="headerlink" title="在shell中访问mysql"></a>在shell中访问mysql</h1><p>//docker exec -it 容器id bash<br>docker exec -it mingxie-mysql bash</p>
+<p>root@7c289aa0ca95:/#<br>mysql -uroot -p -h localhost<br>Enter password:<br>输入密码即可。<br>在shell中访问mysql日志<br>$ docker logs mingxie-mysql<br>// docker 启动<br>docker run —name d33bc8d7387a  -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6</p>
+<h1 id="使用-dokcerfile-定制自己的镜像"><a href="#使用-dokcerfile-定制自己的镜像" class="headerlink" title="使用 dokcerfile 定制自己的镜像"></a>使用 dokcerfile 定制自己的镜像</h1><ol>
+<li>from   scratch </li>
+<li><h1 id="设置docker-容器开机自启动"><a href="#设置docker-容器开机自启动" class="headerlink" title="设置docker 容器开机自启动"></a>设置docker 容器开机自启动</h1>sudo docker run -t -p 80:80 registry.cn-hangzhou.aliyuncs.com/XXX/Name:[镜像版本号]<br>docekr ps 查看下容器id: 81bcb97c4f5e<br>$ docker update —restart=always 81bcb97c4f5e</li>
+</ol>
 
         
       
@@ -1011,7 +1032,7 @@ rpm  -qa  | grep  redis
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/秒杀方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/电商架构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -1026,7 +1047,7 @@ rpm  -qa  | grep  redis
         <h1 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019/11/05/秒杀方案/" class="post-title-link" itemprop="url">秒杀方案</a>
+            <a href="/2019/11/05/电商架构/" class="post-title-link" itemprop="url">秒杀方案</a>
           
         </h1>
 
@@ -1052,7 +1073,7 @@ rpm  -qa  | grep  redis
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 02:53:07" itemprop="dateModified" datetime="2020-03-14T02:53:07+08:00">2020-03-14</time>
+                <time title="修改时间：2020-03-18 00:40:27" itemprop="dateModified" datetime="2020-03-18T00:40:27+08:00">2020-03-18</time>
               </span>
             
           
@@ -1069,15 +1090,10 @@ rpm  -qa  | grep  redis
 
       
           <p>来源：<a href="https://juejin.im/post/5d84e21f6fb9a06ac8248149" target="_blank" rel="noopener">https://juejin.im/post/5d84e21f6fb9a06ac8248149</a></p>
-<p>12306 抢票，极限并发带来的思考</p>
-<p>虽然现在大多数情况下都能订到票，但是放票瞬间即无票的场景，相信大家都深有体会。</p>
-<p>尤其是春节期间，大家不仅使用 12306，还会考虑“智行”和其他的抢票软件，全国上下几亿人在这段时间都在抢票。</p>
-<p>“12306 服务”承受着这个世界上任何秒杀系统都无法超越的 QPS，上百万的并发再正常不过了！</p>
-<p>笔者专门研究了一下“12306”的服务端架构，学习到了其系统设计上很多亮点，在这里和大家分享一下并模拟一个例子：如何在 100 万人同时抢 1 万张火车票时，系统提供正常、稳定的服务。</p>
-<p>Github代码地址：<br><a href="https://github.com/GuoZhaoran/spikeSystem" target="_blank" rel="noopener">https://github.com/GuoZhaoran/spikeSystem</a></p>
+<h1 id="高并发-到底并发的是什么"><a href="#高并发-到底并发的是什么" class="headerlink" title="高并发 到底并发的是什么"></a>高并发 到底并发的是什么</h1><h1 id="论淘宝架构-与-12306网站"><a href="#论淘宝架构-与-12306网站" class="headerlink" title="论淘宝架构 与 12306网站"></a>论淘宝架构 与 12306网站</h1><p>Github代码地址：<br><a href="https://github.com/GuoZhaoran/spikeSystem" target="_blank" rel="noopener">https://github.com/GuoZhaoran/spikeSystem</a></p>
 <p>大型高并发系统架构</p>
 <p>高并发的系统架构都会采用分布式集群部署，服务上层有着层层负载均衡，并提供各种容灾手段（双火机房、节点容错、服务器灾备等）保证系统的高可用，流量也会根据不同的负载能力和配置策略均衡到不同的服务器上。</p>
-<p>下边是一个简单的示意图：<br><img src="/2019/11/05/秒杀方案/高并发系统架构.png" alt></p>
+<p>下边是一个简单的示意图：<br><img src="/2019/11/05/电商架构/高并发系统架构.png" alt></p>
 <p>负载均衡简介</p>
 <p>上图中描述了用户请求到服务器经历了三层的负载均衡，下边分别简单介绍一下这三种负载均衡。</p>
 <p>①OSPF（开放式最短链路优先）是一个内部网关协议（Interior Gateway Protocol，简称 IGP）</p>
@@ -1097,109 +1113,11 @@ rpm  -qa  | grep  redis
 <p>Nginx 实现负载均衡通过 Upstream 模块实现，其中加权轮询的配置是可以给相关的服务加上一个权重值，配置的时候可能根据服务器的性能、负载能力设置相应的负载。</p>
 <p>下面是一个加权轮询负载的配置，我将在本地的监听 3001-3004 端口，分别配置 1，2，3，4 的权重：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#配置负载均衡</span><br><span class="line">    upstream load_rule &#123;</span><br><span class="line">       server 127.0.0.1:3001 weight=1;</span><br><span class="line">       server 127.0.0.1:3002 weight=2;</span><br><span class="line">       server 127.0.0.1:3003 weight=3;</span><br><span class="line">       server 127.0.0.1:3004 weight=4;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  load_balance.com www.load_balance.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">       proxy_pass http://load_rule;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我在本地 /etc/hosts 目录下配置了 www.load_balance.com 的虚拟域名地址。</p>
-<p>接下来使用 Go 语言开启四个 HTTP 端口监听服务，下面是监听在 3001 端口的 Go 程序，其他几个只需要修改端口即可：</p>
-<p>package main</p>
-<p>import (<br>    “net/http”<br>    “os”<br>    “strings”<br>)</p>
-<p>func main() {<br>    http.HandleFunc(“/buy/ticket”, handleReq)<br>    http.ListenAndServe(“:3001”, nil)<br>}</p>
-<p>//处理请求函数,根据请求将响应结果信息写入日志<br>func handleReq(w http.ResponseWriter, r *http.Request) {<br>    failedMsg :=  “handle in port:”<br>    writeLog(failedMsg, “./stat.log”)<br>}</p>
-<p>//写入日志<br>func writeLog(msg string, logPath string) {<br>    fd, _ := os.OpenFile(logPath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)<br>    defer fd.Close()<br>    content := strings.Join([]string{msg, “\r\n”}, “3001”)<br>    buf := []byte(content)<br>    fd.Write(buf)<br>}</p>
-<p>我将请求的端口日志信息写到了 ./stat.log 文件当中，然后使用 AB 压测工具做压测：</p>
-<p>ab -n 1000 -c 100 <a href="http://www.load_balance.com/buy/ticket" target="_blank" rel="noopener">http://www.load_balance.com/buy/ticket</a></p>
-<p>统计日志中的结果，3001-3004 端口分别得到了 100、200、300、400 的请求量。</p>
-<p>这和我在 Nginx 中配置的权重占比很好的吻合在了一起，并且负载后的流量非常的均匀、随机。</p>
-<p>具体的实现大家可以参考 Nginx 的 Upsteam 模块实现源码，这里推荐一篇文章《Nginx 中 Upstream 机制的负载均衡》：</p>
-<p><a href="https://www.kancloud.cn/digest/understandingnginx/202607" target="_blank" rel="noopener">https://www.kancloud.cn/digest/understandingnginx/202607</a></p>
-<p>秒杀抢购系统选型</p>
-<p>回到我们最初提到的问题中来：火车票秒杀系统如何在高并发情况下提供正常、稳定的服务呢？</p>
-<p>从上面的介绍我们知道用户秒杀流量通过层层的负载均衡，均匀到了不同的服务器上，即使如此，集群中的单机所承受的 QPS 也是非常高的。如何将单机性能优化到极致呢？</p>
-<p>要解决这个问题，我们就要想明白一件事：通常订票系统要处理生成订单、减扣库存、用户支付这三个基本的阶段。</p>
-<p>我们系统要做的事情是要保证火车票订单不超卖、不少卖，每张售卖的车票都必须支付才有效，还要保证系统承受极高的并发。</p>
-<p>这三个阶段的先后顺序该怎么分配才更加合理呢？我们来分析一下：</p>
-<h1 id="下单减库存"><a href="#下单减库存" class="headerlink" title="下单减库存"></a>下单减库存</h1><p><img src="/2019/11/05/秒杀方案/下单减库存.jpg" alt><br>当用户并发请求到达服务端时，首先创建订单，然后扣除库存，等待用户支付。<br>这种顺序是我们一般人首先会想到的解决方案，这种情况下也能保证订单不会超卖，<br>因为创建订单之后就会减库存，这是一个原子操作。</p>
-<p>但是这样也会产生一些问题：<br>在极限并发情况下，任何一个内存操作的细节都至关影响性能，尤其像创建订单这种逻辑，一般都需要存储到磁盘数据库的，对数据库的压力是可想而知的。</p>
-<p>如果用户存在恶意下单的情况，只下单不支付这样库存就会变少，会少卖很多订单，虽然服务端可以限制 IP 和用户的购买订单数量，这也不算是一个好方法。</p>
-<h1 id="支付减库存"><a href="#支付减库存" class="headerlink" title="支付减库存"></a>支付减库存</h1><p><img src="/2019/11/05/秒杀方案/支付减库存.png" alt><br>如果等待用户支付了订单在减库存，第一感觉就是不会少卖。但是这是并发架构的大忌，因为在极限并发情况下，用户可能会创建很多订单。</p>
-<p>当库存减为零的时候很多用户发现抢到的订单支付不了了，这也就是所谓的“超卖”。也不能避免并发操作数据库磁盘 IO。</p>
-<h1 id="常用方案-预扣库存"><a href="#常用方案-预扣库存" class="headerlink" title="常用方案:预扣库存"></a>常用方案:预扣库存</h1><p><img src="/2019/11/05/秒杀方案/预扣库存.jpg" alt><br>从上边两种方案的考虑，我们可以得出结论：只要创建订单，就要频繁操作数据库 IO。</p>
-<p>那么有没有一种不需要直接操作数据库 IO 的方案呢，这就是预扣库存。先扣除了库存，保证不超卖，然后异步生成用户订单，这样响应给用户的速度就会快很多；那么怎么保证不少卖呢？用户拿到了订单，不支付怎么办？</p>
-<p>我们都知道现在订单都有有效期，比如说用户五分钟内不支付，订单就失效了，订单一旦失效，就会加入新的库存，这也是现在很多网上零售企业保证商品不少卖采用的方案。</p>
-<p>订单的生成是异步的，一般都会放到 MQ、Kafka 这样的即时消费队列中处理，订单量比较少的情况下，生成订单非常快，用户几乎不用排队。</p>
-<p>扣库存的艺术</p>
-<p>从上面的分析可知，显然预扣库存的方案最合理。我们进一步分析扣库存的细节，这里还有很大的优化空间，库存存在哪里？怎样保证高并发下，正确的扣库存，还能快速的响应用户请求？</p>
-<p>在单机低并发情况下，我们实现扣库存通常是这样的：</p>
-<p>为了保证扣库存和生成订单的原子性，需要采用事务处理，然后取库存判断、减库存，最后提交事务，整个流程有很多 IO，对数据库的操作又是阻塞的。</p>
-<p>这种方式根本不适合高并发的秒杀系统。接下来我们对单机扣库存的方案做优化：本地扣库存。</p>
-<p>我们把一定的库存量分配到本地机器，直接在内存中减库存，然后按照之前的逻辑异步创建订单。</p>
-<p>改进过之后的单机系统是这样的：</p>
-<p>这样就避免了对数据库频繁的 IO 操作，只在内存中做运算，极大的提高了单机抗并发的能力。</p>
-<p>但是百万的用户请求量单机是无论如何也抗不住的，虽然 Nginx 处理网络请求使用 Epoll 模型，c10k 的问题在业界早已得到了解决。</p>
-<p>但是 Linux 系统下，一切资源皆文件，网络请求也是这样，大量的文件描述符会使操作系统瞬间失去响应。</p>
-<p>上面我们提到了 Nginx 的加权均衡策略，我们不妨假设将 100W 的用户请求量平均均衡到 100 台服务器上，这样单机所承受的并发量就小了很多。</p>
-<p>然后我们每台机器本地库存 100 张火车票，100 台服务器上的总库存还是 1 万，这样保证了库存订单不超卖，下面是我们描述的集群架构：</p>
-<p>问题接踵而至，在高并发情况下，现在我们还无法保证系统的高可用，假如这 100 台服务器上有两三台机器因为扛不住并发的流量或者其他的原因宕机了。那么这些服务器上的订单就卖不出去了，这就造成了订单的少卖。</p>
-<p>要解决这个问题，我们需要对总订单量做统一的管理，这就是接下来的容错方案。服务器不仅要在本地减库存，另外要远程统一减库存。</p>
-<p>有了远程统一减库存的操作，我们就可以根据机器负载情况，为每台机器分配一些多余的“Buffer 库存”用来防止机器中有机器宕机的情况。</p>
-<p>我们结合下面架构图具体分析一下：</p>
-<p>我们采用 Redis 存储统一库存，因为 Redis 的性能非常高，号称单机 QPS 能抗 10W 的并发。</p>
-<p>在本地减库存以后，如果本地有订单，我们再去请求 Redis 远程减库存，本地减库存和远程减库存都成功了，才返回给用户抢票成功的提示，这样也能有效的保证订单不会超卖。</p>
-<p>当机器中有机器宕机时，因为每个机器上有预留的 Buffer 余票，所以宕机机器上的余票依然能够在其他机器上得到弥补，保证了不少卖。</p>
-<p>Buffer 余票设置多少合适呢，理论上 Buffer 设置的越多，系统容忍宕机的机器数量就越多，但是 Buffer 设置的太大也会对 Redis 造成一定的影响。</p>
-<p>虽然 Redis 内存数据库抗并发能力非常高，请求依然会走一次网络 IO，其实抢票过程中对 Redis 的请求次数是本地库存和 Buffer 库存的总量。</p>
-<p>因为当本地库存不足时，系统直接返回用户“已售罄”的信息提示，就不会再走统一扣库存的逻辑。</p>
-<p>这在一定程度上也避免了巨大的网络请求量把 Redis 压跨，所以 Buffer 值设置多少，需要架构师对系统的负载能力做认真的考量。</p>
-<p>代码演示</p>
-<p>Go 语言原生为并发设计，我采用 Go 语言给大家演示一下单机抢票的具体流程。</p>
-<p>初始化工作</p>
-<p>Go 包中的 Init 函数先于 Main 函数执行，在这个阶段主要做一些准备性工作。</p>
-<p>我们系统需要做的准备工作有：初始化本地库存、初始化远程 Redis 存储统一库存的 Hash 键值、初始化 Redis 连接池。</p>
-<p>另外还需要初始化一个大小为 1 的 Int 类型 Chan，目的是实现分布式锁的功能。</p>
-<p>也可以直接使用读写锁或者使用 Redis 等其他的方式避免资源竞争，但使用 Channel 更加高效，这就是 Go 语言的哲学：不要通过共享内存来通信，而要通过通信来共享内存。</p>
-<p>Redis 库使用的是 Redigo，下面是代码实现：</p>
-<p>…<br>//localSpike包结构体定义<br>package localSpike</p>
-<p>type LocalSpike struct {<br>    LocalInStock     int64<br>    LocalSalesVolume int64<br>}<br>…<br>//remoteSpike对hash结构的定义和redis连接池<br>package remoteSpike<br>//远程订单存储健值<br>type RemoteSpikeKeys struct {<br>    SpikeOrderHashKey string    //redis中秒杀订单hash结构key<br>    TotalInventoryKey string    //hash结构中总订单库存key<br>    QuantityOfOrderKey string   //hash结构中已有订单数量key<br>}</p>
-<p>//初始化redis连接池<br>func NewPool() *redis.Pool {<br>    return &amp;redis.Pool{<br>        MaxIdle:   10000,<br>        MaxActive: 12000, // max number of connections<br>        Dial: func() (redis.Conn, error) {<br>            c, err := redis.Dial(“tcp”, “:6379”)<br>            if err != nil {<br>                panic(err.Error())<br>            }<br>            return c, err<br>        },<br>    }<br>}<br>…<br>func init() {<br>    localSpike = localSpike2.LocalSpike{<br>        LocalInStock:     150,<br>        LocalSalesVolume: 0,<br>    }<br>    remoteSpike = remoteSpike2.RemoteSpikeKeys{<br>        SpikeOrderHashKey:  “ticket_hash_key”,<br>        TotalInventoryKey:  “ticket_total_nums”,<br>        QuantityOfOrderKey: “ticket_sold_nums”,<br>    }<br>    redisPool = remoteSpike2.NewPool()<br>    done = make(chan int, 1)<br>    done &lt;- 1<br>}</p>
-<p>本地扣库存和统一扣库存</p>
-<p>本地扣库存逻辑非常简单，用户请求过来，添加销量，然后对比销量是否大于本地库存，返回 Bool 值：</p>
-<p>package localSpike<br>//本地扣库存,返回bool值<br>func (spike *LocalSpike) LocalDeductionStock() bool{<br>    spike.LocalSalesVolume = spike.LocalSalesVolume + 1<br>    return spike.LocalSalesVolume &lt; spike.LocalInStock<br>}</p>
-<p>注意这里对共享数据 LocalSalesVolume 的操作是要使用锁来实现的，但是因为本地扣库存和统一扣库存是一个原子性操作，所以在最上层使用 Channel 来实现，这块后边会讲。</p>
-<p>统一扣库存操作 Redis，因为 Redis 是单线程的，而我们要实现从中取数据，写数据并计算一些列步骤，我们要配合 Lua 脚本打包命令，保证操作的原子性：</p>
-<p>package remoteSpike<br>……<br>const LuaScript = <code>local ticket_key = KEYS[1]
-        local ticket_total_key = ARGV[1]
-        local ticket_sold_key = ARGV[2]
-        local ticket_total_nums = tonumber(redis.call(&#39;HGET&#39;, ticket_key, ticket_total_key))
-        local ticket_sold_nums = tonumber(redis.call(&#39;HGET&#39;, ticket_key, ticket_sold_key))
-        -- 查看是否还有余票,增加订单数量,返回结果值
-       if(ticket_total_nums &gt;= ticket_sold_nums) then
-            return redis.call(&#39;HINCRBY&#39;, ticket_key, ticket_sold_key, 1)
-        end
-        return 0</code><br>//远端统一扣库存<br>func (RemoteSpikeKeys *RemoteSpikeKeys) RemoteDeductionStock(conn redis.Conn) bool {<br>    lua := redis.NewScript(1, LuaScript)<br>    result, err := redis.Int(lua.Do(conn, RemoteSpikeKeys.SpikeOrderHashKey, RemoteSpikeKeys.TotalInventoryKey, RemoteSpikeKeys.QuantityOfOrderKey))<br>    if err != nil {<br>        return false<br>    }<br>    return result != 0<br>}</p>
 <p>我们使用 Hash 结构存储总库存和总销量的信息，用户请求过来时，判断总销量是否大于库存，然后返回相关的 Bool 值。</p>
 <p>在启动服务之前，我们需要初始化 Redis 的初始库存信息：<br>hmset ticket_hash_key “ticket_total_nums” 10000 “ticket_sold_nums” 0</p>
 <p>响应用户信息</p>
 <p>我们开启一个 HTTP 服务，监听在一个端口上：</p>
 <p>package main<br>…<br>func main() {<br>    http.HandleFunc(“/buy/ticket”, handleReq)<br>    http.ListenAndServe(“:3005”, nil)<br>}</p>
-<p>上面我们做完了所有的初始化工作，接下来 handleReq 的逻辑非常清晰，判断是否抢票成功，返回给用户信息就可以了。</p>
-<p>package main<br>//处理请求函数,根据请求将响应结果信息写入日志<br>func handleReq(w http.ResponseWriter, r *http.Request) {<br>    redisConn := redisPool.Get()<br>    LogMsg := “”<br>    &lt;-done<br>    //全局读写锁<br>    if localSpike.LocalDeductionStock() &amp;&amp; remoteSpike.RemoteDeductionStock(redisConn) {<br>        util.RespJson(w, 1,  “抢票成功”, nil)<br>        LogMsg = LogMsg + “result:1,localSales:” + strconv.FormatInt(localSpike.LocalSalesVolume, 10)<br>    } else {<br>        util.RespJson(w, -1, “已售罄”, nil)<br>        LogMsg = LogMsg + “result:0,localSales:” + strconv.FormatInt(localSpike.LocalSalesVolume, 10)<br>    }<br>    done &lt;- 1</p>
-<pre><code>//将抢票状态写入到log中
-writeLog(LogMsg, &quot;./stat.log&quot;)
-</code></pre><p>}</p>
-<p>func writeLog(msg string, logPath string) {<br>    fd, _ := os.OpenFile(logPath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)<br>    defer fd.Close()<br>    content := strings.Join([]string{msg, “\r\n”}, “”)<br>    buf := []byte(content)<br>    fd.Write(buf)<br>}</p>
-<p>前边提到我们扣库存时要考虑竞态条件，我们这里是使用 Channel 避免并发的读写，保证了请求的高效顺序执行。我们将接口的返回信息写入到了 ./stat.log 文件方便做压测统计。</p>
-<p>单机服务压测</p>
-<p>开启服务，我们使用 AB 压测工具进行测试：</p>
-<p>ab -n 10000 -c 100 <a href="http://127.0.0.1:3005/buy/ticket" target="_blank" rel="noopener">http://127.0.0.1:3005/buy/ticket</a></p>
-<p>下面是我本地低配 Mac 的压测信息：</p>
-<p>This is ApacheBench, Version 2.3 &lt;$revision: 1826891=””&gt;<br>Copyright 1996 Adam Twiss, Zeus Technology Ltd, <a href="http://www.zeustech.net/" target="_blank" rel="noopener">http://www.zeustech.net/</a><br>Licensed to The Apache Software Foundation, <a href="http://www.apache.org/" target="_blank" rel="noopener">http://www.apache.org/</a></p>
-<p>Benchmarking 127.0.0.1 (be patient)<br>Completed 1000 requests<br>Completed 2000 requests<br>Completed 3000 requests<br>Completed 4000 requests<br>Completed 5000 requests<br>Completed 6000 requests<br>Completed 7000 requests<br>Completed 8000 requests<br>Completed 9000 requests<br>Completed 10000 requests<br>Finished 10000 requests</p>
-<p>Server Software:<br>Server Hostname:        127.0.0.1<br>Server Port:            3005</p>
-<p>Document Path:          /buy/ticket<br>Document Length:        29 bytes</p>
-<p>Concurrency Level:      100<br>Time taken for tests:   2.339 seconds<br>Complete requests:      10000<br>Failed requests:        0<br>Total transferred:      1370000 bytes<br>HTML transferred:       290000 bytes<br>Requests per second:    4275.96 [#/sec] (mean)<br>Time per request:       23.387 [ms] (mean)<br>Time per request:       0.234 [ms] (mean, across all concurrent requests)<br>Transfer rate:          572.08 [Kbytes/sec] received</p>
-<p>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:        0    8  14.7      6     223<br>Processing:     2   15  17.6     11     232<br>Waiting:        1   11  13.5      8     225<br>Total:          7   23  22.8     18     239</p>
-<p>Percentage of the requests served within a certain time (ms)<br>  50%     18<br>  66%     24<br>  75%     26<br>  80%     28<br>  90%     33<br>  95%     39<br>  98%     45<br>  99%     54<br> 100%    239 (longest request)</p>
-<p>根据指标显示，我单机每秒就能处理 4000+ 的请求，正常服务器都是多核配置，处理 1W+ 的请求根本没有问题。</p>
-<p>而且查看日志发现整个服务过程中，请求都很正常，流量均匀，Redis 也很正常：</p>
-<p>//stat.log<br>…<br>result:1,localSales:145<br>result:1,localSales:146<br>result:1,localSales:147<br>result:1,localSales:148<br>result:1,localSales:149<br>result:1,localSales:150<br>result:0,localSales:151<br>result:0,localSales:152<br>result:0,localSales:153<br>result:0,localSales:154<br>result:0,localSales:156<br>…</p>
 <p>总结回顾</p>
 <p>总体来说，秒杀系统是非常复杂的。我们这里只是简单介绍模拟了一下单机如何优化到高性能，集群如何避免单点故障，保证订单不超卖、不少卖的一些策略</p>
 <p>完整的订单系统还有订单进度的查看，每台服务器上都有一个任务，定时的从总库存同步余票和库存信息展示给用户，还有用户在订单有效期内不支付，释放订单，补充到库存等等。</p>
@@ -1214,8 +1132,7 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
 <p>这点在 Nginx、Node.JS、Redis 上都能体现，他们处理网络请求使用的 Epoll 模型，用实践告诉了我们单线程依然可以发挥强大的威力。</p>
 <p>服务器已经进入了多核时代，Go 语言这种天生为并发而生的语言，完美的发挥了服务器多核优势，很多可以并发处理的任务都可以使用并发来解决，比如 Go 处理 HTTP 请求时每个请求都会在一个 Goroutine 中执行。</p>
 <p>总之，怎样合理的压榨 CPU，让其发挥出应有的价值，是我们一直需要探索学习的方向。</p>
-<p>热门内容：<br>1、《历史文章分类导读列表！精选优秀博文都在这里了！》<br>2、优化后的 Spring Boot 启动究竟能有多快？<br>3、Spring 常犯的十大错误，这坑你踩过吗？<br>4、不说“分布式事务”理论，直接上大厂解决方案，绝对实用！<br>5、阿里巴巴程序员常用的 15 款开发者工具！你知道几个？<br>6、七个开源的 Spring Boot 前后端分离项目，一定要收藏！<br>7、用 Git 和 Github 提高效率的 10 个技巧！<br>8、警惕，MyBatis的size()方法竟然有坑！<br>9、面试官：线程顺序执行,这么多答案你都答不上来？<br>10、手把手教你重构乱糟糟的代码</p>
-<h1 id="经典的分布式电商系统架构"><a href="#经典的分布式电商系统架构" class="headerlink" title="经典的分布式电商系统架构"></a>经典的分布式电商系统架构</h1><p><img src="/2019/11/05/秒杀方案/电商系统架构图.png" alt></p>
+<h1 id="经典的分布式电商系统架构"><a href="#经典的分布式电商系统架构" class="headerlink" title="经典的分布式电商系统架构"></a>经典的分布式电商系统架构</h1><p><img src="/2019/11/05/电商架构/电商系统架构图.png" alt></p>
 <p><sub>设置下标</sub><br>Service 层主要由几大模块组成:</p>
 <pre><code>* 商品后台管理模块 
 * ES搜索服务
@@ -1228,6 +1145,7 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
 </code></pre><p><font size="3" color="green" fece="微软雅黑">————-分割线——————</font></p>
 <h1 id="经典的购物车实现方案"><a href="#经典的购物车实现方案" class="headerlink" title="经典的购物车实现方案"></a>经典的购物车实现方案</h1><p>1.1. 购物车常见实现方式<br>传统的做法是使用关系型数据库，比如mysql，建立一个cat购物车表，把相关的购物车产品信息都放到数据库里面。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h1><p>try{}  catch {} 打日志 ，做日志补偿  </p>
 
         
       
@@ -1468,7 +1386,7 @@ writeLog(LogMsg, &quot;./stat.log&quot;)
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 02:57:00" itemprop="dateModified" datetime="2020-03-14T02:57:00+08:00">2020-03-14</time>
+                <time title="修改时间：2020-03-29 14:07:57" itemprop="dateModified" datetime="2020-03-29T14:07:57+08:00">2020-03-29</time>
               </span>
             
           
@@ -1568,7 +1486,7 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

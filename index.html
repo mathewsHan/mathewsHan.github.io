@@ -303,7 +303,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/macOS使用问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/小程序开发/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -318,7 +318,97 @@
         <h1 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019/12/14/macOS使用问题/" class="post-title-link" itemprop="url">macOS使用问题</a>
+            <a href="/2020/03/18/小程序开发/" class="post-title-link" itemprop="url">小程序开发</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-18 00:37:49" itemprop="dateCreated datePublished" datetime="2020-03-18T00:37:49+08:00">2020-03-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-31 21:05:25" itemprop="dateModified" datetime="2020-03-31T21:05:25+08:00">2020-03-31</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="non-writable-modification-of-global-variable-“App”-is-not-allowed-when-using-plugins-at-app-json"><a href="#non-writable-modification-of-global-variable-“App”-is-not-allowed-when-using-plugins-at-app-json" class="headerlink" title="[non-writable] modification of global variable “App” is not allowed when using plugins at app.json."></a>[non-writable] modification of global variable “App” is not allowed when using plugins at app.json.</h1><p>2018-10-09<br>使用插件时，为了保护小程序和插件，全局变量不能修改，请检查代码中是否有对 Page 和 App 两个全局量做了改动</p>
+<p>// 小程序的目录结构<br>1.app.js是小程序的脚本代码。</p>
+<pre><code>  我们可以在这个文件中监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据。
+</code></pre><p>2.app.json 是对整个小程序的全局配置。</p>
+<pre><code>   我们可以在这个文件中配置小程序是由哪些页面组成，配置小程序的窗口背景色，配置导航条样式，配置默认标题。注意该文件不可添加任何注释。
+</code></pre><p>3.app.wxss 是整个小程序的公共样式表。</p>
+<pre><code>   我们可以在页面组件的 class 属性上直接使用 app.wxss 中声明的样式规则。全局样式，
+</code></pre><p>4.创建页面pages</p>
+<pre><code>  如:index 页面和 logs 页面，即欢迎页和小程序启动日志的展示页。
+
+ 微信小程序中的每一个页面的【路径+页面名】都需要写在 app.json 的 pages 中，且 pages 中的第一个页面是小程序的首页。
+</code></pre>
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/14/macOS和开发工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MathewsHan">
+      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/12/14/macOS和开发工具/" class="post-title-link" itemprop="url">macOS使用问题</a>
           
         </h1>
 
@@ -344,7 +434,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 02:47:57" itemprop="dateModified" datetime="2020-03-14T02:47:57+08:00">2020-03-14</time>
+                <time title="修改时间：2020-03-30 01:50:28" itemprop="dateModified" datetime="2020-03-30T01:50:28+08:00">2020-03-30</time>
               </span>
             
           
@@ -360,20 +450,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="解决Homebrew下载更新极慢的问题"><a href="#解决Homebrew下载更新极慢的问题" class="headerlink" title="解决Homebrew下载更新极慢的问题"></a>解决Homebrew下载更新极慢的问题</h1><p> Posted on 2019-05-04<br>近期使用Homebrew去下载安装软件的时候总是卡在update阶段，时间非常久，难以忍受。记录一下解决方法，</p>
-<p>症状<br>使用Homebrew安装软件的时候一直卡在Update阶段。同时发现从github.com下载文件也极度缓慢（几十 KB/s）。</p>
-<p>问题定位<br>使用brew update —verbose观察update过程：</p>
-<p>发现update卡在从github仓库获取文件的过程。这个结果与手动从github下载文件慢的症状相互印证。<br>解决<br>由于问题主要是在国内网络环境github下载慢，因此尝试：</p>
-<p>更换使用国内的homebrew镜像源；<br>使用代理访问github.com。<br>更换Homebrew源<br>使用以下命令更换国内阿里云上的homebrew镜像：</p>
-<h1 id="替换brew-git"><a href="#替换brew-git" class="headerlink" title="替换brew.git:"></a>替换brew.git:</h1><p>cd “$(brew —repo)”<br>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/brew.git" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/brew.git</a></p>
-<h1 id="替换homebrew-core-git"><a href="#替换homebrew-core-git" class="headerlink" title="替换homebrew-core.git:"></a>替换homebrew-core.git:</h1><p>cd “$(brew —repo)/Library/Taps/homebrew/homebrew-core”<br>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/homebrew-core.git" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-core.git</a></p>
-<h1 id="替换homebrew-bottles"><a href="#替换homebrew-bottles" class="headerlink" title="替换homebrew-bottles:"></a>替换homebrew-bottles:</h1><p>echo ‘export HOMEBREW_BOTTLE_DOMAIN=<a href="https://mirrors.aliyun.com/homebrew/homebrew-bottles" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-bottles</a>‘ &gt;&gt; ~/.zshrc<br>source ~/.zshrc<br>替换后，问题依旧，继续查看日志：<br>可以看到由于homebrew-cask的仓库依然指向了Github，这个过程还是慢。阿里云的镜像站没有提供homebrew-cask，进一步搜索找到USTC镜像站，该站提供了homebrew-cask的源。使用上述同样的命令更换源：</p>
-<h1 id="替换homebrew-cask-git"><a href="#替换homebrew-cask-git" class="headerlink" title="替换homebrew-cask.git:"></a>替换homebrew-cask.git:</h1><p>cd “$(brew —repo)”/Library/Taps/homebrew/homebrew-cask<br>git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-cask.git" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/homebrew-cask.git</a><br>测试发现问题解决。</p>
-<p>Note: Homebrew Bottles源的更换方法详见这里。<br>官方源地址：<br><a href="https://github.com/Homebrew/brew.git" target="_blank" rel="noopener">https://github.com/Homebrew/brew.git</a><br><a href="https://github.com/Homebrew/homebrew-core.git" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core.git</a><br><a href="https://github.com/Homebrew/homebrew-cask" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-cask</a></p>
+          <p>//——————————-macOS———————————————</p>
+<h1 id="解决Homebrew下载更新极慢的问题-更换国内镜像源"><a href="#解决Homebrew下载更新极慢的问题-更换国内镜像源" class="headerlink" title="解决Homebrew下载更新极慢的问题,更换国内镜像源"></a>解决Homebrew下载更新极慢的问题,更换国内镜像源</h1><p> Posted on 2019-05-04<br>使用brew update —verbose观察update过程：</p>
+<p>发现update卡在从github仓库获取文件的过程。这个结果与手动从github下载文件慢的症状相互印证。<br>更换使用国内的homebrew镜像源；使用代理访问github.com。更换Homebrew源,使用以下命令更换国内阿里云上的homebrew镜像：<br>1.替换brew.git:<br>cd “$(brew —repo)”<br>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/brew.git" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/brew.git</a><br>2.替换homebrew-core.git:<br>cd “$(brew —repo)/Library/Taps/homebrew/homebrew-core”<br>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/homebrew-core.git" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-core.git</a><br>3.替换homebrew-bottles:<br>echo ‘export HOMEBREW_BOTTLE_DOMAIN=<a href="https://mirrors.aliyun.com/homebrew/homebrew-bottles" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-bottles</a>‘ &gt;&gt; ~/.zshrc<br>source ~/.zshrc<br>替换后，问题依旧，继续查看日志：<br>可以看到由于homebrew-cask的仓库依然指向了Github，这个过程还是慢。阿里云的镜像站没有提供homebrew-cask，进一步搜索找到USTC镜像站，该站提供了homebrew-cask的源。使用上述同样的命令更换源：<br>4.替换homebrew-cask.git:<br>cd “$(brew —repo)”/Library/Taps/homebrew/homebrew-cask<br>git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-cask.git" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/homebrew-cask.git</a><br>测试发现问题解决。<br>官方源地址：<br><a href="https://github.com/Homebrew/brew.git" target="_blank" rel="noopener">https://github.com/Homebrew/brew.git</a><br><a href="https://github.com/Homebrew/homebrew-core.git" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core.git</a><br><a href="https://github.com/Homebrew/homebrew-cask" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-cask</a></p>
+<h1 id="homebrew-常用命令"><a href="#homebrew-常用命令" class="headerlink" title="homebrew  常用命令"></a>homebrew  常用命令</h1><p>1、通过brew install安装应用最先是放在/usr/local/Cellar/目录下。<br>有些应用会自动创建软链接放在/usr/bin或者/usr/sbin，同时也会将整个文件夹放在/usr/local<br>可以使用 brew list 软件名 (比如 brew list oclint)确定安装位置</p>
+<p>例如 :  brew list oclint<br>sudo find / -name “autojump”<br>//查找autojump 安装位置<br>brew config | grep HOMEBREW<br>//查找 config配置文件<br>brew list           列出已安装的软件<br>brew update     更新brew<br>brew home       用浏览器打开brew的官方网站<br>brew info         显示软件信息<br>brew deps        显示包依赖</p>
+<h1 id="homebrew-安装-nginx"><a href="#homebrew-安装-nginx" class="headerlink" title="homebrew  安装  nginx  ,"></a>homebrew  安装  nginx  ,</h1><p>brew install nginx</p>
+<p>open /usr/local/Cellar/nginx<br>//servic nginx start<br>/usr/sbin/nginx          yum安装的nginx也可以使用<br>/usr/local/nginx/sbin/nginx -t<br>/usr/local/nginx/sbin/nginx -s reload<br>/usr/local/nginx/sbin/nginx -s stop</p>
+<h1 id="macOS-使用的命令行"><a href="#macOS-使用的命令行" class="headerlink" title="macOS 使用的命令行"></a>macOS 使用的命令行</h1><p>lsof -i :8080</p>
 <h1 id="zsh-与-macOS原生bash"><a href="#zsh-与-macOS原生bash" class="headerlink" title="zsh 与  macOS原生bash"></a>zsh 与  macOS原生bash</h1><p>两者切换问题 ：zsh切换bash bash切换zsh<br>切换bash<br>chsh -s /bin/bash</p>
 <p>切换zsh<br>chsh -s /bin/zsh</p>
+<p>chmod  777   -R<br>chmod  -rwx rwx  rwx   -R<br>     拥有者   群组   其他人 </p>
+<p>直接查阅文档可使用  cat/tac(反向显示)/nl 等命令,   cat是  concatenate的缩写</p>
 <h1 id="macOS的环境变量配置"><a href="#macOS的环境变量配置" class="headerlink" title="macOS的环境变量配置"></a>macOS的环境变量配置</h1><p>Mac系统的环境变量，加载顺序为：<br>/etc/profile<br>/etc/paths<br>~/.bash_profile<br>~/.bash_login<br>~/.profile<br>~/.bashrc</p>
-<h1 id="macOS命令"><a href="#macOS命令" class="headerlink" title="macOS命令"></a>macOS命令</h1><p>空格 预览 word 等<br>Commacnd + n 新建窗口<br>command + shift  + 3  截取全屏<br>command + shift  + 3  截取区域<br>commoand  +  tab +  -&gt;<br>command + 2（数字 ） 跳到浏览器指定页面<br>command  +  option +  w  关闭所有窗口  </p>
+<h1 id="macOS快捷键"><a href="#macOS快捷键" class="headerlink" title="macOS快捷键"></a>macOS快捷键</h1><p>空格 预览 word 等<br>Commacnd + n 新建窗口<br>command + shift  + 3  截取全屏<br>command + shift  + 3  截取区域<br>commoand  +  tab +  -&gt;<br>command + 2（数字 ） 跳到浏览器指定页面</p>
+<p>显示简介—打方方式——-全部更改———-</p>
+<p>//———————linux内核()—————-<br>fork() 函数</p>
+<p>poll()<br>epoll()<br>//—————————————开发工具————————————</p>
+<h1 id="gradle-构建"><a href="#gradle-构建" class="headerlink" title="gradle 构建"></a>gradle 构建</h1><p>1.依赖管理<br>相较于传统  maven构建 , maven 使用 xml 管理项目的基本信息，构建过程，环境信息，依赖信息等。<br>而  gradle  , 用 :链接 数值 ， compile 函数引入依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath(&quot;org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;) &#123;</span><br><span class="line">        exclude module: &quot;spring-boot-starter-tomcat&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-security&quot;)</span><br><span class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-data-jpa&quot;)</span><br><span class="line">    testCompile(&quot;mysql:mysql-connector-java:5.1.25&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>构建生命周期  maven   &amp; grandle<br>在Maven中每个任务的goal称作Mojo</li>
+</ol>
 
         
       
@@ -518,7 +615,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-11 21:12:01" itemprop="dateModified" datetime="2020-03-11T21:12:01+08:00">2020-03-11</time>
+                <time title="修改时间：2020-03-30 05:52:04" itemprop="dateModified" datetime="2020-03-30T05:52:04+08:00">2020-03-30</time>
               </span>
             
           
@@ -535,15 +632,14 @@
 
       
           <p>所谓的钩子函数和拦截器的关系,hook函数<br>shell只定义了一个非常简单的编程语言，所以，如果你的脚本程序复杂度较高，或者要操作的数据结构比较复杂，那么还是应该使用Python、Perl这样的脚本语言，或者是你本来就已经很擅长的高级语言。因为sh和bash在这方面很弱，比如说：</p>
-<p>它的函数只能返回字串，无法返回数组<br>它不支持面向对象，你无法实现一些优雅的设计模式<br>它是解释型的，一边解释一边执行，连PHP那种预编译都不是，如果你的脚本包含错误(例如调用了不存在的函数)，只要没执行到这一行，就不会报错</p>
+<p>它的函数只能返回字串，无法返回数组<br>它不支持面向对象，你无法实现一些优雅的设计模式<br>它是解释型的，一边解释一边执行，连PHP那种预编译都不是</p>
 <h1 id="开发原则"><a href="#开发原则" class="headerlink" title="开发原则"></a>开发原则</h1><p>1.开闭  (OCP   open-close Principle )</p>
 <ol>
-<li>依赖倒置  (Dependency   Inversion  Principle  ,DIP)实际上就是依赖注入</li>
+<li>依赖倒置  (Dependency   Inversion  Principle  ,DIP)实际上就是依赖注入<br>3.迪米特原则</li>
 </ol>
-<p>3.迪米特原则</p>
 <hr>
 <p>华丽分割线</p>
-<h1 id="例子：多流程判断-，if-else"><a href="#例子：多流程判断-，if-else" class="headerlink" title="例子：多流程判断 ，if-else"></a>例子：多流程判断 ，if-else</h1><p>典型场景 ： 支付渠道<br>需求分析 ： 共性 ，个性 ?</p>
+<h1 id="例子：多流程判断-，干掉-if-else-的手段—策略模式"><a href="#例子：多流程判断-，干掉-if-else-的手段—策略模式" class="headerlink" title="例子：多流程判断 ，干掉 if-else 的手段—策略模式"></a>例子：多流程判断 ，干掉 if-else 的手段—策略模式</h1><p>典型场景 ： 支付渠道<br>需求分析 ： 共性 ，个性 ?</p>
 <p>spring 1代  ： 配置文件</p>
 <p>/**</p>
 <ul>
@@ -585,6 +681,34 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
 <p> //反射创建 实例<br> decalred<br> // InnerClassSingleton.getInstnce();获得实例</p>
 <p>——饿汉模式<br> hungrySingletonTest </p>
 <p> javac  -p -v  xxx .class </p>
+<h1 id="代理模式-和AOP编程"><a href="#代理模式-和AOP编程" class="headerlink" title="代理模式  和AOP编程"></a>代理模式  和AOP编程</h1><p>极简介绍代理模式，绝不花里胡哨<br>假设以一个Hell接口<br>public interface IHello {</p>
+<p>   void sayHello(String name);</p>
+<p>   void sayGoogBye(String name);</p>
+<p>}<br>和一个接口实现类<br>public class Helloimplements implements IHello {<br>    @Override<br>    public void sayHello(String name) {<br>        System.out.println(“Hello “ + name);<br>    }<br>    @Override<br>    public void sayGoogBye(String name) {<br>        System.out.println(name+” GoodBye!”);<br>    }<br>}<br>想要在 sayHello和sayGoodBye上都加入 操作日志这个动作咋办呢？<br>首先想到代理模式 传入被代理类的引用,在两个操作上都加上打印操作日志动作<br>public class StaticProxy implements IHello {</p>
+<p>  private IHello iHello;</p>
+<p>  public void setImpl(IHello impl){</p>
+<p>  this.iHello = impl;</p>
+<p>}<br>@Override</p>
+<p>public void sayHello(String name) {</p>
+<pre><code>System.out.println(&quot;问候之前的日志记录...&quot;);
+
+iHello.sayHello(name);
+</code></pre><p>}<br>@Override</p>
+<p>public void sayGoogBye(String name) {</p>
+<pre><code> System.out.println(&quot;问候之前的日志记录...&quot;);
+
+ iHello.sayGoogBye(name);
+</code></pre><p>}</p>
+<p>static public void main(String[] arg) {</p>
+<pre><code> Helloimplements hello = new Helloimplements();
+
+ StaticProxy proxy = new StaticProxy();
+
+ proxy.setImpl(hello);
+
+ proxy.sayHello(&quot;Jerry&quot;);
+</code></pre><p>  }</p>
+<p>}<br>s<br>InvocationHandler是一个JDK提供的标准接口。看下面的代码：<br>import java.lang.reflect.InvocationHandler;<br>import java.lang.reflect.Method;<br>import java.lang.reflect.Proxy;<br>public class DynaProxyHello implements InvocationHandler {<br>    private Object delegate;<br>    public Object bind(Object delegate) {<br>        this.delegate = delegate;<br>        return Proxy.newProxyInstance(<br>        this.delegate.getClass().getClassLoader(), this.delegate<br>        .getClass().getInterfaces(), this);<br>    }<br>    public Object invoke(Object proxy, Method method, Object[] args)<br>    throws Throwable {<br>        Object result = null;<br>        try {<br>            System.out.println(“问候之前的日志记录…”);<br>            // JVM通过这条语句执行原来的方法(反射机制)<br>            result = method.invoke(this.delegate, args);<br>        }<br>        catch (Exception e) {<br>            e.printStackTrace();<br>        }<br>        return result;<br>    }<br>如何使用jdk Proxy ,直接把实现类的引用绑定到 代理类上<br>static public void main(String[] arg) {<br>    DynaProxyHello helloproxy = new DynaProxyHello();<br>    Helloimplements hello = new Helloimplements();<br>    IHello ihello = (IHello) helloproxy.bind(hello);<br>    ihello.sayHello(“Jerry”);<br>}<br>这里的 invoke 实际是由jdk生成的代理类 DynaProxyHello.invoke执行的<br>而且invoke的正确理解应该是和方法绑定的一个切点,而不是方法本身 </p>
 
         
       
@@ -648,7 +772,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-16 17:22:41" itemprop="dateModified" datetime="2019-12-16T17:22:41+08:00">2019-12-16</time>
+                <time title="修改时间：2020-03-24 01:32:03" itemprop="dateModified" datetime="2020-03-24T01:32:03+08:00">2020-03-24</time>
               </span>
             
           
@@ -666,6 +790,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
       
           <p>从 CAP理论说起<br>![CAP.png]</p>
 <p>强一致性: 复制同步，<br>弱一致性 : 复制异步 </p>
+<p>// Copy  On  Wirte  机制 </p>
 
         
       
@@ -729,7 +854,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-04 02:16:51" itemprop="dateModified" datetime="2019-12-04T02:16:51+08:00">2019-12-04</time>
+                <time title="修改时间：2020-03-30 18:06:12" itemprop="dateModified" datetime="2020-03-30T18:06:12+08:00">2020-03-30</time>
               </span>
             
           
@@ -745,8 +870,9 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="多线程-几种同步问题"><a href="#多线程-几种同步问题" class="headerlink" title="多线程 几种同步问题"></a>多线程 几种同步问题</h1><ol>
-<li>synchronized关键字 s</li>
+          <h1 id="多线程-几种同步问题"><a href="#多线程-几种同步问题" class="headerlink" title="多线程 几种同步问题"></a>多线程 几种同步问题</h1><p>JMM 内存模型 目的是屏蔽硬件差异</p>
+<ol>
+<li>synchronized关键字 </li>
 </ol>
 <p>2.同步代码块<br>synchronized 关键字修饰的语句块<br>所有 被修饰的语句块会被自动加上内置锁,从而实现同步</p>
 <ol>
@@ -763,6 +889,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
 <p>ThreadLocal 类的常用方法:<br>ThreadLocal() : 创建一个线程本地变量<br>get() : 返回此线程局部变量的当前线程副本中的值<br>initialValue() : 返回此线程局部变量的当前线程的”初始值”<br>set(T value) : 将此线程局部变量的当前线程副本中的值设置为value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Bank&#123;</span><br><span class="line">            //使用ThreadLocal类管理共享变量account</span><br><span class="line">            private static ThreadLocal&lt;Integer&gt; account = new ThreadLocal&lt;Integer&gt;()&#123;</span><br><span class="line">                @Override</span><br><span class="line">                protected Integer initialValue()&#123;</span><br><span class="line">                    return 100;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            public void save(int money)&#123;</span><br><span class="line">                account.set(account.get()+money);</span><br><span class="line">            &#125;</span><br><span class="line">            public int getAccount()&#123;</span><br><span class="line">                return account.get();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
 <p>//  ThreadLocal 设置内部 的ThreadLocalMap值  ，<br>这样对于不同的线程得到的就是不同的ThreadLocalMap</p>
 <p>threadLocal 被应用于  struts2(ActionContext) 和 hibernate 中 </p>
+<h1 id="线程池-ThreadPoolExcutor-原理"><a href="#线程池-ThreadPoolExcutor-原理" class="headerlink" title="线程池  ThreadPoolExcutor 原理"></a>线程池  ThreadPoolExcutor 原理</h1><p>任务  Runnable   Callable<br>任务不能 无限往仓库里提交</p>
 
         
       
@@ -893,7 +1020,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 02:32:28" itemprop="dateModified" datetime="2020-03-14T02:32:28+08:00">2020-03-14</time>
+                <time title="修改时间：2020-03-29 11:18:53" itemprop="dateModified" datetime="2020-03-29T11:18:53+08:00">2020-03-29</time>
               </span>
             
           
@@ -909,7 +1036,9 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>可以被独立部署， 更新 ，scale  , 和重启</p>
+          <h1 id="springboot-整合-springcloud"><a href="#springboot-整合-springcloud" class="headerlink" title="springboot 整合   springcloud"></a>springboot 整合   springcloud</h1><h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>可以被独立部署， 更新 ，scale  , 和重启</p>
+<h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><p>面向切面编程 </p>
+<p>编程的流程方向不同: 横向与纵向</p>
 
         
       
@@ -932,7 +1061,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/30/zookeeper/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/JDK动态代理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -947,74 +1076,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
         <h1 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019/11/30/zookeeper/" class="post-title-link" itemprop="url">zookeeper</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-30 08:17:46" itemprop="dateCreated datePublished" datetime="2019-11-30T08:17:46+08:00">2019-11-30</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/动态代理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/11/27/动态代理/" class="post-title-link" itemprop="url">动态代理</a>
+            <a href="/2019/11/27/JDK动态代理/" class="post-title-link" itemprop="url">动态代理</a>
           
         </h1>
 
@@ -1040,7 +1102,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-28 23:17:01" itemprop="dateModified" datetime="2019-11-28T23:17:01+08:00">2019-11-28</time>
+                <time title="修改时间：2020-03-29 00:15:31" itemprop="dateModified" datetime="2020-03-29T00:15:31+08:00">2020-03-29</time>
               </span>
             
           
@@ -1057,10 +1119,12 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
 
       
           <p>Foucus  my  conce</p>
+<h1 id="AOP-思想"><a href="#AOP-思想" class="headerlink" title="AOP 思想"></a>AOP 思想</h1><p>两端毫无关联的代码 关联到一起<br>spring 注入的 AOP的代理对象<br>Join point: 拦截点，如某个业务方法。<br>Pointcut: Joinpoint 的表达式，表示拦截哪些方法。一个 Pointcut 对应多个 Joinpoint。</p>
+<p>AOP切面代码织入时机：<br>1 编译期：切面在目标类编译时被织入。这种方式需要特殊的编译器。AspectJ的织入编译器就是以这种方式织入切面的。<br>2 类加载期：切面在目标类加载到JVM时被织入。这种方式需要特殊的类加载器(ClassLoader)，它可以在目标类被引入应用之前增 强该目标类的字节码。AspectJ 5的加载时织入(load-time weaving，LTW)就支持以这种方式织入切面<br>3 运行期：切面在应用运行的某个时刻被织入。一般情况下，在织入切面时，AOP容器会为目标对象动态地创建一个代理对象。Spring AOP就是以这种方式织入切面的。</p>
 <h1 id="java-动态代理"><a href="#java-动态代理" class="headerlink" title="java 动态代理"></a>java 动态代理</h1><p>何谓：动态 ？就是与运行时动态对某些东西代理, (而不是对象一生成就无法改变),代理它做了其他事情</p>
 <p>我所理解的代理的本质，  通过代理类对象执行 被代理对象（原对象）中的方法 ，并在原有方法前后进行增强 </p>
 <p>举个例子 , 假设有程序员 JavaDevelop  </p>
-<h1 id="Proxy-newProxyInstance"><a href="#Proxy-newProxyInstance" class="headerlink" title="Proxy.newProxyInstance()"></a>Proxy.newProxyInstance()</h1><p><img src="/2019/11/27/动态代理/JDK动态代理.png" alt><br>为什么构造代理类  Developer时 要传入类加载和 zack 的接口<br>Developer  zackProxy   这个类不是通过implements 关键词实现的类,<br>zackProxy  被代理后生成的对象， 是通过 Developper接口字节码增强方式创建的类，属于临时构造的实现类对象 </p>
+<h1 id="Proxy-newProxyInstance"><a href="#Proxy-newProxyInstance" class="headerlink" title="Proxy.newProxyInstance()"></a>Proxy.newProxyInstance()</h1><p><img src="/2019/11/27/JDK动态代理/JDK动态代理.png" alt><br>为什么构造代理类  Developer时 要传入类加载和 zack 的接口<br>Developer  zackProxy   这个类不是通过implements 关键词实现的类,<br>zackProxy  被代理后生成的对象， 是通过 Developper接口字节码增强方式创建的类，属于临时构造的实现类对象 </p>
 <h1 id="再来看-newProxyInstance-的-三个参数-loader-interfaces-h"><a href="#再来看-newProxyInstance-的-三个参数-loader-interfaces-h" class="headerlink" title="再来看 newProxyInstance()的 三个参数 loader, interfaces, h"></a>再来看 newProxyInstance()的 三个参数 loader, interfaces, h</h1><p>loder，选用的类加载器。因为代理的是zack，所以一般都会用加载zack的类加载器。<br>interfaces，被代理的类所实现的接口，这个接口可以是多个。<br>h，绑定代理类的一个方法。<br>loder和interfaces基本就是决定了这个类到底是个怎么样的类。而h是InvocationHandler，决定了这个代理类到底是多了什么功能。所以动态代理的内容重点就是这个InvocationHandler。</p>
 <p>查看源码得知， c 作用就是，当代理对象的原本方法被调用时, 会绑定执行一个方法， 这个方法就是<br>invocationHandler 里定义的内容 ,同时会替代原本方法的结果返回 </p>
 <p>InvocationHandler接收三个参数 : proxy, method ,args  </p>
@@ -1116,11 +1180,19 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
                 
               
 
-              <time title="创建时间：2019-11-24 04:37:03 / 修改时间：04:53:58" itemprop="dateCreated datePublished" datetime="2019-11-24T04:37:03+08:00">2019-11-24</time>
+              <time title="创建时间：2019-11-24 04:37:03" itemprop="dateCreated datePublished" datetime="2019-11-24T04:37:03+08:00">2019-11-24</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-18 00:39:04" itemprop="dateModified" datetime="2020-03-18T00:39:04+08:00">2020-03-18</time>
+              </span>
             
           
 
@@ -1138,7 +1210,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
           <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>首先让我们看几个基本的消息系统术语：<br>Kafka将消息以topic为单位进行归纳。<br>将向Kafka topic发布消息的程序成为producers.<br>将预订topics并消费消息的程序成为consumer.<br>Kafka以集群的方式运行，可以由一个或多个服务组成，每个服务叫做一个broker.<br>producers通过网络将消息发送到Kafka集群，集群向消费者提供消息，如下图所示：</p>
 <p>分布式发布订阅消息系统 Kafka 架构设计 <a href="http://www.linuxidc.com/Linux/2013-11/92751.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2013-11/92751.htm</a><br>Apache Kafka 代码实例 <a href="http://www.linuxidc.com/Linux/2013-11/92754.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2013-11/92754.htm</a></p>
 <h1 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h1><p>每个分区在Kafka集群的若干服务中都有副本，这样这些持有副本的服务可以共同处理数据和请求，副本数量是可以配置的。副本使Kafka具备了容错能力。<br>每个分区都由一个服务器作为“leader”，零或若干服务器作为“followers”,leader负责处理消息的读和 写，followers则去复制leader.如果leader down了，followers中的一台则会自动成为leader。集群中的每个服务都会同时扮演两个角色：作为它所持有的一部分分区的leader，同 时作为其他分区的followers，这样集群就会据有较好的负载均衡。</p>
-
+<h1 id="AMQ"><a href="#AMQ" class="headerlink" title="AMQ"></a>AMQ</h1>
         
       
     </div>
@@ -1210,7 +1282,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

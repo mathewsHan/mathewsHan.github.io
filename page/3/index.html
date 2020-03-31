@@ -303,7 +303,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/java13新特性/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/java新特性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -318,7 +318,7 @@
         <h1 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019/10/28/java13新特性/" class="post-title-link" itemprop="url">1.8lambda表达式 和 java13新特性</a>
+            <a href="/2019/10/28/java新特性/" class="post-title-link" itemprop="url">1.8lambda表达式 和 java13新特性</a>
           
         </h1>
 
@@ -344,7 +344,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-30 04:46:15" itemprop="dateModified" datetime="2019-11-30T04:46:15+08:00">2019-11-30</time>
+                <time title="修改时间：2020-03-18 14:45:02" itemprop="dateModified" datetime="2020-03-18T14:45:02+08:00">2020-03-18</time>
               </span>
             
           
@@ -360,7 +360,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="java-1-8中的-lambda表达式-和-stream-API"><a href="#java-1-8中的-lambda表达式-和-stream-API" class="headerlink" title="java  1.8中的  lambda表达式 和  stream API"></a>java  1.8中的  lambda表达式 和  stream API</h1><p>functional  programing  ，函数可以作为参数进行传递,把行为参数化<br>1.方法体为表达式, 该<br>(parameter)  -&gt;  expresssion<br>(ina ,int b ) -&gt;     return  a + b </p>
+          <h1 id="since-jdk-1-5-关于注解-Annotation"><a href="#since-jdk-1-5-关于注解-Annotation" class="headerlink" title="since  jdk 1.5 关于注解 Annotation"></a>since  jdk 1.5 关于注解 Annotation</h1><p>@Target(ElementType.METHOD)<br>@Retention(RetentionPolicy.SOURCE)<br>public @interface Override {</p>
+<p>}<br>这是注解 @Override 的定义，其实它本质上就是 （注解的本质就是一个继承了 Annotation 接口的接口,一种特殊的注释 ）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Override extends Annotation&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而解析一个类或者方法的注解往往有两种形式，一种是编译期直接的扫描，一种是运行期反射<br>典型的就是注解 @Override，一旦编译器检测到某个方法被修饰了 @Override 注解，<br>编译器就会检查当前方法的方法签名是否真正重写了父类的某个方法，也就是比较父类中是否具有一个同样的方法签名。</p>
+<h1 id="还有java当中存在的四个元注解"><a href="#还有java当中存在的四个元注解" class="headerlink" title="还有java当中存在的四个元注解"></a>还有java当中存在的四个元注解</h1><p>@Target：注解的作用目标<br>@Retention：注解的生命周期<br>@Documented：注解是否应当被包含在 JavaDoc 文档中<br>@Inherited：是否允许子类继承该注解</p>
+<h1 id="四个元注解的-使用"><a href="#四个元注解的-使用" class="headerlink" title="四个元注解的 使用"></a>四个元注解的 使用</h1><p>@Target<br>public  @Interface  Target{<br>    ElementType[]   value ;<br>}<br>当 @Target(value ={ ElementType.Field} )</p>
+<p>// @Retention(RetentinoPolicy.)</p>
+<h1 id="Class-类中提供了以下一些方法用于反射注解"><a href="#Class-类中提供了以下一些方法用于反射注解" class="headerlink" title="Class 类中提供了以下一些方法用于反射注解"></a>Class 类中提供了以下一些方法用于反射注解</h1><p>getAnnotation：返回指定的注解<br>isAnnotationPresent：判定当前元素是否被指定注解修饰<br>getAnnotations：返回所有的注解<br>getDeclaredAnnotation：返回本元素的指定注解<br>getDeclaredAnnotations：返回本元素的所有注解，不包含父类继承而来的</p>
+<p>————————————-分割线——————————————————————</p>
+<h1 id="java中的反射"><a href="#java中的反射" class="headerlink" title="java中的反射"></a>java中的反射</h1><p>Reflection enables Java code to discover information about the fields, methods and constructors of loaded classes, and to use reflected fields, methods, and constructors to operate on their underlying counterparts, within security restrictions.<br>通过反射，Java代码可以发现有关已加载类的字段，方法和构造函数的信息，并可以在安全限制内对这些字段，方法和构造函数进行操作。</p>
+<h1 id="java-1-8中的-lambda表达式-和-stream-API"><a href="#java-1-8中的-lambda表达式-和-stream-API" class="headerlink" title="java  1.8中的  lambda表达式 和  stream API"></a>java  1.8中的  lambda表达式 和  stream API</h1><p>functional  programing  ，函数可以作为参数进行传递,把行为参数化<br>1.方法体为表达式, 该<br>(parameter)  -&gt;  expresssion<br>(ina ,int b ) -&gt;     return  a + b </p>
 <ol>
 <li>方法体为代码块, 必须用{}包裹起来,且需要一个 rerurn 返回值<br>(parameter)  -&gt;  expresssion<br>(int a )-&gt; {sout(”a=“+ a )}<br>(int a )-&gt;  {return  a * a }</li>
 </ol>
@@ -483,7 +492,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/报表技术/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/实用功能/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -498,7 +507,7 @@
         <h1 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019/10/24/报表技术/" class="post-title-link" itemprop="url">报表技术,</a>
+            <a href="/2019/10/24/实用功能/" class="post-title-link" itemprop="url">报表技术,</a>
           
         </h1>
 
@@ -524,7 +533,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-14 02:54:37" itemprop="dateModified" datetime="2020-03-14T02:54:37+08:00">2020-03-14</time>
+                <time title="修改时间：2020-03-31 21:06:22" itemprop="dateModified" datetime="2020-03-31T21:06:22+08:00">2020-03-31</time>
               </span>
             
           
@@ -540,9 +549,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="一、-生成Excel格式报表-根据条件查询导出数据"><a href="#一、-生成Excel格式报表-根据条件查询导出数据" class="headerlink" title="一、 生成Excel格式报表_根据条件查询导出数据"></a>一、 生成Excel格式报表_根据条件查询导出数据</h1><pre><code>  使用POI插件生成报表,前端highchart展示 
+          <h1 id="网页禁止浏览-，跳转app下载？"><a href="#网页禁止浏览-，跳转app下载？" class="headerlink" title="网页禁止浏览  ，跳转app下载？"></a>网页禁止浏览  ，跳转app下载？</h1><h1 id="一、-生成Excel格式报表-根据条件查询导出数据"><a href="#一、-生成Excel格式报表-根据条件查询导出数据" class="headerlink" title="一、 生成Excel格式报表_根据条件查询导出数据"></a>一、 生成Excel格式报表_根据条件查询导出数据</h1><pre><code>   使用POI插件生成报表,从数据库读取数据封装至实体, 写入excel文件,写流
+组合的实体类可以前端highchart展示 
 *在action中完成数据写到excel文件中，和把文件使用流的形式写到浏览器
-
 
 逻辑：新建excel文件,新建sheet,新建row,新建cell单元格, 单元格中写数据
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">代码:</span><br><span class="line">	List&lt;WayBill&gt;  wayBills =  wayBillService.findData(model);</span><br><span class="line">	</span><br><span class="line">	//生成excel文件</span><br><span class="line">	HSSWorkbook  hssWorkbook  = new  HSSWorkBook();</span><br><span class="line">	HSSSheet   sheet   =  hssWorkbook.createSheet(&quot;下单数据&quot;)；</span><br><span class="line">	</span><br><span class="line">	HSSRow headRow  =  sheet.createRow(0);</span><br><span class="line">	headRow.createCell(0).setCellValue(&quot;运单号&quot;);</span><br><span class="line">	headRow.createCell(1).setCellValue(&quot;寄件人&quot;);</span><br><span class="line">	.......</span><br><span class="line">	headRow.createCell(6).setCellValue(&quot;收件人电话&quot;);</span><br><span class="line">	</span><br><span class="line">	//填充表格数据  </span><br><span class="line">	for(WayBill  wayBill   : wayBills )&#123;</span><br><span class="line">		HSSRow  dataRow =  sheet.createRow(sheet.getLastRowNum()+1);</span><br><span class="line">		dataRow.createCell(0).setCellValue(wayBill.getWayBillNum());</span><br><span class="line">		......</span><br><span class="line">		dataRow.crrateCell(6).setCellValue(waybill.getRecAddress());</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	.......</span><br><span class="line">	//下载导出  </span><br><span class="line">  //设置头信息</span><br><span class="line">  ServletApplicationContext.getResponse().setContentType(&quot;application/vnd.ms-excel&quot;);</span><br><span class="line">  String fileName =  &quot;运单数据&quot;；</span><br><span class="line">  String agent =  ServletActionContext.getRequest().getHeader(&quot;user-agent &quot;);</span><br><span class="line">  fileName = FileUtils.encoderDownloaderFileName(fileName ,  agent);</span><br><span class="line">  ServletActionContext.getResponse().setHeader(&quot;Content-Disposition&quot;, &quot;attachment;filename=&quot;+filemname);</span><br><span class="line">  ServletOutputStream  outputSteam = ServletActionContext.getResponse().getOutputStream();</span><br><span class="line">  //写流 </span><br><span class="line">  hssWorkbook.write(outputStream);</span><br><span class="line">  hssWorkbook.close();</span><br><span class="line">  //视图层不返回</span><br><span class="line">  return  NONE;</span><br></pre></td></tr></table></figure>
@@ -659,121 +668,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/23/数据结构/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MathewsHan">
-      <meta itemprop="description" content="前沿工程技术实战,源码阅读分享,计算机基础知识分享">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/23/数据结构/" class="post-title-link" itemprop="url">数据结构</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-23 21:51:25" itemprop="dateCreated datePublished" datetime="2019-10-23T21:51:25+08:00">2019-10-23</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-05 21:31:24" itemprop="dateModified" datetime="2020-03-05T21:31:24+08:00">2020-03-05</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>A、回溯法B、动态规划C、分治法</p>
-<h1 id="有关hashMap-与ConcurrentHashMap"><a href="#有关hashMap-与ConcurrentHashMap" class="headerlink" title="有关hashMap  与ConcurrentHashMap"></a>有关hashMap  与ConcurrentHashMap</h1><p><img src="/2019/10/23/数据结构/1.7HashMap结构.png" alt> 散列列表,数组+ 链表的结合体<br>![])(1.8JHashMap.png)  链表在长度大于8的情况变成红黑树,</p>
-<h1 id="HashMap-与HashTable类似的，-只不过是线程安全的-将所有修改-hashTable的代码块都用synchronized-修饰"><a href="#HashMap-与HashTable类似的，-只不过是线程安全的-将所有修改-hashTable的代码块都用synchronized-修饰" class="headerlink" title="HashMap 与HashTable类似的， 只不过是线程安全的 , 将所有修改 hashTable的代码块都用synchronized 修饰"></a>HashMap 与HashTable类似的， 只不过是线程安全的 , 将所有修改 hashTable的代码块都用synchronized 修饰</h1><p>造成： 一个线程在put时 ,其余 线程get的时候被最 ，相当于一个重量级锁<br>HashMap的本质是一个可变长度的数组，在数组中每个位置保存的是一个Entry节点，该节点存储有hash、key、value、next等信息<br>Java7中的HashMap实现与我们在数据结构中学习的类似，对key进行hash，如果冲突了，则添加到链表中。<br>然后查询的时候就先根据hash找到相应的位置，然后根据链表逐一比较，返回相应的value。时间复杂度取决于链表的长度，时间复杂度为O(N)。</p>
-<h1 id="有三种基本轮询查询-Key-Value-Entry-对象"><a href="#有三种基本轮询查询-Key-Value-Entry-对象" class="headerlink" title="有三种基本轮询查询 Key ,Value , Entry 对象"></a>有三种基本轮询查询 Key ,Value , Entry 对象</h1><ol>
-<li>迭代器 iterator , 注意都不要在循环中修改 Map</li>
-<li>直接 map.values 遍历出所有value值 </li>
-<li>keySet()遍历 key值, 再<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class HashMapExam &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map map = new HashMap(16);</span><br><span class="line">        for (int i = 0; i &lt; 15; i++) &#123;</span><br><span class="line">            map.put(i, new String(new char[]&#123;(char) (&apos;A&apos;+ i)&#125;));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======keySet=======&quot;);</span><br><span class="line">        Set set = map.keySet();</span><br><span class="line">        Iterator iterator = set.iterator();</span><br><span class="line">        while (iterator.hasNext()) &#123;</span><br><span class="line">            System.out.println(iterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======values=======&quot;);</span><br><span class="line">        Collection values = map.values();</span><br><span class="line">        Iterator stringIterator=values.iterator();</span><br><span class="line">        while (stringIterator.hasNext()) &#123;</span><br><span class="line">            System.out.println(stringIterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======entrySet=======&quot;);</span><br><span class="line">        for (Map.Entry entry : map.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="concurrentHashMap"><a href="#concurrentHashMap" class="headerlink" title="concurrentHashMap"></a>concurrentHashMap</h1><p><img src="/2019/10/23/数据结构/1.7concurrentHashMap" alt><br><img src="/2019/10/23/数据结构/1.8concurrentHashMap" alt></p>
-<h1 id="分析-HashMap-1-8"><a href="#分析-HashMap-1-8" class="headerlink" title="分析   HashMap  1.8"></a>分析   HashMap  1.8</h1><p>Node {key  value   Node  next  }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//  默认的初始容量16,且实际容量是2的整数幂</span><br><span class="line">    static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4;</span><br><span class="line">    //最大容量(传入容量过大将被这个值替换)</span><br><span class="line">    static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</span><br><span class="line">    // 默认加载因子为0.75(当表达到3/4满时,才会再散列),这个因子在时间和空间代价之间达到了平衡.更高的因子可以降低表所需的空间,但是会增加查找代价,而查找是最频繁操作</span><br><span class="line">    static final float DEFAULT_LOAD_FACTOR = 0.75f;</span><br><span class="line">    //桶的树化阈值：即 链表转成红黑树的阈值，在存储数据时，当链表长度 &gt;= 8时，则将链表转换成红黑树</span><br><span class="line">    static final int TREEIFY_THRESHOLD = 8;</span><br><span class="line">   // 桶的链表还原阈值：即 红黑树转为链表的阈值，当在扩容（resize（））时（HashMap的数据存储位置会重新计算），在重新计算存储位置后，当原有的红黑树内数量 &lt;= 6时，则将 红黑树转换成链表</span><br><span class="line">    static final int UNTREEIFY_THRESHOLD = 6;</span><br><span class="line">   //最小树形化容量阈值：即 当哈希表中的容量 &gt; 该值时，才允许树形化链表 （即 将链表 转换成红黑树）</span><br></pre></td></tr></table></figure></p>
-<p>关于6 ,7,8这三个值的含义 链表长度小于等于6, 查找速度为 6/2= 3 , 长度为8 的时候 ，查找长度为log(8)=3<br>所以设置8为 转换的临界点<br>7这个是一个差值 ，当一个 hashMap 不停的插入删除元素，  链表个数在 8左右时，会频繁发生 转换，<br>这样可以有效防止链表和树频繁转换</p>
-<h1 id="关于-tableSizeFor-函数的作用"><a href="#关于-tableSizeFor-函数的作用" class="headerlink" title="关于 tableSizeFor 函数的作用"></a>关于 tableSizeFor 函数的作用</h1><p>tableSizeFor方法保证函数返回值是大于等于给定参数initialCapacity最小的2的幂次方的数值<br>假设 initailCap =19  , tableSizeFor算出来的就是 2的5次方 =32</p>
-<h1 id="为什么-Cap要保证2的幂次方-？"><a href="#为什么-Cap要保证2的幂次方-？" class="headerlink" title="为什么 Cap要保证2的幂次方 ？"></a>为什么 Cap要保证2的幂次方 ？</h1><p>算索引index, 对key 值<br>如果 除数是2 的幂次 ，取余操作 等价于与其除数 减一 进行相与 (&amp;)操作<br>e.hash &amp; (newCap -1 ) = e<br>等价于<br>index  = e.hash %  newCap<br>因为是二进制 &amp;操作 ,所以cap值被要求 2幂次的原因 </p>
-<h1 id="java8-中的-hash-函数-防止-hash碰撞"><a href="#java8-中的-hash-函数-防止-hash碰撞" class="headerlink" title="java8 中的 hash()函数,防止 hash碰撞"></a>java8 中的 hash()函数,防止 hash碰撞</h1><p> int  hash(Object  key){<br>     int  h;<br>     return   (key == null )? 0 :( h = key.hashCode()) ^ (h&gt;&gt;&gt; 16);<br> }</p>
-<p>假如 : Radom.next(16)—-》0-15之间  11111   </p>
-<p>借用  Object.hashCode()函数, 得到 32位整形数 ,  2300927<br>控制整形数的范围  0-15 </p>
-<hr>
-<h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h1 id="有关SQL语句的优化问题，B-tree"><a href="#有关SQL语句的优化问题，B-tree" class="headerlink" title="有关SQL语句的优化问题，B+tree"></a>有关SQL语句的优化问题，B+tree</h1><p>SQL的排序写法<br>写的顺序：select … from… where…. group by… having… order by..<br> 全值匹配我最爱，最左前缀要遵守；<br> 带头大哥不能死，中间兄弟不能断；<br> 索引列上少计算，范围之后全失效；<br> LIKE百分写最右，覆盖索引不写星；<br> 不等空值还有or，索引失效要少用。</p>
-<h1 id="索引本质-一种数据结构"><a href="#索引本质-一种数据结构" class="headerlink" title="索引本质   一种数据结构"></a>索引本质   一种数据结构</h1><p> swinggo.cn<br>  一种索引  一棵树</p>
-<p> 全表扫描 ,<br> 物理地址 : 柱面, 扇区</p>
-<h1 id="hash表-，-缺点：不能排序，不能范围查询"><a href="#hash表-，-缺点：不能排序，不能范围查询" class="headerlink" title="hash表  ， 缺点：不能排序，不能范围查询"></a>hash表  ， 缺点：不能排序，不能范围查询</h1><h1 id="AVL-tree-维护成本高-插入数据-结构改动大"><a href="#AVL-tree-维护成本高-插入数据-结构改动大" class="headerlink" title="AVL tree  维护成本高 , 插入数据  结构改动大"></a>AVL tree  维护成本高 , 插入数据  结构改动大</h1><h1 id="B-tree"><a href="#B-tree" class="headerlink" title="B-tree"></a>B-tree</h1><p>degree   底层节点上面有 degree个数据<br>范围查找  会回表 </p>
-<h1 id="b-tree-叶子节点"><a href="#b-tree-叶子节点" class="headerlink" title="b+ tree    叶子节点"></a>b+ tree    叶子节点</h1><p>进行冗余 ，不用回表<br>mysql 一个节点大小 16K<br>局部性原理 ： 1k 附近的数据， 操作系统一页是4kb<br>show  global   status like ‘innodb_page_size’<br>16386/1024 = 16<br>一个节点 1170个数据,  14b一个数据加指针<br>16384/14= 1170<br>//innoDB(聚集索引，数据索引合在一起)   默认设置主键，默认主键创索引<br>用主键做索引 ，叶子节点存放  完整的数据<br>拿 name(非主键列)创索引 ，叶子节点存的是主键</p>
-<p>//两个字段  联合索引,<br>name  age<br> 11   13（张三）13（李四）    15 </p>
-<h1 id="索引结构与-B-tree"><a href="#索引结构与-B-tree" class="headerlink" title="索引结构与 B+tree"></a>索引结构与 B+tree</h1><p> sql 查询优化:走索引, 不走索引<br> 索引结构,现象和原因</p>
-<p> //这里涉及到数据库优化 ,</p>
-<h1 id="B-tree的定义"><a href="#B-tree的定义" class="headerlink" title="B+ tree的定义"></a>B+ tree的定义</h1><p> B+ tree 的特点 : 存储结构特殊，叶子节点是有顺序的（有利于范围查询）<br> 中间节点不存储卫星数据(表数据的地址值)</p>
-<ol>
-<li>b+ 树比较矮胖 , 中间节点不存数据,磁盘IO更少</li>
-<li><p>B+树每次都查到 叶子节点，而 B树不一定，所以B树的查询时间不够稳定</p>
-<p><img src="/2019/10/23/数据结构/典型的b+tree.png" alt><br>总结:<br>1.单节点可以存储更多的元素，使得查询磁盘IO次数更少。</p>
-<p>2.所有查询都要查找到叶子节点，查询性能稳定。</p>
-<p>3.所有叶子节点形成有序链表，便于范围查询。</p>
-</li>
-</ol>
-<h1 id="有关算法导论"><a href="#有关算法导论" class="headerlink" title="有关算法导论:"></a>有关算法导论:</h1><p>七桥问题与图论: </p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/23/mybatis源码分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -815,7 +709,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 08:58:57" itemprop="dateModified" datetime="2019-11-27T08:58:57+08:00">2019-11-27</time>
+                <time title="修改时间：2020-03-29 01:48:37" itemprop="dateModified" datetime="2020-03-29T01:48:37+08:00">2020-03-29</time>
               </span>
             
           
@@ -832,6 +726,22 @@
 
       
           <h1 id><a href="#" class="headerlink" title=" "></a> </h1><p>Note  that  the  parent  and child  were  exeuting with  different registers :<br>chaging   that avariable  in   one   does   not  affect  the  other </p>
+<h1 id="mybatis-使用"><a href="#mybatis-使用" class="headerlink" title="mybatis 使用"></a>mybatis 使用</h1><ol>
+<li>—#{}是预编译处理，${}是字符串替换， 建议使用#{}    通过使用一个预处理语句你就可以避免重复分析、编译、优化的环节</li>
+<li>— mybatis 建议在java代码中 使用通配符<br>String   wildcardname  = “%smi”<br>list<name> names = mapper.selectlike(wildcardname);</name></li>
+</ol>
+<p><select id="”selectlike”"><br> select * from foo where bar like #{value}
+</select><br> //而在sql中拼接 通配符会引起sql注入<br> <select id="”selectlike”"><br>      select * from foo where bar like “%”${value}”%”
+ </select></p>
+<ol>
+<li>如何批量插入<br><insert id="”insertname”"><br> insert into names (name) values (#{value})
+</insert><!-- namemapper mapper = sqlsession.getmapper(namemapper.class);
+for (string name : names) {
+ mapper.insertname(name);
+} -->
+</li>
+</ol>
+<p>4.mybatis是否支持延迟加载？如果支持，它的实现原理是什么？<br>———-懒加载其实就是延时加载，即当对象需要用到的时候再去加载  A的内部对象B<br>Mybatis仅支持association关联对象和collection关联集合对象的延迟加载，association指的就是一对一，collection指的就是一对多查询。在Mybatis配置文件中，可以配置是否启用延迟加载lazyLoadingEnabled=true|false。<br>它的原理是，使用CGLIB创建目标对象的代理对象，当调用目标方法时，进入拦截器方法，比如调用a.getB().getName()，拦截器invoke()方法发现a.getB()是null值，那么就会单独发送事先保存好的查询关联B对象的sql，把B查询上来，然后调用a.setB(b)，于是a的对象b属性就有值了，接着完成a.getB().getName()方法的调用。这就是延迟加载的基本原理。<br>当然了，不光是Mybatis，几乎所有的包括Hibernate，支持延迟加载的原理都是一样的。<br>5.Mapper编写有哪几种方式？# 关于preparedStateemnt<br>    i<br>    ii<br>    iii  使用mapper Scanner</p>
 <h1 id="JDBC缺陷总结"><a href="#JDBC缺陷总结" class="headerlink" title="JDBC缺陷总结:"></a>JDBC缺陷总结:</h1><p> 数据库链接创建,释放频繁造成<br> SQL硬编码, 不容易维护<br> 使用prepareStatement向占有符号传参数存在硬编码, 因为where 条件不一定，可能多也可能少<br> 对结果集存在硬编码 ,(查询列名)，将数据库记录封装成pojo比较方便 </p>
 <pre><code>两次相同的查询从  sqlSession中取数据 
 </code></pre><p>2、怎么判断某两次查询是完全相同的查询？</p>
@@ -949,7 +859,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/16/kotlin-demo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/13/虚拟机相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MathewsHan">
@@ -964,7 +874,7 @@
         <h1 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019/10/16/kotlin-demo/" class="post-title-link" itemprop="url">kotlin-demo</a>
+            <a href="/2019/07/13/虚拟机相关/" class="post-title-link" itemprop="url">未命名</a>
           
         </h1>
 
@@ -979,8 +889,20 @@
                 
               
 
-              <time title="创建时间：2019-10-16 22:40:30" itemprop="dateCreated datePublished" datetime="2019-10-16T22:40:30+08:00">2019-10-16</time>
+              <time title="创建时间：2019-07-13 21:47:16" itemprop="dateCreated datePublished" datetime="2019-07-13T21:47:16+08:00">2019-07-13</time>
             </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-07-14 00:54:12" itemprop="dateModified" datetime="2019-07-14T00:54:12+08:00">2019-07-14</time>
+              </span>
+            
           
 
           
@@ -994,7 +916,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <p>深入理解jvm 第 二三七章<br>HotSpot虚拟机<br>对象在内存中 3块区域: 对象头   实例数据 和对齐填充</p>
+
         
       
     </div>
@@ -1066,7 +989,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1216,8 +1139,6 @@ if (document.querySelectorAll('div.pdf').length) {
   
 
   
-    
-      
     
       
     

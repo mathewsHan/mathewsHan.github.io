@@ -66,7 +66,7 @@
 <meta property="og:site_name" content="我的个人博客">
 <meta property="og:description" content="Kafka首先让我们看几个基本的消息系统术语：Kafka将消息以topic为单位进行归纳。将向Kafka topic发布消息的程序成为producers.将预订topics并消费消息的程序成为consumer.Kafka以集群的方式运行，可以由一个或多个服务组成，每个服务叫做一个broker.producers通过网络将消息发送到Kafka集群，集群向消费者提供消息，如下图所示： 分布式发布订阅消">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-23T20:53:58.845Z">
+<meta property="og:updated_time" content="2020-03-17T16:39:04.469Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息队列">
 <meta name="twitter:description" content="Kafka首先让我们看几个基本的消息系统术语：Kafka将消息以topic为单位进行归纳。将向Kafka topic发布消息的程序成为producers.将预订topics并消费消息的程序成为consumer.Kafka以集群的方式运行，可以由一个或多个服务组成，每个服务叫做一个broker.producers通过网络将消息发送到Kafka集群，集群向消费者提供消息，如下图所示： 分布式发布订阅消">
@@ -335,11 +335,19 @@
                 
               
 
-              <time title="创建时间：2019-11-24 04:37:03 / 修改时间：04:53:58" itemprop="dateCreated datePublished" datetime="2019-11-24T04:37:03+08:00">2019-11-24</time>
+              <time title="创建时间：2019-11-24 04:37:03" itemprop="dateCreated datePublished" datetime="2019-11-24T04:37:03+08:00">2019-11-24</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-18 00:39:04" itemprop="dateModified" datetime="2020-03-18T00:39:04+08:00">2020-03-18</time>
+              </span>
             
           
 
@@ -357,7 +365,7 @@
         <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>首先让我们看几个基本的消息系统术语：<br>Kafka将消息以topic为单位进行归纳。<br>将向Kafka topic发布消息的程序成为producers.<br>将预订topics并消费消息的程序成为consumer.<br>Kafka以集群的方式运行，可以由一个或多个服务组成，每个服务叫做一个broker.<br>producers通过网络将消息发送到Kafka集群，集群向消费者提供消息，如下图所示：</p>
 <p>分布式发布订阅消息系统 Kafka 架构设计 <a href="http://www.linuxidc.com/Linux/2013-11/92751.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2013-11/92751.htm</a><br>Apache Kafka 代码实例 <a href="http://www.linuxidc.com/Linux/2013-11/92754.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2013-11/92754.htm</a></p>
 <h1 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h1><p>每个分区在Kafka集群的若干服务中都有副本，这样这些持有副本的服务可以共同处理数据和请求，副本数量是可以配置的。副本使Kafka具备了容错能力。<br>每个分区都由一个服务器作为“leader”，零或若干服务器作为“followers”,leader负责处理消息的读和 写，followers则去复制leader.如果leader down了，followers中的一台则会自动成为leader。集群中的每个服务都会同时扮演两个角色：作为它所持有的一部分分区的leader，同 时作为其他分区的followers，这样集群就会据有较好的负载均衡。</p>
-
+<h1 id="AMQ"><a href="#AMQ" class="headerlink" title="AMQ"></a>AMQ</h1>
     </div>
 
     
@@ -392,7 +400,7 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/11/27/动态代理/" rel="prev" title="动态代理">
+                <a href="/2019/11/27/JDK动态代理/" rel="prev" title="动态代理">
                   动态代理 <i class="fa fa-chevron-right"></i>
                 </a>
               
@@ -445,7 +453,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka"><span class="nav-number">1.</span> <span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式"><span class="nav-number">2.</span> <span class="nav-text">分布式</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka"><span class="nav-number">1.</span> <span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式"><span class="nav-number">2.</span> <span class="nav-text">分布式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AMQ"><span class="nav-number">3.</span> <span class="nav-text">AMQ</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -464,7 +472,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
