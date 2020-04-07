@@ -773,6 +773,56 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
 ]]></content>
   </entry>
   <entry>
+    <title>数据结构</title>
+    <url>/2019/10/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<p>A、回溯法B、动态规划C、分治法</p>
+<h1 id="HashMap-几个重要的-成员变量"><a href="#HashMap-几个重要的-成员变量" class="headerlink" title="HashMap  几个重要的 成员变量"></a>HashMap  几个重要的 成员变量</h1><ol>
+<li>DEFAULT_INITIAL_CAPACITY   初始容量 </li>
+<li>DEFAULT_LOAD_FACTOR       扩容因子 </li>
+<li>TREEIFY_THRESHOLD         树化阈值 </li>
+<li>UNTREEIFY_THRESHOLD       树退化阈值 </li>
+</ol>
+<p>5.transient Set<map.entry<k,v>&gt; entrySet;    Map中所有的Entry的  set集合<br>6.transient Node<k,v>[] table;         Map 中</k,v></map.entry<k,v></p>
+<h1 id="有关hashMap-与ConcurrentHashMap"><a href="#有关hashMap-与ConcurrentHashMap" class="headerlink" title="有关hashMap  与ConcurrentHashMap"></a>有关hashMap  与ConcurrentHashMap</h1><p><img src="/2019/10/23/数据结构/1.7HashMap结构.png" alt> 散列列表,数组+ 链表的结合体<br>![])(1.8JHashMap.png)  链表在长度大于8的情况变成红黑树,</p>
+<p>HashMap的本质是一个可变长度的数组，jdk1.8叫Node 节点，该节点存储有hash、key、value、next等 </p>
+<h1 id="put-putVal-方法"><a href="#put-putVal-方法" class="headerlink" title="put(){ putVal()}  方法"></a>put(){ putVal()}  方法</h1><p>对key进行hash，如果冲突了，则添加到链表中<br>然后查询的时候就先根据hash找到相应的位置，然后根据链表逐一比较，返回相应的value。时间复杂度取决于链表的长度，时间复杂度为O(N)。</p>
+<h1 id="有三种基本轮询查询-Key-Value-Entry-对象"><a href="#有三种基本轮询查询-Key-Value-Entry-对象" class="headerlink" title="有三种基本轮询查询 Key ,Value , Entry 对象"></a>有三种基本轮询查询 Key ,Value , Entry 对象</h1><ol>
+<li>迭代器 iterator , 注意都不要在循环中修改 Map</li>
+<li>直接 map.values 遍历出所有value值 </li>
+<li>keySet()遍历 key值, 再<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class HashMapExam &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map map = new HashMap(16);</span><br><span class="line">        for (int i = 0; i &lt; 15; i++) &#123;</span><br><span class="line">            map.put(i, new String(new char[]&#123;(char) (&apos;A&apos;+ i)&#125;));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======keySet=======&quot;);</span><br><span class="line">        Set set = map.keySet();</span><br><span class="line">        Iterator iterator = set.iterator();</span><br><span class="line">        while (iterator.hasNext()) &#123;</span><br><span class="line">            System.out.println(iterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======values=======&quot;);</span><br><span class="line">        Collection values = map.values();</span><br><span class="line">        Iterator stringIterator=values.iterator();</span><br><span class="line">        while (stringIterator.hasNext()) &#123;</span><br><span class="line">            System.out.println(stringIterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======entrySet=======&quot;);</span><br><span class="line">        for (Map.Entry entry : map.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="concurrentHashMap"><a href="#concurrentHashMap" class="headerlink" title="concurrentHashMap"></a>concurrentHashMap</h1><p><img src="/2019/10/23/数据结构/1.7concurrentHashMap" alt><br><img src="/2019/10/23/数据结构/1.8concurrentHashMap" alt></p>
+<h1 id="分析-HashMap-1-8"><a href="#分析-HashMap-1-8" class="headerlink" title="分析   HashMap  1.8"></a>分析   HashMap  1.8</h1><p>Node {key  value   Node  next  }<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//  默认的初始容量16,且实际容量是2的整数幂</span><br><span class="line">    static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4;</span><br><span class="line">    //最大容量(传入容量过大将被这个值替换)</span><br><span class="line">    static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</span><br><span class="line">    // 默认加载因子为0.75(当表达到3/4满时,才会再散列),这个因子在时间和空间代价之间达到了平衡.更高的因子可以降低表所需的空间,但是会增加查找代价,而查找是最频繁操作</span><br><span class="line">    static final float DEFAULT_LOAD_FACTOR = 0.75f;</span><br><span class="line">    //桶的树化阈值：即 链表转成红黑树的阈值，在存储数据时，当链表长度 &gt;= 8时，则将链表转换成红黑树</span><br><span class="line">    static final int TREEIFY_THRESHOLD = 8;</span><br><span class="line">   // 桶的链表还原阈值：即 红黑树转为链表的阈值，当在扩容（resize（））时（HashMap的数据存储位置会重新计算），在重新计算存储位置后，当原有的红黑树内数量 &lt;= 6时，则将 红黑树转换成链表</span><br><span class="line">    static final int UNTREEIFY_THRESHOLD = 6;</span><br><span class="line">   //最小树形化容量阈值：即 当哈希表中的容量 &gt; 该值时，才允许树形化链表 （即 将链表 转换成红黑树）</span><br></pre></td></tr></table></figure></p>
+<p>关于6 ,7,8这三个值的含义 链表长度小于等于6, 查找速度为 6/2= 3 , 长度为8 的时候 ，查找长度为log(8)=3<br>所以设置8为 转换的临界点<br>7这个是一个差值 ，当一个 hashMap 不停的插入删除元素，  链表个数在 8左右时，会频繁发生 转换，<br>这样可以有效防止链表和树频繁转换</p>
+<h1 id="关于-tableSizeFor-函数的作用"><a href="#关于-tableSizeFor-函数的作用" class="headerlink" title="关于 tableSizeFor 函数的作用"></a>关于 tableSizeFor 函数的作用</h1><p>tableSizeFor方法保证函数返回值是大于等于给定参数initialCapacity最小的2的幂次方的数值<br>假设 initailCap =19  , tableSizeFor算出来的就是 2的5次方 =32</p>
+<h1 id="为什么-Cap要保证2的幂次方-？"><a href="#为什么-Cap要保证2的幂次方-？" class="headerlink" title="为什么 Cap要保证2的幂次方 ？"></a>为什么 Cap要保证2的幂次方 ？</h1><p>算索引index, 对key 值<br>如果 除数是2 的幂次 ，取余操作 等价于与其除数 减一 进行相与 (&amp;)操作<br>e.hash &amp; (newCap -1 ) = e<br>等价于<br>index  = e.hash %  newCap<br>因为是二进制 &amp;操作 ,所以cap值被要求 2幂次的原因 </p>
+<h1 id="java8-中的-hash-函数-防止-hash碰撞"><a href="#java8-中的-hash-函数-防止-hash碰撞" class="headerlink" title="java8 中的 hash()函数,防止 hash碰撞"></a>java8 中的 hash()函数,防止 hash碰撞</h1><p> int  hash(Object  key){<br>     int  h;<br>     return   (key == null )? 0 :( h = key.hashCode()) ^ (h&gt;&gt;&gt; 16);<br> }</p>
+<p>假如 : Radom.next(16)—-》0-15之间  11111   </p>
+<p>借用  Object.hashCode()函数, 得到 32位整形数 ,  2300927<br>控制整形数的范围  0-15 </p>
+<h1 id="关于HashMap-与-ConCurrentHashMap-线程安全问题"><a href="#关于HashMap-与-ConCurrentHashMap-线程安全问题" class="headerlink" title="关于HashMap 与 ConCurrentHashMap 线程安全问题"></a>关于HashMap 与 ConCurrentHashMap 线程安全问题</h1><p>HashMap 与HashTable类似的， 只不过是线程安全的 , 将所有修改 hashTable的代码块都用synchronized 修饰<br>造成： 一个线程在put时 ,其余 线程get的时候被最 ，相当于一个重量级锁</p>
+<hr>
+<h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h1 id="有关SQL语句的优化问题，B-tree"><a href="#有关SQL语句的优化问题，B-tree" class="headerlink" title="有关SQL语句的优化问题，B+tree"></a>有关SQL语句的优化问题，B+tree</h1><p>SQL的排序写法<br>写的顺序：select … from… where…. group by… having… order by..<br> 全值匹配我最爱，最左前缀要遵守；<br> 带头大哥不能死，中间兄弟不能断；<br> 索引列上少计算，范围之后全失效；<br> LIKE百分写最右，覆盖索引不写星；<br> 不等空值还有or，索引失效要少用。</p>
+<h1 id="索引本质-一种数据结构"><a href="#索引本质-一种数据结构" class="headerlink" title="索引本质   一种数据结构"></a>索引本质   一种数据结构</h1><p> swinggo.cn<br>  一种索引  一棵树</p>
+<p> 全表扫描 ,<br> 物理地址 : 柱面, 扇区</p>
+<h1 id="hash表-，-缺点：不能排序，不能范围查询"><a href="#hash表-，-缺点：不能排序，不能范围查询" class="headerlink" title="hash表  ， 缺点：不能排序，不能范围查询"></a>hash表  ， 缺点：不能排序，不能范围查询</h1><h1 id="AVL-tree-维护成本高-插入数据-结构改动大"><a href="#AVL-tree-维护成本高-插入数据-结构改动大" class="headerlink" title="AVL tree  维护成本高 , 插入数据  结构改动大"></a>AVL tree  维护成本高 , 插入数据  结构改动大</h1><h1 id="B-tree"><a href="#B-tree" class="headerlink" title="B-tree"></a>B-tree</h1><p>degree   底层节点上面有 degree个数据<br>范围查找  会回表 </p>
+<h1 id="b-tree-叶子节点"><a href="#b-tree-叶子节点" class="headerlink" title="b+ tree    叶子节点"></a>b+ tree    叶子节点</h1><p>进行冗余 ，不用回表<br>mysql 一个节点大小 16K<br>局部性原理 ： 1k 附近的数据， 操作系统一页是4kb<br>show  global   status like ‘innodb_page_size’<br>16386/1024 = 16<br>一个节点 1170个数据,  14b一个数据加指针<br>16384/14= 1170<br>//innoDB(聚集索引，数据索引合在一起)   默认设置主键，默认主键创索引<br>用主键做索引 ，叶子节点存放  完整的数据<br>拿 name(非主键列)创索引 ，叶子节点存的是主键</p>
+<p>//两个字段  联合索引,<br>name  age<br> 11   13（张三）13（李四）    15 </p>
+<h1 id="索引结构与-B-tree"><a href="#索引结构与-B-tree" class="headerlink" title="索引结构与 B+tree"></a>索引结构与 B+tree</h1><p> sql 查询优化:走索引, 不走索引<br> 索引结构,现象和原因</p>
+<p> //这里涉及到数据库优化 ,</p>
+<h1 id="B-tree的定义"><a href="#B-tree的定义" class="headerlink" title="B+ tree的定义"></a>B+ tree的定义</h1><p> B+ tree 的特点 : 存储结构特殊，叶子节点是有顺序的（有利于范围查询）<br> 中间节点不存储卫星数据(表数据的地址值)</p>
+<ol>
+<li>b+ 树比较矮胖 , 中间节点不存数据,磁盘IO更少</li>
+<li><p>B+树每次都查到 叶子节点，而 B树不一定，所以B树的查询时间不够稳定</p>
+<p><img src="/2019/10/23/数据结构/典型的b+tree.png" alt><br>总结:<br>1.单节点可以存储更多的元素，使得查询磁盘IO次数更少。</p>
+<p>2.所有查询都要查找到叶子节点，查询性能稳定。</p>
+<p>3.所有叶子节点形成有序链表，便于范围查询。</p>
+</li>
+</ol>
+<h1 id="有关算法导论"><a href="#有关算法导论" class="headerlink" title="有关算法导论:"></a>有关算法导论:</h1><p>七桥问题与图论: </p>
+]]></content>
+  </entry>
+  <entry>
     <title>mybatis源码分析</title>
     <url>/2019/10/23/mybatis%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<h1 id><a href="#" class="headerlink" title=" "></a> </h1><p>Note  that  the  parent  and child  were  exeuting with  different registers :<br>chaging   that avariable  in   one   does   not  affect  the  other </p>
