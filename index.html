@@ -344,7 +344,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-31 21:05:25" itemprop="dateModified" datetime="2020-03-31T21:05:25+08:00">2020-03-31</time>
+                <time title="修改时间：2020-04-07 13:21:43" itemprop="dateModified" datetime="2020-04-07T13:21:43+08:00">2020-04-07</time>
               </span>
             
           
@@ -360,7 +360,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="non-writable-modification-of-global-variable-“App”-is-not-allowed-when-using-plugins-at-app-json"><a href="#non-writable-modification-of-global-variable-“App”-is-not-allowed-when-using-plugins-at-app-json" class="headerlink" title="[non-writable] modification of global variable “App” is not allowed when using plugins at app.json."></a>[non-writable] modification of global variable “App” is not allowed when using plugins at app.json.</h1><p>2018-10-09<br>使用插件时，为了保护小程序和插件，全局变量不能修改，请检查代码中是否有对 Page 和 App 两个全局量做了改动</p>
+          <p>[non-writable] modification of global variable “App” is not allowed when using plugins at app.json.</p>
+<p><img src="/2020/03/18/小程序开发/weixinmall.png" alt></p>
+<p>2018-10-09<br>使用插件时，为了保护小程序和插件，全局变量不能修改，请检查代码中是否有对 Page 和 App 两个全局量做了改动</p>
 <p>// 小程序的目录结构<br>1.app.js是小程序的脚本代码。</p>
 <pre><code>  我们可以在这个文件中监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据。
 </code></pre><p>2.app.json 是对整个小程序的全局配置。</p>
@@ -371,6 +373,11 @@
 <pre><code>  如:index 页面和 logs 页面，即欢迎页和小程序启动日志的展示页。
 
  微信小程序中的每一个页面的【路径+页面名】都需要写在 app.json 的 pages 中，且 pages 中的第一个页面是小程序的首页。
+</code></pre><hr>
+<h1 id="vue官网"><a href="#vue官网" class="headerlink" title="vue官网"></a><a href="https://cn.vuejs.org/" target="_blank" rel="noopener">vue官网</a></h1><h1 id="vue-的精髓"><a href="#vue-的精髓" class="headerlink" title="vue 的精髓"></a>vue 的精髓</h1><p><u>组件开发与调用 </u></p>
+<h1 id="vue-js的组件概念"><a href="#vue-js的组件概念" class="headerlink" title="vue.js的组件概念:"></a>vue.js的组件概念:</h1><h2 id="组件基础"><a href="#组件基础" class="headerlink" title="组件基础"></a>组件基础</h2><blockquote>
+<h4 id="组件的组织与-组件注册"><a href="#组件的组织与-组件注册" class="headerlink" title="组件的组织与 组件注册"></a>组件的组织与 组件注册</h4><h4 id><a href="#" class="headerlink" title="*"></a>*</h4></blockquote>
+<pre><code>hell world
 </code></pre>
         
       
@@ -434,7 +441,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-30 01:50:28" itemprop="dateModified" datetime="2020-03-30T01:50:28+08:00">2020-03-30</time>
+                <time title="修改时间：2020-04-04 04:42:54" itemprop="dateModified" datetime="2020-04-04T04:42:54+08:00">2020-04-04</time>
               </span>
             
           
@@ -450,19 +457,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>//——————————-macOS———————————————</p>
-<h1 id="解决Homebrew下载更新极慢的问题-更换国内镜像源"><a href="#解决Homebrew下载更新极慢的问题-更换国内镜像源" class="headerlink" title="解决Homebrew下载更新极慢的问题,更换国内镜像源"></a>解决Homebrew下载更新极慢的问题,更换国内镜像源</h1><p> Posted on 2019-05-04<br>使用brew update —verbose观察update过程：</p>
-<p>发现update卡在从github仓库获取文件的过程。这个结果与手动从github下载文件慢的症状相互印证。<br>更换使用国内的homebrew镜像源；使用代理访问github.com。更换Homebrew源,使用以下命令更换国内阿里云上的homebrew镜像：<br>1.替换brew.git:<br>cd “$(brew —repo)”<br>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/brew.git" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/brew.git</a><br>2.替换homebrew-core.git:<br>cd “$(brew —repo)/Library/Taps/homebrew/homebrew-core”<br>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/homebrew-core.git" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-core.git</a><br>3.替换homebrew-bottles:<br>echo ‘export HOMEBREW_BOTTLE_DOMAIN=<a href="https://mirrors.aliyun.com/homebrew/homebrew-bottles" target="_blank" rel="noopener">https://mirrors.aliyun.com/homebrew/homebrew-bottles</a>‘ &gt;&gt; ~/.zshrc<br>source ~/.zshrc<br>替换后，问题依旧，继续查看日志：<br>可以看到由于homebrew-cask的仓库依然指向了Github，这个过程还是慢。阿里云的镜像站没有提供homebrew-cask，进一步搜索找到USTC镜像站，该站提供了homebrew-cask的源。使用上述同样的命令更换源：<br>4.替换homebrew-cask.git:<br>cd “$(brew —repo)”/Library/Taps/homebrew/homebrew-cask<br>git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-cask.git" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/homebrew-cask.git</a><br>测试发现问题解决。<br>官方源地址：<br><a href="https://github.com/Homebrew/brew.git" target="_blank" rel="noopener">https://github.com/Homebrew/brew.git</a><br><a href="https://github.com/Homebrew/homebrew-core.git" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core.git</a><br><a href="https://github.com/Homebrew/homebrew-cask" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-cask</a></p>
+          <h1 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h1><hr>
+<h1 id="解决Homebrew下载更新极慢的问题-更换国内镜像源-本例使用的-zsh-其他情况类似"><a href="#解决Homebrew下载更新极慢的问题-更换国内镜像源-本例使用的-zsh-其他情况类似" class="headerlink" title="解决Homebrew下载更新极慢的问题,更换国内镜像源, 本例使用的 zsh ,其他情况类似"></a>解决Homebrew下载更新极慢的问题,更换国内镜像源, 本例使用的 zsh ,其他情况类似</h1><p>使用brew update —verbose观察update过程：<br>1.替换brew.git:<br> cd “$(brew —repo)”<br> git remote set-url origin <a href="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</a><br>2.替换homebrew-core.git:<br>cd “$(brew —repo)/Library/Taps/homebrew/homebrew-core”<br>git remote set-url origin <a href="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</a></p>
+<p>3.替换homebrew-bottles:<br> echo ‘export HOMEBREW_BOTTLE_DOMAIN=<a href="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles</a>‘ &gt;&gt; ~/.bash_profile<br> source ~/.bash_profile</p>
+<p>4.替换homebrew-cask.git:<br>cd “$(brew —repo)”/Library/Taps/homebrew/homebrew-cask<br>git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-cask.git" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/homebrew-cask.git</a></p>
+<p>官方源地址：<br><a href="https://github.com/Homebrew/brew.git" target="_blank" rel="noopener">https://github.com/Homebrew/brew.git</a><br><a href="https://github.com/Homebrew/homebrew-core.git" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core.git</a><br><a href="https://github.com/Homebrew/homebrew-cask" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-cask</a></p>
 <h1 id="homebrew-常用命令"><a href="#homebrew-常用命令" class="headerlink" title="homebrew  常用命令"></a>homebrew  常用命令</h1><p>1、通过brew install安装应用最先是放在/usr/local/Cellar/目录下。<br>有些应用会自动创建软链接放在/usr/bin或者/usr/sbin，同时也会将整个文件夹放在/usr/local<br>可以使用 brew list 软件名 (比如 brew list oclint)确定安装位置</p>
 <p>例如 :  brew list oclint<br>sudo find / -name “autojump”<br>//查找autojump 安装位置<br>brew config | grep HOMEBREW<br>//查找 config配置文件<br>brew list           列出已安装的软件<br>brew update     更新brew<br>brew home       用浏览器打开brew的官方网站<br>brew info         显示软件信息<br>brew deps        显示包依赖</p>
-<h1 id="homebrew-安装-nginx"><a href="#homebrew-安装-nginx" class="headerlink" title="homebrew  安装  nginx  ,"></a>homebrew  安装  nginx  ,</h1><p>brew install nginx</p>
+<hr>
+<h1 id="homebrew-安装-nginx"><a href="#homebrew-安装-nginx" class="headerlink" title="homebrew  安装  nginx"></a>homebrew  安装  nginx</h1><p>brew install nginx</p>
 <p>open /usr/local/Cellar/nginx<br>//servic nginx start<br>/usr/sbin/nginx          yum安装的nginx也可以使用<br>/usr/local/nginx/sbin/nginx -t<br>/usr/local/nginx/sbin/nginx -s reload<br>/usr/local/nginx/sbin/nginx -s stop</p>
-<h1 id="macOS-使用的命令行"><a href="#macOS-使用的命令行" class="headerlink" title="macOS 使用的命令行"></a>macOS 使用的命令行</h1><p>lsof -i :8080</p>
+<h1 id="macos安装-npm-与-yarn"><a href="#macos安装-npm-与-yarn" class="headerlink" title="macos安装 npm 与 yarn"></a>macos安装 npm 与 yarn</h1><p>npm install yarn -g<br>yarn config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
+<h1 id="macOS-使用的命令行"><a href="#macOS-使用的命令行" class="headerlink" title="macOS 使用的命令行"></a>macOS 使用的命令行</h1><p>Sudo  vim  /etc/profile<br>//8080 端口占用<br>lsof -i :8080<br>find 是根据文件属性来进行查找<br>    1.按文件名 2. 按文件特征  3.混合方式</p>
+<pre><code>　(1)find / -name httpd.conf　　#在根目录下查找文件httpd.conf，表示在整个硬盘查找
+　　　　(2)find /etc -name httpd.conf　　#在/etc目录下文件httpd.conf
+　　　　(3)find /etc -name &#39;*srm*&#39;　　#使用通配符*(0或者任意多个)。表示在/etc目录下查找文件名中含有字符串‘srm’的文件
+　　　　(4)find . -name &#39;srm*&#39; 　　#表示当前目录下查找文件名开头是字符串‘srm’的文件
+</code></pre><p>grep 是根据文件内容来进行查找<br>    (1)grep ‘test’ d*　　#显示所有以d开头的文件中包含 test的行<br>　　(2)grep ‘test’ aa bb cc 　　 #显示在aa，bb，cc文件中包含test的行<br>　　(3)grep ‘[a-z]{5}’ aa 　　#显示所有包含每行字符串至少有5个连续小写字符的字符串的行<br>　　(4)grep magic /usr/src　　#显示/usr/src目录下的文件(不含子目录)包含magic的行<br>　　(5)grep -r magic /usr/src</p>
 <h1 id="zsh-与-macOS原生bash"><a href="#zsh-与-macOS原生bash" class="headerlink" title="zsh 与  macOS原生bash"></a>zsh 与  macOS原生bash</h1><p>两者切换问题 ：zsh切换bash bash切换zsh<br>切换bash<br>chsh -s /bin/bash</p>
 <p>切换zsh<br>chsh -s /bin/zsh</p>
 <p>chmod  777   -R<br>chmod  -rwx rwx  rwx   -R<br>     拥有者   群组   其他人 </p>
-<p>直接查阅文档可使用  cat/tac(反向显示)/nl 等命令,   cat是  concatenate的缩写</p>
-<h1 id="macOS的环境变量配置"><a href="#macOS的环境变量配置" class="headerlink" title="macOS的环境变量配置"></a>macOS的环境变量配置</h1><p>Mac系统的环境变量，加载顺序为：<br>/etc/profile<br>/etc/paths<br>~/.bash_profile<br>~/.bash_login<br>~/.profile<br>~/.bashrc</p>
+<h2 id="直接查阅文档可使用-cat-tac-反向显示-nl-等命令-cat是-concatenate的缩写"><a href="#直接查阅文档可使用-cat-tac-反向显示-nl-等命令-cat是-concatenate的缩写" class="headerlink" title="直接查阅文档可使用  cat/tac(反向显示)/nl 等命令,   cat是  concatenate的缩写"></a>直接查阅文档可使用  cat/tac(反向显示)/nl 等命令,   cat是  concatenate的缩写</h2><h1 id="macOS的环境变量配置"><a href="#macOS的环境变量配置" class="headerlink" title="macOS的环境变量配置"></a>macOS的环境变量配置</h1><p>Mac系统的环境变量，加载顺序为：</p>
+<p>/etc/profile      ——-这个一般不要改<br>/etc/paths<br>/etc/bashrc    （一般在这个文件中添加系统级环境变量）</p>
+<p>~/.bash_profile    ———-这个改的多<br>~/.bash_login<br>~/.profile<br>~/.bashrc              </p>
+<p>Type  :qa  and press <enter> to exit Vim<br>/usr/local/bin<br>/usr/bin<br>/bin<br>/usr/sbin<br>/sbin<br>/Library/Apple/usr/bin<br>/Library/Apple/bin</enter></p>
 <h1 id="macOS快捷键"><a href="#macOS快捷键" class="headerlink" title="macOS快捷键"></a>macOS快捷键</h1><p>空格 预览 word 等<br>Commacnd + n 新建窗口<br>command + shift  + 3  截取全屏<br>command + shift  + 3  截取区域<br>commoand  +  tab +  -&gt;<br>command + 2（数字 ） 跳到浏览器指定页面</p>
 <p>显示简介—打方方式——-全部更改———-</p>
 <p>//———————linux内核()—————-<br>fork() 函数</p>
@@ -471,6 +489,10 @@
 <ol>
 <li>构建生命周期  maven   &amp; grandle<br>在Maven中每个任务的goal称作Mojo</li>
 </ol>
+<p>//——————————-VSCode使用go语言的配置————-<br>VsCode官网 ：<a href="https://code.visualstudio.com/docs/getstarted/settings" target="_blank" rel="noopener"></a><br>⇧⌘P  open command  Paletee 打开命令面板</p>
+<h1 id="Language-specific-editor-settings"><a href="#Language-specific-editor-settings" class="headerlink" title="Language specific editor settings"></a>Language specific editor settings</h1><h2 id="⇧⌘P-configure-language-specific-settings"><a href="#⇧⌘P-configure-language-specific-settings" class="headerlink" title="⇧⌘P + configure  language specific  settings"></a>⇧⌘P + configure  language specific  settings</h2><h2 id="⇧⌘P-config-打开配置面板"><a href="#⇧⌘P-config-打开配置面板" class="headerlink" title="⇧⌘P  +  config  打开配置面板"></a>⇧⌘P  +  config  打开配置面板</h2><h2 id="修改快捷键-Code-gt-Preferences-gt-Keyboard-Shortcuts"><a href="#修改快捷键-Code-gt-Preferences-gt-Keyboard-Shortcuts" class="headerlink" title="修改快捷键  Code &gt; Preferences &gt; Keyboard Shortcuts"></a>修改快捷键  Code &gt; Preferences &gt; Keyboard Shortcuts</h2><p>//科学上网, 设置Go 相关工具的代理<br> go  版本  1.13以上<br>➜  ~ go env -w GO111MODULE=on<br>➜  ~ go env -w GOPROXY=<a href="https://goproxy.io,direct" target="_blank" rel="noopener">https://goproxy.io,direct</a></p>
+<p>GO111MODULE=off 无模块支持，go 会从 GOPATH 和 vendor 文件夹寻找包。<br>GO111MODULE=on 模块支持，go 会忽略 GOPATH 和 vendor 文件夹，只根据 go.mod 下载依赖。<br>GO111MODULE=auto 在 GOPATH/src 外面且根目录有 go.mod 文件时，开启模块支持。</p>
+<p>在新建项目后  使用  go mod init </p>
 
         
       
@@ -615,7 +637,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-30 05:52:04" itemprop="dateModified" datetime="2020-03-30T05:52:04+08:00">2020-03-30</time>
+                <time title="修改时间：2020-04-07 12:47:20" itemprop="dateModified" datetime="2020-04-07T12:47:20+08:00">2020-04-07</time>
               </span>
             
           
@@ -638,10 +660,23 @@
 <li>依赖倒置  (Dependency   Inversion  Principle  ,DIP)实际上就是依赖注入<br>3.迪米特原则</li>
 </ol>
 <hr>
-<p>华丽分割线</p>
-<h1 id="例子：多流程判断-，干掉-if-else-的手段—策略模式"><a href="#例子：多流程判断-，干掉-if-else-的手段—策略模式" class="headerlink" title="例子：多流程判断 ，干掉 if-else 的手段—策略模式"></a>例子：多流程判断 ，干掉 if-else 的手段—策略模式</h1><p>典型场景 ： 支付渠道<br>需求分析 ： 共性 ，个性 ?</p>
-<p>spring 1代  ： 配置文件</p>
-<p>/**</p>
+<h1 id="优化代码中的-if-else"><a href="#优化代码中的-if-else" class="headerlink" title="优化代码中的 if-else"></a>优化代码中的 if-else</h1><ol>
+<li>表驱动，把判断值放在map里<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;?, Function&lt;?&gt; action&gt; actionMappings = new HashMap&lt;&gt;(); // 这里泛型 ? 是为方便演示，实际可替换为你需要的类型</span><br><span class="line"></span><br><span class="line">actionMappings.put(value1, (someParams) -&gt; &#123; doAction1(someParams)&#125;);</span><br><span class="line">actionMappings.put(value2, (someParams) -&gt; &#123; doAction2(someParams)&#125;);</span><br><span class="line">actionMappings.put(value3, (someParams) -&gt; &#123; doAction3(someParams)&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>2.责任链模式  </p>
+<ol>
+<li>状态机 </li>
+<li>optional<br>用于去除 null值判断，类似的有 guava框架与  Scala 语言 <ol>
+<li>1 Optional<string> strOptional = Optional.of(“Hello World!”);<br>2 strOptional.ifPresentOrElse(System.out::println, () -&gt; System.out.println(“Null”));</string></li>
+</ol>
+</li>
+<li>Assert 模式<br>apache Common  Lang的 Validate 类<br>还有 Spring 的  Assert 类用于字符串非空检验等 </li>
+<li><p>卫语句  </p>
+</li>
+<li><p>多流程判断 ，干掉 if-else 的手段—策略模式<br>典型场景 ： 支付渠道<br>spring 1代  ： 配置文件<br>/**</p>
+</li>
+</ol>
 <ul>
 <li>计算金额使用 BigDecimal </li>
 <li><p>double 2 = 1.99999<br>/<br>public  interface  Strategy{</p>
@@ -677,6 +712,7 @@ public  BigDecimal  calRecharge(Integer channelId ,Integer  goodsId){
 <p>public  class   StrategyFactory{<br>    private  static  StrategyFactory factory  =  new  StrategyFactory();</p>
 <pre><code>public  static  StrategyFactory   F
 </code></pre><p>}</p>
+<hr>
 <h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><p>—-懒汉模式<br> 使用静态内部类实现 innerClassSingleton </p>
 <p> //反射创建 实例<br> decalred<br> // InnerClassSingleton.getInstnce();获得实例</p>
 <p>——饿汉模式<br> hungrySingletonTest </p>
@@ -772,7 +808,7 @@ iHello.sayHello(name);
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-24 01:32:03" itemprop="dateModified" datetime="2020-03-24T01:32:03+08:00">2020-03-24</time>
+                <time title="修改时间：2020-04-04 03:56:09" itemprop="dateModified" datetime="2020-04-04T03:56:09+08:00">2020-04-04</time>
               </span>
             
           
@@ -788,7 +824,30 @@ iHello.sayHello(name);
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>从 CAP理论说起<br>![CAP.png]</p>
+          <div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:right">适用场景</th>
+<th style="text-align:center">居中对齐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">单元格</td>
+<td style="text-align:right">单元格</td>
+<td style="text-align:center">单元格</td>
+</tr>
+<tr>
+<td style="text-align:left">单元格</td>
+<td style="text-align:right">单元格</td>
+<td style="text-align:center">单元格</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>从 CAP理论说起<br>![CAP.png]</p>
 <p>强一致性: 复制同步，<br>弱一致性 : 复制异步 </p>
 <p>// Copy  On  Wirte  机制 </p>
 
@@ -945,6 +1004,18 @@ iHello.sayHello(name);
               <time title="创建时间：2019-12-02 17:39:29" itemprop="dateCreated datePublished" datetime="2019-12-02T17:39:29+08:00">2019-12-02</time>
             </span>
           
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-01 13:13:06" itemprop="dateModified" datetime="2020-04-01T13:13:06+08:00">2020-04-01</time>
+              </span>
+            
+          
 
           
 
@@ -1020,7 +1091,7 @@ iHello.sayHello(name);
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-29 11:18:53" itemprop="dateModified" datetime="2020-03-29T11:18:53+08:00">2020-03-29</time>
+                <time title="修改时间：2020-04-02 20:14:44" itemprop="dateModified" datetime="2020-04-02T20:14:44+08:00">2020-04-02</time>
               </span>
             
           
@@ -1036,9 +1107,11 @@ iHello.sayHello(name);
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="springboot-整合-springcloud"><a href="#springboot-整合-springcloud" class="headerlink" title="springboot 整合   springcloud"></a>springboot 整合   springcloud</h1><h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>可以被独立部署， 更新 ，scale  , 和重启</p>
+          <h1 id="我认为合适的学习方法-首先找国外官方网站，-找到quick-start"><a href="#我认为合适的学习方法-首先找国外官方网站，-找到quick-start" class="headerlink" title="我认为合适的学习方法  首先找国外官方网站， 找到quick start"></a>我认为合适的学习方法  首先找国外官方网站， 找到quick start</h1><p>再去</p>
+<h1 id="springboot-整合-springcloud"><a href="#springboot-整合-springcloud" class="headerlink" title="springboot 整合   springcloud"></a>springboot 整合   springcloud</h1><h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>可以被独立部署， 更新 ，scale  , 和重启</p>
 <h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><p>面向切面编程 </p>
 <p>编程的流程方向不同: 横向与纵向</p>
+<h1 id="ELK-日志采集工具"><a href="#ELK-日志采集工具" class="headerlink" title="ELK 日志采集工具"></a>ELK 日志采集工具</h1><p>ElasticSearch<br>Logstash<br>Kiabana</p>
 
         
       
@@ -1191,7 +1264,7 @@ iHello.sayHello(name);
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-18 00:39:04" itemprop="dateModified" datetime="2020-03-18T00:39:04+08:00">2020-03-18</time>
+                <time title="修改时间：2020-04-01 14:03:40" itemprop="dateModified" datetime="2020-04-01T14:03:40+08:00">2020-04-01</time>
               </span>
             
           
@@ -1207,7 +1280,8 @@ iHello.sayHello(name);
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>首先让我们看几个基本的消息系统术语：<br>Kafka将消息以topic为单位进行归纳。<br>将向Kafka topic发布消息的程序成为producers.<br>将预订topics并消费消息的程序成为consumer.<br>Kafka以集群的方式运行，可以由一个或多个服务组成，每个服务叫做一个broker.<br>producers通过网络将消息发送到Kafka集群，集群向消费者提供消息，如下图所示：</p>
+          <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>首先查看官网 </p>
+<h1 id><a href="#" class="headerlink" title></a><a href="http://kafka.apache.org/" target="_blank" rel="noopener"></a></h1><p>首先让我们看几个基本的消息系统术语：<br>Kafka将消息以topic为单位进行归纳。<br>将向Kafka topic发布消息的程序成为producers.<br>将预订topics并消费消息的程序成为consumer.<br>Kafka以集群的方式运行，可以由一个或多个服务组成，每个服务叫做一个broker.<br>producers通过网络将消息发送到Kafka集群，集群向消费者提供消息，如下图所示：</p>
 <p>分布式发布订阅消息系统 Kafka 架构设计 <a href="http://www.linuxidc.com/Linux/2013-11/92751.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2013-11/92751.htm</a><br>Apache Kafka 代码实例 <a href="http://www.linuxidc.com/Linux/2013-11/92754.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2013-11/92754.htm</a></p>
 <h1 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h1><p>每个分区在Kafka集群的若干服务中都有副本，这样这些持有副本的服务可以共同处理数据和请求，副本数量是可以配置的。副本使Kafka具备了容错能力。<br>每个分区都由一个服务器作为“leader”，零或若干服务器作为“followers”,leader负责处理消息的读和 写，followers则去复制leader.如果leader down了，followers中的一台则会自动成为leader。集群中的每个服务都会同时扮演两个角色：作为它所持有的一部分分区的leader，同 时作为其他分区的followers，这样集群就会据有较好的负载均衡。</p>
 <h1 id="AMQ"><a href="#AMQ" class="headerlink" title="AMQ"></a>AMQ</h1>

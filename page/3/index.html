@@ -344,7 +344,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-18 14:45:02" itemprop="dateModified" datetime="2020-03-18T14:45:02+08:00">2020-03-18</time>
+                <time title="修改时间：2020-04-02 18:57:39" itemprop="dateModified" datetime="2020-04-02T18:57:39+08:00">2020-04-02</time>
               </span>
             
           
@@ -360,8 +360,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="since-jdk-1-5-关于注解-Annotation"><a href="#since-jdk-1-5-关于注解-Annotation" class="headerlink" title="since  jdk 1.5 关于注解 Annotation"></a>since  jdk 1.5 关于注解 Annotation</h1><p>@Target(ElementType.METHOD)<br>@Retention(RetentionPolicy.SOURCE)<br>public @interface Override {</p>
-<p>}<br>这是注解 @Override 的定义，其实它本质上就是 （注解的本质就是一个继承了 Annotation 接口的接口,一种特殊的注释 ）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Override extends Annotation&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <h1 id="Junit-5-Jupiter"><a href="#Junit-5-Jupiter" class="headerlink" title="Junit 5  Jupiter"></a>Junit 5  Jupiter</h1><h1 id="lambda-expression-since-java8"><a href="#lambda-expression-since-java8" class="headerlink" title="lambda expression  since  java8"></a>lambda expression  since  java8</h1><p> <em>核心概念:</em></p>
+<ul>
+<li>lambda expression is  used to implement functional interfaces<br>实现接口中的抽象方法<br>———     interface FuncInter1 <pre><code> { 
+     int operation(int a, int b); 
+ } 
+</code></pre>——-     FuncInter1 fobj = (int x)-&gt;System.out.println(2*x); </li>
+<li>implements Consumer Functional Interface.</li>
+<li><h1 id="since-jdk-1-5-关于注解-Annotation"><a href="#since-jdk-1-5-关于注解-Annotation" class="headerlink" title="since  jdk 1.5 关于注解 Annotation"></a>since  jdk 1.5 关于注解 Annotation</h1>@Target(ElementType.METHOD)<br>@Retention(RetentionPolicy.SOURCE)<br>public @interface Override {</li>
+</ul>
+<p>}<br>这是注解 @Override 的定义，其实它本质上就是 （注解的本质就是一个继承了 Annotation 接口的接口,一种特殊的注释 ）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface Override extends Annotation&#123;</span><br><span class="line">    </span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>而解析一个类或者方法的注解往往有两种形式，一种是编译期直接的扫描，一种是运行期反射<br>典型的就是注解 @Override，一旦编译器检测到某个方法被修饰了 @Override 注解，<br>编译器就会检查当前方法的方法签名是否真正重写了父类的某个方法，也就是比较父类中是否具有一个同样的方法签名。</p>
 <h1 id="还有java当中存在的四个元注解"><a href="#还有java当中存在的四个元注解" class="headerlink" title="还有java当中存在的四个元注解"></a>还有java当中存在的四个元注解</h1><p>@Target：注解的作用目标<br>@Retention：注解的生命周期<br>@Documented：注解是否应当被包含在 JavaDoc 文档中<br>@Inherited：是否允许子类继承该注解</p>
 <h1 id="四个元注解的-使用"><a href="#四个元注解的-使用" class="headerlink" title="四个元注解的 使用"></a>四个元注解的 使用</h1><p>@Target<br>public  @Interface  Target{<br>    ElementType[]   value ;<br>}<br>当 @Target(value ={ ElementType.Field} )</p>
@@ -709,7 +717,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-29 01:48:37" itemprop="dateModified" datetime="2020-03-29T01:48:37+08:00">2020-03-29</time>
+                <time title="修改时间：2020-04-02 02:07:53" itemprop="dateModified" datetime="2020-04-02T02:07:53+08:00">2020-04-02</time>
               </span>
             
           
@@ -819,7 +827,7 @@ for (string name : names) {
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-08 16:56:48" itemprop="dateModified" datetime="2020-03-08T16:56:48+08:00">2020-03-08</time>
+                <time title="修改时间：2020-04-05 00:27:09" itemprop="dateModified" datetime="2020-04-05T00:27:09+08:00">2020-04-05</time>
               </span>
             
           
@@ -835,8 +843,28 @@ for (string name : names) {
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>hbuilderX<br>自定义主题 </p>
-<p>mermaid是一款支持 maekdown语言的插件<br>mermaid官网：<a href="http://knsv.github.io/mermaid/#demos" target="_blank" rel="noopener">http://knsv.github.io/mermaid/#demos</a></p>
+          <hr>
+<h1 id="UML-统一建模语"><a href="#UML-统一建模语" class="headerlink" title="UML  统一建模语"></a>UML  统一建模语</h1><p> he original UML specified nine diagrams; UML 2.x brings that number up to 13.<br> The four new diagrams are called: communication diagram, composite structure diagram,<br> interaction overview diagram, and timing diagram. It also renamed statechart diagrams<br> to state machine diagrams, also known as state diagram<br>比较几种 画流程图工具 </p>
+<ol>
+<li>ProcessOn<br>使用体验 一般， 个人版和企业版需要收费, 而且UML模型感觉不太全</li>
+</ol>
+<p>2.<a href="https://app.diagrams.net/" target="_blank" rel="noopener">Diagrams</a><br>openSource开源 ,提供桌面客户端</p>
+<p>hbuilderX , sublimeText , VSCode 都支持 json配置式<br>mermaid是一款支持 maekdown语言的插件<br>mermaid官网：<a href="http://knsv.github.io/mermaid/#demos" target="_blank" rel="noopener">http://knsv.github.io/mermaid/#demos</a></p>
+<p>在标签中加入两行,直接在浏览器中渲染markdown语言,noob也会的操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;script src=&quot;https://cdn.jsdelivr.net/npm/mermaid@8.4.0/dist/mermaid.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">	&lt;script&gt;mermaid.initialize(&#123;startOnLoad:true&#125;);&lt;/script&gt;</span><br><span class="line">	 &lt;div class=&quot;mermaid&quot;&gt;</span><br><span class="line">	      graph TD</span><br><span class="line">	      A[Client] --&gt; B[Load Balancer]</span><br><span class="line">	      B --&gt; C[Server1]</span><br><span class="line">	      B --&gt; D[Server2]</span><br><span class="line">	    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<html>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+     <div class="mermaid">
+          graph TD
+          A[Client] --> B[Load Balancer]
+          B --> C[Server1]
+          B --> D[Server2]
+        </div>
+</body>
+</html>
+
+
 
         
       
