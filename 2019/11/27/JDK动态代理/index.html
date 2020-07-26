@@ -67,7 +67,7 @@
 <meta property="og:description" content="Foucus  my  conce AOP 思想两端毫无关联的代码 关联到一起spring 注入的 AOP的代理对象Join point: 拦截点，如某个业务方法。Pointcut: Joinpoint 的表达式，表示拦截哪些方法。一个 Pointcut 对应多个 Joinpoint。 AOP切面代码织入时机：1 编译期：切面在目标类编译时被织入。这种方式需要特殊的编译器。AspectJ的织入编译">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/11/27/JDK动态代理/JDK动态代理.png">
-<meta property="og:updated_time" content="2020-03-28T16:15:31.201Z">
+<meta property="og:updated_time" content="2020-04-07T12:44:43.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态代理">
 <meta name="twitter:description" content="Foucus  my  conce AOP 思想两端毫无关联的代码 关联到一起spring 注入的 AOP的代理对象Join point: 拦截点，如某个业务方法。Pointcut: Joinpoint 的表达式，表示拦截哪些方法。一个 Pointcut 对应多个 Joinpoint。 AOP切面代码织入时机：1 编译期：切面在目标类编译时被织入。这种方式需要特殊的编译器。AspectJ的织入编译">
@@ -348,7 +348,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-29 00:15:31" itemprop="dateModified" datetime="2020-03-29T00:15:31+08:00">2020-03-29</time>
+                <time title="修改时间：2020-04-07 20:44:43" itemprop="dateModified" datetime="2020-04-07T20:44:43+08:00">2020-04-07</time>
               </span>
             
           
@@ -373,7 +373,7 @@
 <h1 id="Proxy-newProxyInstance"><a href="#Proxy-newProxyInstance" class="headerlink" title="Proxy.newProxyInstance()"></a>Proxy.newProxyInstance()</h1><p><img src="/2019/11/27/JDK动态代理/JDK动态代理.png" alt><br>为什么构造代理类  Developer时 要传入类加载和 zack 的接口<br>Developer  zackProxy   这个类不是通过implements 关键词实现的类,<br>zackProxy  被代理后生成的对象， 是通过 Developper接口字节码增强方式创建的类，属于临时构造的实现类对象 </p>
 <h1 id="再来看-newProxyInstance-的-三个参数-loader-interfaces-h"><a href="#再来看-newProxyInstance-的-三个参数-loader-interfaces-h" class="headerlink" title="再来看 newProxyInstance()的 三个参数 loader, interfaces, h"></a>再来看 newProxyInstance()的 三个参数 loader, interfaces, h</h1><p>loder，选用的类加载器。因为代理的是zack，所以一般都会用加载zack的类加载器。<br>interfaces，被代理的类所实现的接口，这个接口可以是多个。<br>h，绑定代理类的一个方法。<br>loder和interfaces基本就是决定了这个类到底是个怎么样的类。而h是InvocationHandler，决定了这个代理类到底是多了什么功能。所以动态代理的内容重点就是这个InvocationHandler。</p>
 <p>查看源码得知， c 作用就是，当代理对象的原本方法被调用时, 会绑定执行一个方法， 这个方法就是<br>invocationHandler 里定义的内容 ,同时会替代原本方法的结果返回 </p>
-<p>InvocationHandler接收三个参数 : proxy, method ,args  </p>
+<p>InvocationHandler接收三个参数 : proxy, method ,args</p>
 
     </div>
 
@@ -485,7 +485,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

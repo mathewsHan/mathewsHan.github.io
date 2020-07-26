@@ -59,7 +59,7 @@
 </script>
 
   <meta name="description" content="分库分表， sql优化 ， 存储过程 ,  读写分离   数据库语句优化的方法及原理3、MySQL常用SQL查询语句优化方法, 使用explain 执行计划可以看到是否走了索引⑴、应尽量避免在where子句中使用!=或&amp;lt;&amp;gt;操作符，否则引擎将放弃使用索引而进行全表扫描。⑵、对查询进行优化，应尽量避免全表扫描，首先考虑在where及order by涉及的列上建立索引。⑶、应尽量避免在whe">
-<meta name="keywords" content="Java,kotlin">
+<meta name="keywords" content="数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="索引优化与B+tree">
 <meta property="og:url" content="http://yoursite.com/2019/11/18/索引优化与B-tree/index.html">
@@ -69,7 +69,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/11/18/索引优化与B-tree/典型的B+tree.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/18/索引优化与B-tree/聚集索引.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/18/索引优化与B-tree/非聚集索引.png">
-<meta property="og:updated_time" content="2020-04-02T08:39:16.269Z">
+<meta property="og:updated_time" content="2020-04-08T06:54:08.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="索引优化与B+tree">
 <meta name="twitter:description" content="分库分表， sql优化 ， 存储过程 ,  读写分离   数据库语句优化的方法及原理3、MySQL常用SQL查询语句优化方法, 使用explain 执行计划可以看到是否走了索引⑴、应尽量避免在where子句中使用!=或&amp;lt;&amp;gt;操作符，否则引擎将放弃使用索引而进行全表扫描。⑵、对查询进行优化，应尽量避免全表扫描，首先考虑在where及order by涉及的列上建立索引。⑶、应尽量避免在whe">
@@ -350,7 +350,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-02 16:39:16" itemprop="dateModified" datetime="2020-04-02T16:39:16+08:00">2020-04-02</time>
+                <time title="修改时间：2020-04-08 14:54:08" itemprop="dateModified" datetime="2020-04-08T14:54:08+08:00">2020-04-08</time>
               </span>
             
           
@@ -392,9 +392,15 @@
 <p>这是MySQL Innodb 给出的一些限制，从上面可以看出，表的最大字段个数为1000。<br>那为什么会有这样的限制呢，</p>
 <p>我的理解是：因为一个页是有大小限制的(mysql 为 16K)，为了保证每个页至少有1条(或N条)记录，必须限制字段的数量，如果字段数量太多，这条记录的空间超过了 16K，这时用btree这样的结构是无法存储的。</p>
 <p>最后我们再扩展一下，大家有没有想过，亿条记录在数据库中是个什么概念? 我们不妨基于上面所说的算一下。</p>
-<p>一个PAGE 在磁盘上为 16K，每条记录占用100 个字节的话，16 * 1024 /100  == 163.84，抛去PAGE_HEADER等内容，我们假设1个页可以存130条记录的，那么3层BTree，则可以存储 130^3 百万数量的级别，4层BTree,则可以存储亿级数量，5层BTree将达到百亿数据量的级别。</p>
+<p>一个PAGE 在磁盘上为 16K ，每条记录占用100 个字节的话，16 * 1024 /100  == 163.84，抛去PAGE_HEADER等内容，我们假设1个页可以存130条记录的，那么3层BTree，则可以存储 130^3 百万数量的级别，4层BTree,则可以存储亿级数量，5层BTree将达到百亿数据量的级别。</p>
 <p>所以对于有上亿条数据的Table来说，我们只需3次 磁盘IO即可查找到，速度还是很快<br>// 聚簇索引  ——更新成本高<br>和物理存储结构一致的一种索引，一个表<br>create   Noncluster index  XX-XX  on  Table(Name)</p>
 <p>//非聚簇索引(二次查询 ) </p>
+<h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><ol>
+<li>Bson </li>
+<li>use  testDb       //自动创建mongoDb数据库<br>switch to  db  testDb </li>
+</ol>
+<p> db.collection.update(<br>    <query>,<br>    <update>,<br>    [<br>        upsert:<boolean>,      // 可选， 不存在update的记录， 是否插入 newObj<br>        multi : <boolean>,     //可选 , 只更新第一条数据 , true ，则全部更新<br>        writeConcern :  <document>     //可选 ，抛出异常的级别<br>    ]</document></boolean></boolean></update></query></p>
+<p> )</p>
 
     </div>
 
@@ -405,6 +411,15 @@
       
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/数据库/" rel="tag"># 数据库</a>
+            
+          </div>
+        
 
         
 
@@ -474,7 +489,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库语句优化的方法及原理"><span class="nav-number">1.</span> <span class="nav-text">数据库语句优化的方法及原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询key值等于30的过程"><span class="nav-number">2.</span> <span class="nav-text">查询key值等于30的过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引原理"><span class="nav-number">3.</span> <span class="nav-text">索引原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#强烈建议自增主键作为-id主键的原因"><span class="nav-number">4.</span> <span class="nav-text">强烈建议自增主键作为 id主键的原因</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库语句优化的方法及原理"><span class="nav-number">1.</span> <span class="nav-text">数据库语句优化的方法及原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询key值等于30的过程"><span class="nav-number">2.</span> <span class="nav-text">查询key值等于30的过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引原理"><span class="nav-number">3.</span> <span class="nav-text">索引原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#强烈建议自增主键作为-id主键的原因"><span class="nav-number">4.</span> <span class="nav-text">强烈建议自增主键作为 id主键的原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB"><span class="nav-number">5.</span> <span class="nav-text">MongoDB</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -506,7 +521,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

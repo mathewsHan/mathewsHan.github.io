@@ -621,7 +621,7 @@ INNODB:
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-29 01:53:50" itemprop="dateModified" datetime="2020-03-29T01:53:50+08:00">2020-03-29</time>
+                <time title="修改时间：2020-04-07 22:09:29" itemprop="dateModified" datetime="2020-04-07T22:09:29+08:00">2020-04-07</time>
               </span>
             
           
@@ -637,7 +637,13 @@ INNODB:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="数据库事务"><a href="#数据库事务" class="headerlink" title="数据库事务"></a>数据库事务</h1><p>不使用spring  框架 , 在同一个 conneciton 中控制事务</p>
+          <p>//一般都是 放弃强一致性 ， 达到最终一致性 ,保证高可用</p>
+<p>分布式模型下，数据只有一份,锁技术 </p>
+<p>分布式共识算法</p>
+<p>//———dubbo框架———————</p>
+<p>//分布式锁 </p>
+<p>三个模块 访问同一个资源<br>用户模块<br>商品模块<br>订单模块 </p>
+<h1 id="数据库事务"><a href="#数据库事务" class="headerlink" title="数据库事务"></a>数据库事务</h1><p>不使用spring  框架 , 在同一个 conneciton 中控制事务</p>
 <p>CAP理论    强一致性 高可用  分区容错<br>在分布式系统中为了保证高可用，通常在不同的节点都保留数据的副本<br>大多数网站使用是AP  放弃强一致性，在一定latency之后达到最终一致性 </p>
 <h1 id="spring-cloud"><a href="#spring-cloud" class="headerlink" title="spring  cloud"></a>spring  cloud</h1><h1 id="springcloud-netflix全家桶"><a href="#springcloud-netflix全家桶" class="headerlink" title="springcloud  netflix全家桶"></a>springcloud  netflix全家桶</h1><p>zookeeper   CP<br>eruka    AP<br>服务发现——Netflix Eureka<br>客服端负载均衡——Netflix Ribbon<br>断路器——Netflix Hystrix<br>// 保障服务稳定， 防止服务器雪崩效应<br>服务网关——Netflix Zuul<br>分布式配置——Spring Cloud Config</p>
 <h1 id="spring-cloud-alibaba"><a href="#spring-cloud-alibaba" class="headerlink" title="spring  cloud alibaba"></a>spring  cloud alibaba</h1><p>几大组件 : </p>
@@ -735,7 +741,7 @@ INNODB:
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-02 16:39:16" itemprop="dateModified" datetime="2020-04-02T16:39:16+08:00">2020-04-02</time>
+                <time title="修改时间：2020-04-08 14:54:08" itemprop="dateModified" datetime="2020-04-08T14:54:08+08:00">2020-04-08</time>
               </span>
             
           
@@ -777,9 +783,15 @@ INNODB:
 <p>这是MySQL Innodb 给出的一些限制，从上面可以看出，表的最大字段个数为1000。<br>那为什么会有这样的限制呢，</p>
 <p>我的理解是：因为一个页是有大小限制的(mysql 为 16K)，为了保证每个页至少有1条(或N条)记录，必须限制字段的数量，如果字段数量太多，这条记录的空间超过了 16K，这时用btree这样的结构是无法存储的。</p>
 <p>最后我们再扩展一下，大家有没有想过，亿条记录在数据库中是个什么概念? 我们不妨基于上面所说的算一下。</p>
-<p>一个PAGE 在磁盘上为 16K，每条记录占用100 个字节的话，16 * 1024 /100  == 163.84，抛去PAGE_HEADER等内容，我们假设1个页可以存130条记录的，那么3层BTree，则可以存储 130^3 百万数量的级别，4层BTree,则可以存储亿级数量，5层BTree将达到百亿数据量的级别。</p>
+<p>一个PAGE 在磁盘上为 16K ，每条记录占用100 个字节的话，16 * 1024 /100  == 163.84，抛去PAGE_HEADER等内容，我们假设1个页可以存130条记录的，那么3层BTree，则可以存储 130^3 百万数量的级别，4层BTree,则可以存储亿级数量，5层BTree将达到百亿数据量的级别。</p>
 <p>所以对于有上亿条数据的Table来说，我们只需3次 磁盘IO即可查找到，速度还是很快<br>// 聚簇索引  ——更新成本高<br>和物理存储结构一致的一种索引，一个表<br>create   Noncluster index  XX-XX  on  Table(Name)</p>
 <p>//非聚簇索引(二次查询 ) </p>
+<h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><ol>
+<li>Bson </li>
+<li>use  testDb       //自动创建mongoDb数据库<br>switch to  db  testDb </li>
+</ol>
+<p> db.collection.update(<br>    <query>,<br>    <update>,<br>    [<br>        upsert:<boolean>,      // 可选， 不存在update的记录， 是否插入 newObj<br>        multi : <boolean>,     //可选 , 只更新第一条数据 , true ，则全部更新<br>        writeConcern :  <document>     //可选 ，抛出异常的级别<br>    ]</document></boolean></boolean></update></query></p>
+<p> )</p>
 
         
       
@@ -843,7 +855,7 @@ INNODB:
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-07 00:02:49" itemprop="dateModified" datetime="2020-04-07T00:02:49+08:00">2020-04-07</time>
+                <time title="修改时间：2020-04-10 01:51:30" itemprop="dateModified" datetime="2020-04-10T01:51:30+08:00">2020-04-10</time>
               </span>
             
           
@@ -859,13 +871,12 @@ INNODB:
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="tcp-三次握手"><a href="#tcp-三次握手" class="headerlink" title="tcp 三次握手"></a>tcp 三次握手</h1><p><img src="/2019/11/11/网络通信相关/TCP抓包.png" alt></p>
+          <h1 id="Session-与-Cookie"><a href="#Session-与-Cookie" class="headerlink" title="Session 与 Cookie"></a>Session 与 Cookie</h1><p>个人觉得这篇文章讲的不错<br><a href="https://mp.weixin.qq.com/s/Q1BUuQbxhnp4V9d8-8XscQ" target="_blank" rel="noopener">网页链接—-&gt;</a></p>
+<h1 id="tcp-三次握手"><a href="#tcp-三次握手" class="headerlink" title="tcp 三次握手"></a>tcp 三次握手</h1><p><img src="/2019/11/11/网络通信相关/TCP抓包.png" alt></p>
 <h1 id="tcp-的-keep-alive-心跳检测机制"><a href="#tcp-的-keep-alive-心跳检测机制" class="headerlink" title="tcp 的 keep alive 心跳检测机制"></a>tcp 的 keep alive 心跳检测机制</h1><p> keepalive就是为了监测链接可用性， tcp_keepalive_time ,   tcp_keepalive_intvl  ,   tcp_keepalive_probes<br>客户端和服务端三次握手后 ， 客户端和服务端都处于 ESTABLISH状态 , 这个时候正常的 PSH和 ACK交互<br>一旦一方服务中断, 另一方在距离上次的PSH时间 tcp_keepalive_time 发现对方未发送数据，则开始心跳检测<br>发送一个psh的 空心跳包, 报数据为空 ，但是头部的数据和标识和正常包一样<br>如果这个包获取带的是RST返回的话 , </p>
-<iframe height="300" width="500" src="./网络通信相关/timg.gif">
-
 <h1 id="1、BIO编程"><a href="#1、BIO编程" class="headerlink" title="1、BIO编程"></a>1、BIO编程</h1><pre><code>1.1、传统的BIO编程
 </code></pre><p>网络编程的基本模型是C/S模型，即两个进程间的通信。简单描述就是并发请求会使得服务器，开启对应相应链接的很多编程,效率低下<br>服务端提供IP和监听端口，客户端通过连接操作想服务端监听的地址发起连接请求，通过三次握手连接，如果连接成功建立，双方就可以通过套接字进行通信。<br>传统的同步阻塞模型开发中，ServerSocket负责绑定IP地址，启动监听端口；Socket负责发起连接操作。连接成功后，双方通过输入和输出流进行同步阻塞式通信。 </p>
-<p>简单的描述一下BIO的服务端通信模型：采用BIO通信模型的服务端，通常由一个独立的Acceptor线程负责监听客户端的连接，它接收到客户端连接请求之后为每个<br>客户端创建一个新的线程进行链路处理没处理完成后，通过输出流返回应答给客户端，线程销毁。即典型的一请求一应答通宵模型。<br>每个服务器端处理请求的线程代码,服务端将以多线程形式启动此 Handler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.bio;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"> </span><br><span class="line">import com.anxpp.io.utils.Calculator;</span><br><span class="line">/**</span><br><span class="line"> * 客户端线程</span><br><span class="line"> * @author yangtao__anxpp.com</span><br><span class="line"> */</span><br><span class="line">public class ServerHandler implements Runnable&#123;</span><br><span class="line">	private Socket socket;</span><br><span class="line">	public ServerHandler(Socket socket) &#123;</span><br><span class="line">		this.socket = socket;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		BufferedReader in = null;</span><br><span class="line">		PrintWriter out = null;</span><br><span class="line">		try&#123;</span><br><span class="line">			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));</span><br><span class="line">			out = new PrintWriter(socket.getOutputStream(),true);</span><br><span class="line">			String expression;</span><br><span class="line">			String result;</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				//通过BufferedReader读取一行</span><br><span class="line">				//如果已经读到输入流尾部，返回null,退出循环</span><br><span class="line">				//如果得到非空值，就尝试计算结果并返回</span><br><span class="line">				if((expression = in.readLine())==null) break;</span><br><span class="line">				System.out.println(&quot;服务器收到消息：&quot; + expression);</span><br><span class="line">				try&#123;</span><br><span class="line">					result = Calculator.cal(expression).toString();</span><br><span class="line">				&#125;catch(Exception e)&#123;</span><br><span class="line">					result = &quot;计算错误：&quot; + e.getMessage();</span><br><span class="line">				&#125;</span><br><span class="line">				out.println(result);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			//一些必要的清理工作</span><br><span class="line">			if(in != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					in.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				in = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(out != null)&#123;</span><br><span class="line">				out.close();</span><br><span class="line">				out = null;</span><br><span class="line">			&#125;</span><br><span class="line">			if(socket != null)&#123;</span><br><span class="line">				try &#123;</span><br><span class="line">					socket.close();</span><br><span class="line">				&#125; catch (IOException e) &#123;</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">				socket = null;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>简单的描述一下BIO的服务端通信模型：采用BIO通信模型的服务端，通常由一个独立的Acceptor线程负责监听客户端的连接，它接收到客户端连接请求之后为每个<br>客户端创建一个新的线程进行链路处理没处理完成后，通过输出流返回应答给客户端，线程销毁。即典型的一请求一应答通宵模型。<br>每个服务器端处理请求的线程代码,服务端将以多线程形式启动此 Handler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
 <h1 id="2-伪异步-，其实就是服务端用线程池管理了多线程"><a href="#2-伪异步-，其实就是服务端用线程池管理了多线程" class="headerlink" title="2.伪异步 ，其实就是服务端用线程池管理了多线程"></a>2.伪异步 ，其实就是服务端用线程池管理了多线程</h1><p>   为了改进这种一连接一线程的模型，我们可以使用线程池来管理这些线程（需要了解更多请参考前面提供的文章），<br>   实现1个或多个线程处理N个客户端的模型（但是底层还是使用的同步阻塞I/O），通常被称为“伪异步I/O模型“。<br>总结：<br>    serverHandler 和阻塞IO一样 ，只不过服务端是使用线程池管理这些链接线程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">package com.anxpp.io.calculator.bio;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.net.ServerSocket;</span><br><span class="line">import java.net.Socket;</span><br><span class="line">import java.util.concurrent.ExecutorService;</span><br><span class="line">import java.util.concurrent.Executors;</span><br><span class="line">/**</span><br><span class="line"> * BIO服务端源码__伪异步I/O</span><br><span class="line"> * @author yangtao__anxpp.com</span><br><span class="line"> * @version 1.0</span><br><span class="line"> */</span><br><span class="line">public final class ServerBetter &#123;</span><br><span class="line">	//默认的端口号</span><br><span class="line">	private static int DEFAULT_PORT = 12345;</span><br><span class="line">	//单例的ServerSocket</span><br><span class="line">	private static ServerSocket server;</span><br><span class="line">	//线程池 懒汉式的单例</span><br><span class="line">	private static ExecutorService executorService = Executors.newFixedThreadPool(60);</span><br><span class="line">	//根据传入参数设置监听端口，如果没有参数调用以下方法并使用默认值</span><br><span class="line">	public static void start() throws IOException&#123;</span><br><span class="line">		//使用默认值</span><br><span class="line">		start(DEFAULT_PORT);</span><br><span class="line">	&#125;</span><br><span class="line">	//这个方法不会被大量并发访问，不太需要考虑效率，直接进行方法同步就行了</span><br><span class="line">	public synchronized static void start(int port) throws IOException&#123;</span><br><span class="line">		if(server != null) return;</span><br><span class="line">		try&#123;</span><br><span class="line">			//通过构造函数创建ServerSocket</span><br><span class="line">			//如果端口合法且空闲，服务端就监听成功</span><br><span class="line">			server = new ServerSocket(port);</span><br><span class="line">			System.out.println(&quot;服务器已启动，端口号：&quot; + port);</span><br><span class="line">			//通过无线循环监听客户端连接</span><br><span class="line">			//如果没有客户端接入，将阻塞在accept操作上。</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				Socket socket = server.accept();</span><br><span class="line">				//当有新的客户端接入时，会执行下面的代码</span><br><span class="line">				//然后创建一个新的线程处理这条Socket链路</span><br><span class="line">				executorService.execute(new ServerHandler(socket));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			//一些必要的清理工作</span><br><span class="line">			if(server != null)&#123;</span><br><span class="line">				System.out.println(&quot;服务器已关闭。&quot;);</span><br><span class="line">				server.close();</span><br><span class="line">				server = null;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h1 id="3-NIO-新思路"><a href="#3-NIO-新思路" class="headerlink" title="3.NIO, 新思路"></a>3.NIO, 新思路</h1><p>Non-block I/O，即非阻塞I/O，因为这样叫，更能体现它的特点。而下文中的NIO，不是指整个新的I/O库，而是非阻塞I/O。</p>
 <p>NIO提供了与传统BIO模型中的Socket和ServerSocket相对应的<strong>SocketChannel和ServerSocketChannel</strong>两种不同的套接字通道实现。<br>新增的着两种通道都支持阻塞和非阻塞两种模式。<br>阻塞模式使用就像传统中的支持一样, 不好<br>非阻塞模式</p>
@@ -908,7 +919,76 @@ public void run() {
             selector.select(1000);
             //阻塞,只有当至少一个注册的事件发生的时候才会继续.
 </code></pre><p>//                selector.select();<br>                Set<selectionkey> keys = selector.selectedKeys();<br>                Iterator<selectionkey> it = keys.iterator();<br>                SelectionKey key = null;<br>                while(it.hasNext()){<br>                    key = it.next();<br>                    it.remove();<br>                    try{<br>                        handleInput(key);<br>                    }catch(Exception e){<br>                        if(key != null){<br>                            key.cancel();<br>                            if(key.channel() != null){<br>                                key.channel().close();<br>                            }<br>                        }<br>                    }<br>                }<br>            }catch(Throwable t){<br>                t.printStackTrace();<br>            }<br>        }<br>        //selector关闭后会自动释放里面管理的资源<br>        if(selector != null)<br>            try{<br>                selector.close();<br>            }catch (Exception e) {<br>                e.printStackTrace();<br>            }<br>    }<br>    private void handleInput(SelectionKey key) throws IOException{<br>        if(key.isValid()){<br>            //处理新接入的请求消息<br>            if(key.isAcceptable()){<br>                ServerSocketChannel ssc = (ServerSocketChannel) key.channel();<br>                //通过ServerSocketChannel的accept创建SocketChannel实例<br>                //完成该操作意味着完成TCP三次握手，TCP物理链路正式建立<br>                SocketChannel sc = ssc.accept();<br>                //设置为非阻塞的<br>                sc.configureBlocking(false);<br>                //注册为读<br>                sc.register(selector, SelectionKey.OP_READ);<br>            }<br>            //读消息<br>            if(key.isReadable()){<br>                SocketChannel sc = (SocketChannel) key.channel();<br>                //创建ByteBuffer，并开辟一个1M的缓冲区<br>                ByteBuffer buffer = ByteBuffer.allocate(1024);<br>                //读取请求码流，返回读取到的字节数<br>                int readBytes = sc.read(buffer);<br>                //读取到字节，对字节进行编解码<br>                if(readBytes&gt;0){<br>                    //将缓冲区当前的limit设置为position=0，用于后续对缓冲区的读取操作<br>                    buffer.flip();<br>                    //根据缓冲区可读字节数创建字节数组<br>                    byte[] bytes = new byte[buffer.remaining()];<br>                    //将缓冲区可读字节数组复制到新建的数组中<br>                    buffer.get(bytes);<br>                    String expression = new String(bytes,”UTF-8”);<br>                    System.out.println(“服务器收到消息：” + expression);<br>                    //处理数据<br>                    String result = null;<br>                    try{<br>                        result = Calculator.cal(expression).toString();<br>                    }catch(Exception e){<br>                        result = “计算错误：” + e.getMessage();<br>                    }<br>                    //发送应答消息<br>                    doWrite(sc,result);<br>                }<br>                //没有读取到字节 忽略<br>//                else if(readBytes==0);<br>                //链路已经关闭，释放资源<br>                else if(readBytes&lt;0){<br>                    key.cancel();<br>                    sc.close();<br>                }<br>            }<br>        }<br>    }<br>    //异步发送应答消息<br>    private void doWrite(SocketChannel channel,String response) throws IOException{<br>        //将消息编码为字节数组<br>        byte[] bytes = response.getBytes();<br>        //根据数组容量创建ByteBuffer<br>        ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);<br>        //将字节数组复制到缓冲区<br>        writeBuffer.put(bytes);<br>        //flip操作<br>        writeBuffer.flip();<br>        //发送缓冲区的字节数组<br>        channel.write(writeBuffer);<br>        //<em>**</em>此处不含处理“写半包”的代码<br>    }</selectionkey></selectionkey></p>
-</iframe>
+<h1 id="跨域请求与-JsonP"><a href="#跨域请求与-JsonP" class="headerlink" title="跨域请求与 JsonP"></a>跨域请求与 JsonP</h1><details>
+  <summary>NIO服务端代码</summary>
+  package com.anxpp.io.calculator.bio;
+  import java.io.BufferedReader;
+  import java.io.IOException;
+  import java.io.InputStreamReader;
+  import java.io.PrintWriter;
+  import java.net.Socket;
+
+  import com.anxpp.io.utils.Calculator;
+  /**
+   * 客户端线程
+   * @author yangtao__anxpp.com
+   */
+  public class ServerHandler implements Runnable{
+      private Socket socket;
+      public ServerHandler(Socket socket) {
+          this.socket = socket;
+      }
+      @Override
+      public void run() {
+          BufferedReader in = null;
+          PrintWriter out = null;
+          try{
+              in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+              out = new PrintWriter(socket.getOutputStream(),true);
+              String expression;
+              String result;
+              while(true){
+                  //通过BufferedReader读取一行
+                  //如果已经读到输入流尾部，返回null,退出循环
+                  //如果得到非空值，就尝试计算结果并返回
+                  if((expression = in.readLine())==null) break;
+                  System.out.println("服务器收到消息：" + expression);
+                  try{
+                      result = Calculator.cal(expression).toString();
+                  }catch(Exception e){
+                      result = "计算错误：" + e.getMessage();
+                  }
+                  out.println(result);
+              }
+          }catch(Exception e){
+              e.printStackTrace();
+          }finally{
+              //一些必要的清理工作
+              if(in != null){
+                  try {
+                      in.close();
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+                  in = null;
+              }
+              if(out != null){
+                  out.close();
+                  out = null;
+              }
+              if(socket != null){
+                  try {
+                      socket.close();
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+                  socket = null;
+              }
+          }
+      }
+  }
+</details>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
         
       
     </div>
@@ -1066,7 +1146,7 @@ rpm  -qa  | grep  redis
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-18 00:40:27" itemprop="dateModified" datetime="2020-03-18T00:40:27+08:00">2020-03-18</time>
+                <time title="修改时间：2020-04-18 12:41:04" itemprop="dateModified" datetime="2020-04-18T12:41:04+08:00">2020-04-18</time>
               </span>
             
           
@@ -1087,59 +1167,30 @@ rpm  -qa  | grep  redis
 <p>大型高并发系统架构</p>
 <p>高并发的系统架构都会采用分布式集群部署，服务上层有着层层负载均衡，并提供各种容灾手段（双火机房、节点容错、服务器灾备等）保证系统的高可用，流量也会根据不同的负载能力和配置策略均衡到不同的服务器上。</p>
 <p>下边是一个简单的示意图：<br><img src="/2019/11/05/电商架构/高并发系统架构.png" alt></p>
-<p>负载均衡简介</p>
-<p>上图中描述了用户请求到服务器经历了三层的负载均衡，下边分别简单介绍一下这三种负载均衡。</p>
-<p>①OSPF（开放式最短链路优先）是一个内部网关协议（Interior Gateway Protocol，简称 IGP）</p>
-<p>OSPF 通过路由器之间通告网络接口的状态来建立链路状态数据库，生成最短路径树，OSPF 会自动计算路由接口上的 Cost 值，但也可以通过手工指定该接口的 Cost 值，手工指定的优先于自动计算的值。</p>
-<p>OSPF 计算的 Cost，同样是和接口带宽成反比，带宽越高，Cost 值越小。到达目标相同 Cost 值的路径，可以执行负载均衡，最多 6 条链路同时执行负载均衡。</p>
-<p>②LVS （Linux Virtual Server）</p>
-<p>它是一种集群（Cluster）技术，采用 IP 负载均衡技术和基于内容请求分发技术。</p>
-<p>调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器。</p>
-<p>③Nginx</p>
-<p>想必大家都很熟悉了，是一款非常高性能的 HTTP 代理/反向代理服务器，服务开发中也经常使用它来做负载均衡。</p>
-<p>Nginx 实现负载均衡的方式主要有三种：</p>
-<p>轮询</p>
-<p>加权轮询</p>
-<p>IP Hash 轮询</p>
-<p>下面我们就针对 Nginx 的加权轮询做专门的配置和测试。</p>
-<p>Nginx 加权轮询的演示</p>
-<p>Nginx 实现负载均衡通过 Upstream 模块实现，其中加权轮询的配置是可以给相关的服务加上一个权重值，配置的时候可能根据服务器的性能、负载能力设置相应的负载。</p>
-<p>下面是一个加权轮询负载的配置，我将在本地的监听 3001-3004 端口，分别配置 1，2，3，4 的权重：</p>
+<p>负载均衡简介:<br>上图中描述了用户请求到服务器经历了三层的负载均衡，下边分别简单介绍一下这三种负载均衡。<br>①OSPF（开放式最短链路优先）是一个内部网关协议（Interior Gateway Protocol，简称 IGP）<br>OSPF 通过路由器之间通告网络接口的状态来建立链路状态数据库，生成最短路径树，OSPF 会自动计算路由接口上的 Cost 值，但也可以通过手工指定该接口的 Cost 值，手工指定的优先于自动计算的值。<br>OSPF 计算的 Cost，同样是和接口带宽成反比，带宽越高，Cost 值越小。到达目标相同 Cost 值的路径，可以执行负载均衡，最多 6 条链路同时执行负载均衡。<br>②LVS （Linux Virtual Server）<br>它是一种集群（Cluster）技术，采用 IP 负载均衡技术和基于内容请求分发技术。<br>调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器。<br>③Nginx<br>想必大家都很熟悉了，是一款非常高性能的 HTTP 代理/反向代理服务器，服务开发中也经常使用它来做负载均衡。<br>Nginx 实现负载均衡的方式主要有三种：<br>轮询<br>加权轮询<br>IP Hash 轮询<br>下面我们就针对 Nginx 的加权轮询做专门的配置和测试。<br>Nginx 加权轮询的演示<br>Nginx 实现负载均衡通过 Upstream 模块实现，其中加权轮询的配置是可以给相关的服务加上一个权重值，配置的时候可能根据服务器的性能、负载能力设置相应的负载。<br>下面是一个加权轮询负载的配置，我将在本地的监听 3001-3004 端口，分别配置 1，2，3，4 的权重：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#配置负载均衡</span><br><span class="line">    upstream load_rule &#123;</span><br><span class="line">       server 127.0.0.1:3001 weight=1;</span><br><span class="line">       server 127.0.0.1:3002 weight=2;</span><br><span class="line">       server 127.0.0.1:3003 weight=3;</span><br><span class="line">       server 127.0.0.1:3004 weight=4;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  load_balance.com www.load_balance.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">       proxy_pass http://load_rule;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们使用 Hash 结构存储总库存和总销量的信息，用户请求过来时，判断总销量是否大于库存，然后返回相关的 Bool 值。</p>
-<p>在启动服务之前，我们需要初始化 Redis 的初始库存信息：<br>hmset ticket_hash_key “ticket_total_nums” 10000 “ticket_sold_nums” 0</p>
-<p>响应用户信息</p>
-<p>我们开启一个 HTTP 服务，监听在一个端口上：</p>
-<p>package main<br>…<br>func main() {<br>    http.HandleFunc(“/buy/ticket”, handleReq)<br>    http.ListenAndServe(“:3005”, nil)<br>}</p>
-<p>总结回顾</p>
-<p>总体来说，秒杀系统是非常复杂的。我们这里只是简单介绍模拟了一下单机如何优化到高性能，集群如何避免单点故障，保证订单不超卖、不少卖的一些策略</p>
-<p>完整的订单系统还有订单进度的查看，每台服务器上都有一个任务，定时的从总库存同步余票和库存信息展示给用户，还有用户在订单有效期内不支付，释放订单，补充到库存等等。</p>
-<p>我们实现了高并发抢票的核心逻辑，可以说系统设计的非常的巧妙，巧妙的避开了对 DB 数据库 IO 的操作。</p>
-<p>对 Redis 网络 IO 的高并发请求，几乎所有的计算都是在内存中完成的，而且有效的保证了不超卖、不少卖，还能够容忍部分机器的宕机。</p>
-<p>我觉得其中有两点特别值得学习总结：</p>
-<p>①负载均衡，分而治之</p>
-<p>通过负载均衡，将不同的流量划分到不同的机器上，每台机器处理好自己的请求，将自己的性能发挥到极致。</p>
-<p>这样系统的整体也就能承受极高的并发了，就像工作的一个团队，每个人都将自己的价值发挥到了极致，团队成长自然是很大的。</p>
-<p>②合理的使用并发和异步</p>
-<p>自 Epoll 网络架构模型解决了 c10k 问题以来，异步越来越被服务端开发人员所接受，能够用异步来做的工作，就用异步来做，在功能拆解上能达到意想不到的效果。</p>
-<p>这点在 Nginx、Node.JS、Redis 上都能体现，他们处理网络请求使用的 Epoll 模型，用实践告诉了我们单线程依然可以发挥强大的威力。</p>
-<p>服务器已经进入了多核时代，Go 语言这种天生为并发而生的语言，完美的发挥了服务器多核优势，很多可以并发处理的任务都可以使用并发来解决，比如 Go 处理 HTTP 请求时每个请求都会在一个 Goroutine 中执行。</p>
-<p>总之，怎样合理的压榨 CPU，让其发挥出应有的价值，是我们一直需要探索学习的方向。</p>
-<h1 id="经典的分布式电商系统架构"><a href="#经典的分布式电商系统架构" class="headerlink" title="经典的分布式电商系统架构"></a>经典的分布式电商系统架构</h1><p><img src="/2019/11/05/电商架构/电商系统架构图.png" alt></p>
-<p><sub>设置下标</sub><br>Service 层主要由几大模块组成:</p>
-<pre><code>* 商品后台管理模块 
-* ES搜索服务
-* 商品详情页展示
-* 商城首页展示
-* 用户管理CRM模块
-* 购物车
-* 订单服务
-* 秒杀服务
-</code></pre><p><font size="3" color="green" fece="微软雅黑">————-分割线——————</font></p>
-<h1 id="经典的购物车实现方案"><a href="#经典的购物车实现方案" class="headerlink" title="经典的购物车实现方案"></a>经典的购物车实现方案</h1><p>1.1. 购物车常见实现方式<br>传统的做法是使用关系型数据库，比如mysql，建立一个cat购物车表，把相关的购物车产品信息都放到数据库里面。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h1><p>try{}  catch {} 打日志 ，做日志补偿  </p>
-
+<p>我们使用 Hash 结构存储总库存和总销量的信息，用户请求过来时，判断总销量是否大于库存，然后返回相关的 Bool 值。<br>在启动服务之前，我们需要初始化 Redis 的初始库存信息：<br>hmset ticket_hash_key “ticket_total_nums” 10000 “ticket_sold_nums” 0<br>响应用户信息<br>我们开启一个 HTTP 服务，监听在一个端口上：<br>package main<br>…<br>func main() {<br>    http.HandleFunc(“/buy/ticket”, handleReq)<br>    http.ListenAndServe(“:3005”, nil)<br>}</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总体来说，秒杀系统是非常复杂的。我们这里只是简单介绍模拟了一下单机如何优化到高性能，集群如何避免单点故障，保证订单不超卖、不少卖的一些策略<br>完整的订单系统还有订单进度的查看，每台服务器上都有一个任务，定时的从总库存同步余票和库存信息展示给用户，还有用户在订单有效期内不支付，释放订单，补充到库存等等。<br>我们实现了高并发抢票的核心逻辑，可以说系统设计的非常的巧妙，巧妙的避开了对 DB 数据库 IO 的操作。<br>对 Redis 网络 IO 的高并发请求，几乎所有的计算都是在内存中完成的，而且有效的保证了不超卖、不少卖，还能够容忍部分机器的宕机。<br>我觉得其中有两点特别值得学习总结：</p>
+<p>①负载均衡，分而治之<br>通过负载均衡，将不同的流量划分到不同的机器上，每台机器处理好自己的请求，将自己的性能发挥到极致。<br>这样系统的整体也就能承受极高的并发了，就像工作的一个团队，每个人都将自己的价值发挥到了极致，团队成长自然是很大的。<br>②合理的使用并发和异步<br>自 Epoll 网络架构模型解决了 c10k 问题以来，异步越来越被服务端开发人员所接受，能够用异步来做的工作，就用异步来做，在功能拆解上能达到意想不到的效果。<br>这点在 Nginx、Node.JS、Redis 上都能体现，他们处理网络请求使用的 Epoll 模型，用实践告诉了我们单线程依然可以发挥强大的威力。<br>服务器已经进入了多核时代，Go 语言这种天生为并发而生的语言，完美的发挥了服务器多核优势，很多可以并发处理的任务都可以使用并发来解决，比如 Go 处理 HTTP 请求时每个请求都会在一个 Goroutine 中执行。<br>总之，怎样合理的压榨 CPU，让其发挥出应有的价值，是我们一直需要探索学习的方向。</p>
+<h1 id="之前的分布式电商系统-总结与模块图解-下列画图工具皆使用diagram-drawio"><a href="#之前的分布式电商系统-总结与模块图解-下列画图工具皆使用diagram-drawio" class="headerlink" title="之前的分布式电商系统 总结与模块图解, 下列画图工具皆使用diagram.drawio"></a>之前的分布式电商系统 总结与模块图解, 下列画图工具皆使用diagram.drawio</h1><ol>
+<li><img src="/2019/11/05/电商架构/电商系统架构图.png" alt><br><sub>设置下标</sub><br>Service 层主要由几大模块组成:<ul>
+<li>商品后台管理模块 </li>
+<li>ES搜索服务</li>
+<li>商品详情页展示</li>
+<li>商城首页展示</li>
+<li>用户管理CRM模块</li>
+<li>购物车</li>
+<li>订单服务</li>
+<li>秒杀服务</li>
+</ul>
+</li>
+</ol>
+<p><font size="3" color="green" fece="微软雅黑">————-分割线——————</font></p>
+<ol>
+<li>经典的购物车实现方案<br>1.1. 购物车常见实现方式<br>传统的做法是使用关系型数据库，比如mysql，建立一个cat购物车表，把相关的购物车产品信息都放到数据库里面。</li>
+</ol>
+<p>#</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
         
       
     </div>
@@ -1379,7 +1430,7 @@ rpm  -qa  | grep  redis
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-29 14:07:57" itemprop="dateModified" datetime="2020-03-29T14:07:57+08:00">2020-03-29</time>
+                <time title="修改时间：2020-04-18 15:26:58" itemprop="dateModified" datetime="2020-04-18T15:26:58+08:00">2020-04-18</time>
               </span>
             
           
@@ -1395,8 +1446,17 @@ rpm  -qa  | grep  redis
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="hexo-文章如何插入图片"><a href="#hexo-文章如何插入图片" class="headerlink" title="hexo 文章如何插入图片"></a>hexo 文章如何插入图片</h1><p>解决方法</p>
-<p>设置站点配置_config.yml:将post_asset_folder: false改为post_asset_folder: true<br>安装插件:npm install <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="noopener">https://github.com/CodeFalling/hexo-asset-image</a> — save<br>运行hexo n “XXXXXX”,生成XXXXX.md博文时就会在/source/_posts目录下生成XXXXXX的文件夹，将你想在XXXXX博文中插入的照片放置到这个同名文件夹中即可，图片的命名随意。<br>添加图片:在想添加的位置写入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">![](图片名字.图片格式),例如![](1.png)。</span><br><span class="line"></span><br><span class="line">![](holloween.jpg)</span><br></pre></td></tr></table></figure></p>
+          <h1 id="学会接纳不同，承认世界的多样性-不搞政治正确"><a href="#学会接纳不同，承认世界的多样性-不搞政治正确" class="headerlink" title="学会接纳不同，承认世界的多样性, 不搞政治正确"></a>学会接纳不同，承认世界的多样性, 不搞政治正确</h1><h1 id="hexo-文章如何插入图片"><a href="#hexo-文章如何插入图片" class="headerlink" title="hexo 文章如何插入图片"></a>hexo 文章如何插入图片</h1><p>解决方法</p>
+<p>设置站点配置_config.yml:将post_asset_folder: false改为post_asset_folder: true<br>安装插件:npm install <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="noopener">https://github.com/CodeFalling/hexo-asset-image</a> — save<br>运行hexo n “XXXXXX”,生成XXXXX.md博文时就会在/source/_posts目录下生成XXXXXX的文件夹，将你想在XXXXX博文中插入的照片放置到这个同名文件夹中即可，图片的命名随意。</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        插入图片示例
+    </div>
+    <div class="spoiler-content">
+        <p>添加图片:在想添加的位置写入<br>例如:  ![](图片名字.图片格式),例如![](1.png)<br><img src="/2019/10/30/hexo博客使用问题/Google.png" alt="示例图片"></p>
+
+    </div>
+</div>
 <h1 id="不小心上传了-大pdf文件-导致git提交失败"><a href="#不小心上传了-大pdf文件-导致git提交失败" class="headerlink" title="不小心上传了 大pdf文件 ,导致git提交失败"></a>不小心上传了 大pdf文件 ,导致git提交失败</h1><p>git 默认是不能上传超过100M 的文件的，在第一次push失败后再次 push  commit 还是失败 </p>
 <p>认为是上次执行失败有缓存的问题<br>在 /my_blog/deploy.git 目录下执行命令:<br>$ git filter-branch -f —prune-empty —index-filter ‘git rm -rf —cached —ignore-unmatch ThinkingInJava/test.data’ —tag-name-filter cat — —all</p>
 <p>再次  commit ， 成功</p>
@@ -1404,10 +1464,9 @@ rpm  -qa  | grep  redis
 <h1 id="Default-height"><a href="#Default-height" class="headerlink" title="Default height"></a>Default height</h1><p>  height: 500px<br>  pdfobject:</p>
 <pre><code># Use 2.1.1 as default, jsdelivr as default CDN, works everywhere even in China
 cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
-# CDNJS, provided by cloudflare, maybe the best CDN, but not works in China
-#cdn: //cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js
 </code></pre><p>3.新建页面<br>hexo new test<br>4.在生成的md文件中添加pdf<br>外部链接：<br><div class="pdf" target="http://7xov2f.com1.z0.glb.clouddn.com/bash_freshman.pdf" height></div><br>本地连接：把pdf放置到source文件夹下pdf文件夹下<br><div class="pdf" target="/pdf/文件名.pdf" height></div></p>
-<h1 id="hexo-如何设置首页访问量-和-文章详情-访问量"><a href="#hexo-如何设置首页访问量-和-文章详情-访问量" class="headerlink" title="hexo 如何设置首页访问量 和 文章详情 访问量"></a>hexo 如何设置首页访问量 和 文章详情 访问量</h1>
+<h3 id="hexo-如何设置首页访问量-和-文章详情-访问量"><a href="#hexo-如何设置首页访问量-和-文章详情-访问量" class="headerlink" title="hexo 如何设置首页访问量 和 文章详情 访问量"></a>hexo 如何设置首页访问量 和 文章详情 访问量</h3><h3 id="hexo-如何设置代码块影藏（代码块实在太长了-）"><a href="#hexo-如何设置代码块影藏（代码块实在太长了-）" class="headerlink" title="hexo 如何设置代码块影藏（代码块实在太长了 ）"></a>hexo 如何设置代码块影藏（代码块实在太长了 ）</h3><p>传送门  ：<a href="https://www.cppbug.com/2020/02/14/Hexo/h6-%E6%8A%98%E5%8F%A0%E6%96%87%E5%AD%97/" target="_blank" rel="noopener">hexo-sliding-spoiler插件</a></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
         
       
     </div>
@@ -1492,7 +1551,7 @@ cdn: //cdn.jsdelivr.net/npm/pdfobject@2.1.1/pdfobject.min.js
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

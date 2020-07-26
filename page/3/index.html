@@ -541,7 +541,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-31 21:06:22" itemprop="dateModified" datetime="2020-03-31T21:06:22+08:00">2020-03-31</time>
+                <time title="修改时间：2020-06-30 01:26:16" itemprop="dateModified" datetime="2020-06-30T01:26:16+08:00">2020-06-30</time>
               </span>
             
           
@@ -557,13 +557,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="网页禁止浏览-，跳转app下载？"><a href="#网页禁止浏览-，跳转app下载？" class="headerlink" title="网页禁止浏览  ，跳转app下载？"></a>网页禁止浏览  ，跳转app下载？</h1><h1 id="一、-生成Excel格式报表-根据条件查询导出数据"><a href="#一、-生成Excel格式报表-根据条件查询导出数据" class="headerlink" title="一、 生成Excel格式报表_根据条件查询导出数据"></a>一、 生成Excel格式报表_根据条件查询导出数据</h1><pre><code>   使用POI插件生成报表,从数据库读取数据封装至实体, 写入excel文件,写流
-组合的实体类可以前端highchart展示 
-*在action中完成数据写到excel文件中，和把文件使用流的形式写到浏览器
-
-逻辑：新建excel文件,新建sheet,新建row,新建cell单元格, 单元格中写数据
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">代码:</span><br><span class="line">	List&lt;WayBill&gt;  wayBills =  wayBillService.findData(model);</span><br><span class="line">	</span><br><span class="line">	//生成excel文件</span><br><span class="line">	HSSWorkbook  hssWorkbook  = new  HSSWorkBook();</span><br><span class="line">	HSSSheet   sheet   =  hssWorkbook.createSheet(&quot;下单数据&quot;)；</span><br><span class="line">	</span><br><span class="line">	HSSRow headRow  =  sheet.createRow(0);</span><br><span class="line">	headRow.createCell(0).setCellValue(&quot;运单号&quot;);</span><br><span class="line">	headRow.createCell(1).setCellValue(&quot;寄件人&quot;);</span><br><span class="line">	.......</span><br><span class="line">	headRow.createCell(6).setCellValue(&quot;收件人电话&quot;);</span><br><span class="line">	</span><br><span class="line">	//填充表格数据  </span><br><span class="line">	for(WayBill  wayBill   : wayBills )&#123;</span><br><span class="line">		HSSRow  dataRow =  sheet.createRow(sheet.getLastRowNum()+1);</span><br><span class="line">		dataRow.createCell(0).setCellValue(wayBill.getWayBillNum());</span><br><span class="line">		......</span><br><span class="line">		dataRow.crrateCell(6).setCellValue(waybill.getRecAddress());</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	.......</span><br><span class="line">	//下载导出  </span><br><span class="line">  //设置头信息</span><br><span class="line">  ServletApplicationContext.getResponse().setContentType(&quot;application/vnd.ms-excel&quot;);</span><br><span class="line">  String fileName =  &quot;运单数据&quot;；</span><br><span class="line">  String agent =  ServletActionContext.getRequest().getHeader(&quot;user-agent &quot;);</span><br><span class="line">  fileName = FileUtils.encoderDownloaderFileName(fileName ,  agent);</span><br><span class="line">  ServletActionContext.getResponse().setHeader(&quot;Content-Disposition&quot;, &quot;attachment;filename=&quot;+filemname);</span><br><span class="line">  ServletOutputStream  outputSteam = ServletActionContext.getResponse().getOutputStream();</span><br><span class="line">  //写流 </span><br><span class="line">  hssWorkbook.write(outputStream);</span><br><span class="line">  hssWorkbook.close();</span><br><span class="line">  //视图层不返回</span><br><span class="line">  return  NONE;</span><br></pre></td></tr></table></figure>
-
+          <h1 id="网页禁止浏览-，跳转app下载？-最流行的gradle构建工具"><a href="#网页禁止浏览-，跳转app下载？-最流行的gradle构建工具" class="headerlink" title="网页禁止浏览  ，跳转app下载？, 最流行的gradle构建工具"></a>网页禁止浏览  ，跳转app下载？, 最流行的gradle构建工具</h1><p>//—————————————开发工具————————————</p>
+<h1 id="gradle-构建"><a href="#gradle-构建" class="headerlink" title="gradle 构建"></a>gradle 构建</h1><p>1.依赖管理<br>相较于传统  maven构建 , maven 使用 xml 管理项目的基本信息，构建过程，环境信息，依赖信息等。<br>而  gradle  , 用 :链接 数值 ， compile 函数引入依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath(&quot;org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;) &#123;</span><br><span class="line">        exclude module: &quot;spring-boot-starter-tomcat&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-security&quot;)</span><br><span class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-data-jpa&quot;)</span><br><span class="line">    testCompile(&quot;mysql:mysql-connector-java:5.1.25&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="构建生命周期-maven-amp-grandle"><a href="#构建生命周期-maven-amp-grandle" class="headerlink" title="构建生命周期  maven   &amp; grandle"></a>构建生命周期  maven   &amp; grandle</h1><p>1.maven的使用 ， 约定大于配置<br>在Maven中每个任务的goal称作Mojo<br>2.maven枚举<scope></scope>各个属性值的含义<br>    compile，缺省值，适用于所有阶段，会打包进项目。<br>    provided，类似compile，期望JDK、容器或使用者会提供这个依赖。<br>    runtime，只在运行时使用，如JDBC驱动，适用运行和测试阶段。<br>    test，只在测试时使用，用于编译和运行测试代码。不会随项目发布。<br>    system，类似provided，需要显式提供包含依赖的jar，Maven不会在Repository中查找它<br>3.关于 <dependency>标签<br>dependencies即使在子项目中不写该依赖项，那么子项目仍然会从父项目中继承该依赖项（全部继承）<br>dependencyManagement里只是声明依赖，并不实现引入，因此子项目需要显示的声明需要用的依赖。<br>如果不在子项目中声明依赖，是不会从父项目中继承下来的；只有在子项目中写了该依赖项，并且没有指定具体版本，<br>才会从父项目中继承该项，并且version和scope都读取自父pom;另外如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。</dependency></p>
+<ol>
+<li>How do I add resources to my JAR?<br>默认放在${basedir}/src/main/resources目录下</li>
+<li>test时如何取得 test目录下的resource s<br>  // Retrieve resource<br>  InputStream is = getClass().getResourceAsStream( “/test.properties” );</li>
+</ol>
+<h1 id="从maven官网-介绍的命令"><a href="#从maven官网-介绍的命令" class="headerlink" title="从maven官网 介绍的命令"></a>从maven官网 介绍的命令</h1><p>mvn compile<br>mvn  test<br>mvn  test-compile<br>mvn  package<br>mvn  install<br>mvn  site 生成文档 html网页 </p>
+<h1 id="maven命令行"><a href="#maven命令行" class="headerlink" title="maven命令行"></a>maven命令行</h1><p>—-查看本地仓库路径,本机是/Users/mac/.m2/repository<br>mvn help:evaluate -Dexpression=settings.localRepository | grep -v ‘[INFO]‘</p>
+<h1 id="maven-的插件plugin"><a href="#maven-的插件plugin" class="headerlink" title="maven 的插件plugin"></a>maven 的插件plugin</h1><p>mvn-surefile-plugin     Run the JUnit unit tests in an isolated classloader.</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
         
       
     </div>
@@ -717,7 +722,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-07 13:36:04" itemprop="dateModified" datetime="2020-04-07T13:36:04+08:00">2020-04-07</time>
+                <time title="修改时间：2020-04-09 16:44:21" itemprop="dateModified" datetime="2020-04-09T16:44:21+08:00">2020-04-09</time>
               </span>
             
           
@@ -733,23 +738,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>A、回溯法B、动态规划C、分治法</p>
+          <h1 id="set接口的实现"><a href="#set接口的实现" class="headerlink" title="set接口的实现"></a>set接口的实现</h1><p><img src="/2019/10/23/数据结构/treeset" alt="set集合"></p>
+<ol>
+<li>TreeSet  存放 有序，不重复的元素,<br>使用TreeSet 需要实现  Comparable接口, 并重写 接口中的 comparable方法 </li>
+</ol>
+<p>本质结构是二叉树 </p>
+<p>思想 :A、回溯法B、动态规划C、分治法<br>HashMap的本质是一个可变长度的数组，jdk1.8叫Node 节点，该节点存储有hash、key、value、next等 </p>
 <h1 id="HashMap-几个重要的-成员变量"><a href="#HashMap-几个重要的-成员变量" class="headerlink" title="HashMap  几个重要的 成员变量"></a>HashMap  几个重要的 成员变量</h1><ol>
 <li>DEFAULT_INITIAL_CAPACITY   初始容量 </li>
 <li>DEFAULT_LOAD_FACTOR       扩容因子 </li>
 <li>TREEIFY_THRESHOLD         树化阈值 </li>
 <li>UNTREEIFY_THRESHOLD       树退化阈值 </li>
+<li>transient Set<map.entry<k,v>&gt; entrySet;    Map中所有的Entry的  set集合 </map.entry<k,v></li>
+<li>transient Node<k,v>[] table;         Map 中的主要数据结构<br>7.Node节点的结构 ,  其的next 就是链表实现的关键 <pre><code> final int hash;
+ final K key;
+ V value;
+ Node&lt;K,V&gt; next;
+</code></pre><h1 id="HashMap-中几个重要的方法"><a href="#HashMap-中几个重要的方法" class="headerlink" title="HashMap 中几个重要的方法"></a>HashMap 中几个重要的方法</h1></k,v></li>
 </ol>
-<p>5.transient Set<map.entry<k,v>&gt; entrySet;    Map中所有的Entry的  set集合<br>6.transient Node<k,v>[] table;         Map 中</k,v></map.entry<k,v></p>
-<h1 id="有关hashMap-与ConcurrentHashMap"><a href="#有关hashMap-与ConcurrentHashMap" class="headerlink" title="有关hashMap  与ConcurrentHashMap"></a>有关hashMap  与ConcurrentHashMap</h1><p><img src="/2019/10/23/数据结构/1.7HashMap结构.png" alt> 散列列表,数组+ 链表的结合体<br>![])(1.8JHashMap.png)  链表在长度大于8的情况变成红黑树,</p>
-<p>HashMap的本质是一个可变长度的数组，jdk1.8叫Node 节点，该节点存储有hash、key、value、next等 </p>
-<h1 id="put-putVal-方法"><a href="#put-putVal-方法" class="headerlink" title="put(){ putVal()}  方法"></a>put(){ putVal()}  方法</h1><p>对key进行hash，如果冲突了，则添加到链表中<br>然后查询的时候就先根据hash找到相应的位置，然后根据链表逐一比较，返回相应的value。时间复杂度取决于链表的长度，时间复杂度为O(N)。</p>
+<p>1.put(){ putVal()}  方法<br>对key进行hash，如果冲突了，则添加到链表中<br>然后查询的时候就先根据hash找到相应的位置，然后根据链表逐一比较，返回相应的value。时间复杂度取决于链表的长度，时间复杂度为O(N)。</p>
+<ol>
+<li><p>tablesizefor ()方法   //jdk 1.8<br><img src="/2019/10/23/数据结构/tablesizefor.png" alt><br>为什么HashMap的长总是2的n次幂 , 可以转换为 1111形式, 计算得到index时 ,减少hash碰撞<br>而且 不会出现 1110 , 不存在浪费空间<br>索引的计算方式 ： </p>
+</li>
+<li><p>jdk1.8中当HashMap 槽位中链表的个数大于 ThreshHold=8 时 , 进化为红黑树 </p>
+</li>
+</ol>
+<p>4.扩容方法final Node<k,v>[] resize()<br>长度大于阈值 threshold 时 , 直接扩容两倍</k,v></p>
 <h1 id="有三种基本轮询查询-Key-Value-Entry-对象"><a href="#有三种基本轮询查询-Key-Value-Entry-对象" class="headerlink" title="有三种基本轮询查询 Key ,Value , Entry 对象"></a>有三种基本轮询查询 Key ,Value , Entry 对象</h1><ol>
 <li>迭代器 iterator , 注意都不要在循环中修改 Map</li>
 <li>直接 map.values 遍历出所有value值 </li>
 <li>keySet()遍历 key值, 再<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class HashMapExam &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Map map = new HashMap(16);</span><br><span class="line">        for (int i = 0; i &lt; 15; i++) &#123;</span><br><span class="line">            map.put(i, new String(new char[]&#123;(char) (&apos;A&apos;+ i)&#125;));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======keySet=======&quot;);</span><br><span class="line">        Set set = map.keySet();</span><br><span class="line">        Iterator iterator = set.iterator();</span><br><span class="line">        while (iterator.hasNext()) &#123;</span><br><span class="line">            System.out.println(iterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======values=======&quot;);</span><br><span class="line">        Collection values = map.values();</span><br><span class="line">        Iterator stringIterator=values.iterator();</span><br><span class="line">        while (stringIterator.hasNext()) &#123;</span><br><span class="line">            System.out.println(stringIterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;======entrySet=======&quot;);</span><br><span class="line">        for (Map.Entry entry : map.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<h1 id="有关hashMap-与ConcurrentHashMap"><a href="#有关hashMap-与ConcurrentHashMap" class="headerlink" title="# 有关hashMap  与ConcurrentHashMap"></a># 有关hashMap  与ConcurrentHashMap</h1><p><img src="/2019/10/23/数据结构/1.7HashMap结构.png" alt> 散列列表,数组+ 链表的结合体<br>![])(1.8JHashMap.png)  链表在长度大于8的情况变成红黑树,</p>
 <h1 id="concurrentHashMap"><a href="#concurrentHashMap" class="headerlink" title="concurrentHashMap"></a>concurrentHashMap</h1><p><img src="/2019/10/23/数据结构/1.7concurrentHashMap" alt><br><img src="/2019/10/23/数据结构/1.8concurrentHashMap" alt></p>
 <h1 id="分析-HashMap-1-8"><a href="#分析-HashMap-1-8" class="headerlink" title="分析   HashMap  1.8"></a>分析   HashMap  1.8</h1><p>Node {key  value   Node  next  }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//  默认的初始容量16,且实际容量是2的整数幂</span><br><span class="line">    static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4;</span><br><span class="line">    //最大容量(传入容量过大将被这个值替换)</span><br><span class="line">    static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</span><br><span class="line">    // 默认加载因子为0.75(当表达到3/4满时,才会再散列),这个因子在时间和空间代价之间达到了平衡.更高的因子可以降低表所需的空间,但是会增加查找代价,而查找是最频繁操作</span><br><span class="line">    static final float DEFAULT_LOAD_FACTOR = 0.75f;</span><br><span class="line">    //桶的树化阈值：即 链表转成红黑树的阈值，在存储数据时，当链表长度 &gt;= 8时，则将链表转换成红黑树</span><br><span class="line">    static final int TREEIFY_THRESHOLD = 8;</span><br><span class="line">   // 桶的链表还原阈值：即 红黑树转为链表的阈值，当在扩容（resize（））时（HashMap的数据存储位置会重新计算），在重新计算存储位置后，当原有的红黑树内数量 &lt;= 6时，则将 红黑树转换成链表</span><br><span class="line">    static final int UNTREEIFY_THRESHOLD = 6;</span><br><span class="line">   //最小树形化容量阈值：即 当哈希表中的容量 &gt; 该值时，才允许树形化链表 （即 将链表 转换成红黑树）</span><br></pre></td></tr></table></figure></p>
 <p>关于6 ,7,8这三个值的含义 链表长度小于等于6, 查找速度为 6/2= 3 , 长度为8 的时候 ，查找长度为log(8)=3<br>所以设置8为 转换的临界点<br>7这个是一个差值 ，当一个 hashMap 不停的插入删除元素，  链表个数在 8左右时，会频繁发生 转换，<br>这样可以有效防止链表和树频繁转换</p>
@@ -758,11 +779,11 @@
 <h1 id="java8-中的-hash-函数-防止-hash碰撞"><a href="#java8-中的-hash-函数-防止-hash碰撞" class="headerlink" title="java8 中的 hash()函数,防止 hash碰撞"></a>java8 中的 hash()函数,防止 hash碰撞</h1><p> int  hash(Object  key){<br>     int  h;<br>     return   (key == null )? 0 :( h = key.hashCode()) ^ (h&gt;&gt;&gt; 16);<br> }</p>
 <p>假如 : Radom.next(16)—-》0-15之间  11111   </p>
 <p>借用  Object.hashCode()函数, 得到 32位整形数 ,  2300927<br>控制整形数的范围  0-15 </p>
-<h1 id="关于HashMap-与-ConCurrentHashMap-线程安全问题"><a href="#关于HashMap-与-ConCurrentHashMap-线程安全问题" class="headerlink" title="关于HashMap 与 ConCurrentHashMap 线程安全问题"></a>关于HashMap 与 ConCurrentHashMap 线程安全问题</h1><p>HashMap 与HashTable类似的， 只不过是线程安全的 , 将所有修改 hashTable的代码块都用synchronized 修饰<br>造成： 一个线程在put时 ,其余 线程get的时候被最 ，相当于一个重量级锁</p>
-<hr>
-<h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h1 id="有关SQL语句的优化问题，B-tree"><a href="#有关SQL语句的优化问题，B-tree" class="headerlink" title="有关SQL语句的优化问题，B+tree"></a>有关SQL语句的优化问题，B+tree</h1><p>SQL的排序写法<br>写的顺序：select … from… where…. group by… having… order by..<br> 全值匹配我最爱，最左前缀要遵守；<br> 带头大哥不能死，中间兄弟不能断；<br> 索引列上少计算，范围之后全失效；<br> LIKE百分写最右，覆盖索引不写星；<br> 不等空值还有or，索引失效要少用。</p>
-<h1 id="索引本质-一种数据结构"><a href="#索引本质-一种数据结构" class="headerlink" title="索引本质   一种数据结构"></a>索引本质   一种数据结构</h1><p> swinggo.cn<br>  一种索引  一棵树</p>
-<p> 全表扫描 ,<br> 物理地址 : 柱面, 扇区</p>
+<h1 id="关于HashMap-与-ConCurrentHashMap-线程安全问题"><a href="#关于HashMap-与-ConCurrentHashMap-线程安全问题" class="headerlink" title="关于HashMap 与 ConCurrentHashMap 线程安全问题"></a>关于HashMap 与 ConCurrentHashMap 线程安全问题</h1><p>HashMap 与HashTable类似的， 只不过是线程安全的 , 将所有修改 hashTable的代码块都用synchronized 修饰</p>
+<h2 id="造成：-一个线程在put时-其余-线程get的时候被最-，相当于一个重量级锁"><a href="#造成：-一个线程在put时-其余-线程get的时候被最-，相当于一个重量级锁" class="headerlink" title="造成： 一个线程在put时 ,其余 线程get的时候被最 ，相当于一个重量级锁"></a>造成： 一个线程在put时 ,其余 线程get的时候被最 ，相当于一个重量级锁</h2><hr>
+<h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h1 id="有关SQL语句的优化问题，B-tree"><a href="#有关SQL语句的优化问题，B-tree" class="headerlink" title="有关SQL语句的优化问题，B+tree"></a>有关SQL语句的优化问题，B+tree</h1><p> “CREATE [UNIQUE|CLUSTERED] INDEX INDEX_NAME ON TABLE_NAME(PROPERTY_NAME)</p>
+<p>SQL的排序写法<br>写的顺序：select … from… where…. group by… having… order by..<br> 全值匹配我最爱，最左前缀要遵守；<br> 带头大哥不能死，中间兄弟 不能断；<br> 索引列上少计算，范围之后全失效；<br> LIKE百分写最右，覆盖索引不写星；<br> 不等空值还有or，索引失效要少用。</p>
+<h1 id="索引本质-一种数据结构"><a href="#索引本质-一种数据结构" class="headerlink" title="索引本质   一种数据结构"></a>索引本质   一种数据结构</h1><p> swinggo.cn<br> 一种索引  一棵树<br> 全表扫描,<br> 物理地址 : 柱面,扇区</p>
 <h1 id="hash表-，-缺点：不能排序，不能范围查询"><a href="#hash表-，-缺点：不能排序，不能范围查询" class="headerlink" title="hash表  ， 缺点：不能排序，不能范围查询"></a>hash表  ， 缺点：不能排序，不能范围查询</h1><h1 id="AVL-tree-维护成本高-插入数据-结构改动大"><a href="#AVL-tree-维护成本高-插入数据-结构改动大" class="headerlink" title="AVL tree  维护成本高 , 插入数据  结构改动大"></a>AVL tree  维护成本高 , 插入数据  结构改动大</h1><h1 id="B-tree"><a href="#B-tree" class="headerlink" title="B-tree"></a>B-tree</h1><p>degree   底层节点上面有 degree个数据<br>范围查找  会回表 </p>
 <h1 id="b-tree-叶子节点"><a href="#b-tree-叶子节点" class="headerlink" title="b+ tree    叶子节点"></a>b+ tree    叶子节点</h1><p>进行冗余 ，不用回表<br>mysql 一个节点大小 16K<br>局部性原理 ： 1k 附近的数据， 操作系统一页是4kb<br>show  global   status like ‘innodb_page_size’<br>16386/1024 = 16<br>一个节点 1170个数据,  14b一个数据加指针<br>16384/14= 1170<br>//innoDB(聚集索引，数据索引合在一起)   默认设置主键，默认主键创索引<br>用主键做索引 ，叶子节点存放  完整的数据<br>拿 name(非主键列)创索引 ，叶子节点存的是主键</p>
 <p>//两个字段  联合索引,<br>name  age<br> 11   13（张三）13（李四）    15 </p>
@@ -841,7 +862,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-02 02:07:53" itemprop="dateModified" datetime="2020-04-02T02:07:53+08:00">2020-04-02</time>
+                <time title="修改时间：2020-04-18 12:44:56" itemprop="dateModified" datetime="2020-04-18T12:44:56+08:00">2020-04-18</time>
               </span>
             
           
@@ -882,13 +903,12 @@ for (string name : names) {
 <p>　　2.2 查询时要求的结果集中的结果范围</p>
 <p>　　2.3. 这次查询所产生的最终要传递给JDBC java.sql.Preparedstatement的Sql语句字符串（boundSql.getSql() ）</p>
 <p>　　2.4 传递给java.sql.Statement要设置的参数值</p>
-<p>​————————————-<br>    二级缓存<br><del>删除线</del></p>
+<p>​————————————-<br>二级缓存<br><del>删除线</del></p>
 <ul>
 <li>二级缓存?<br>+</li>
 </ul>
 <div class="pdf" target="https://github.com/mathewsHan/-Note/blob/master/鸟哥的Linux私房菜–基础学习篇(第三版)%20.pdf" height></div> 
-<hr>
-
+<h1 id="mybatatis-源码笔记"><a href="#mybatatis-源码笔记" class="headerlink" title="mybatatis 源码笔记"></a>mybatatis 源码笔记</h1><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
         
       
     </div>
@@ -951,7 +971,7 @@ for (string name : names) {
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-05 00:27:09" itemprop="dateModified" datetime="2020-04-05T00:27:09+08:00">2020-04-05</time>
+                <time title="修改时间：2020-04-17 02:10:38" itemprop="dateModified" datetime="2020-04-17T02:10:38+08:00">2020-04-17</time>
               </span>
             
           
@@ -988,8 +1008,9 @@ for (string name : names) {
 </body>
 </html>
 
-
-
+<hr>
+<p>虽然在体面厂技术没啥增长， 但是文档功力还是有提升的</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
         
       
     </div>
@@ -1154,7 +1175,7 @@ for (string name : names) {
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

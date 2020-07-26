@@ -58,21 +58,21 @@
   };
 </script>
 
-  <meta name="description" content="数据库事务不使用spring  框架 , 在同一个 conneciton 中控制事务 CAP理论    强一致性 高可用  分区容错在分布式系统中为了保证高可用，通常在不同的节点都保留数据的副本大多数网站使用是AP  放弃强一致性，在一定latency之后达到最终一致性  spring  cloudspringcloud  netflix全家桶zookeeper   CPeruka    AP服务">
+  <meta name="description" content="//一般都是 放弃强一致性 ， 达到最终一致性 ,保证高可用 分布式模型下，数据只有一份,锁技术  分布式共识算法 //———dubbo框架——————— //分布式锁  三个模块 访问同一个资源用户模块商品模块订单模块  数据库事务不使用spring  框架 , 在同一个 conneciton 中控制事务 CAP理论    强一致性 高可用  分区容错在分布式系统中为了保证高可用，通常在不同的节">
 <meta name="keywords" content="Java,kotlin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式事务解决方案">
 <meta property="og:url" content="http://yoursite.com/2019/11/18/分布式事务解决方案/index.html">
 <meta property="og:site_name" content="我的个人博客">
-<meta property="og:description" content="数据库事务不使用spring  框架 , 在同一个 conneciton 中控制事务 CAP理论    强一致性 高可用  分区容错在分布式系统中为了保证高可用，通常在不同的节点都保留数据的副本大多数网站使用是AP  放弃强一致性，在一定latency之后达到最终一致性  spring  cloudspringcloud  netflix全家桶zookeeper   CPeruka    AP服务">
+<meta property="og:description" content="//一般都是 放弃强一致性 ， 达到最终一致性 ,保证高可用 分布式模型下，数据只有一份,锁技术  分布式共识算法 //———dubbo框架——————— //分布式锁  三个模块 访问同一个资源用户模块商品模块订单模块  数据库事务不使用spring  框架 , 在同一个 conneciton 中控制事务 CAP理论    强一致性 高可用  分区容错在分布式系统中为了保证高可用，通常在不同的节">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/11/18/分布式事务解决方案/TCC解决方案.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/18/分布式事务解决方案/业务与消息耦合.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/18/分布式事务解决方案/消息应用状态表.png">
-<meta property="og:updated_time" content="2020-03-28T17:53:50.823Z">
+<meta property="og:updated_time" content="2020-04-07T14:09:29.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式事务解决方案">
-<meta name="twitter:description" content="数据库事务不使用spring  框架 , 在同一个 conneciton 中控制事务 CAP理论    强一致性 高可用  分区容错在分布式系统中为了保证高可用，通常在不同的节点都保留数据的副本大多数网站使用是AP  放弃强一致性，在一定latency之后达到最终一致性  spring  cloudspringcloud  netflix全家桶zookeeper   CPeruka    AP服务">
+<meta name="twitter:description" content="//一般都是 放弃强一致性 ， 达到最终一致性 ,保证高可用 分布式模型下，数据只有一份,锁技术  分布式共识算法 //———dubbo框架——————— //分布式锁  三个模块 访问同一个资源用户模块商品模块订单模块  数据库事务不使用spring  框架 , 在同一个 conneciton 中控制事务 CAP理论    强一致性 高可用  分区容错在分布式系统中为了保证高可用，通常在不同的节">
 <meta name="twitter:image" content="http://yoursite.com/2019/11/18/分布式事务解决方案/TCC解决方案.png">
   <link rel="canonical" href="http://yoursite.com/2019/11/18/分布式事务解决方案/">
 
@@ -350,7 +350,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-29 01:53:50" itemprop="dateModified" datetime="2020-03-29T01:53:50+08:00">2020-03-29</time>
+                <time title="修改时间：2020-04-07 22:09:29" itemprop="dateModified" datetime="2020-04-07T22:09:29+08:00">2020-04-07</time>
               </span>
             
           
@@ -366,7 +366,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="数据库事务"><a href="#数据库事务" class="headerlink" title="数据库事务"></a>数据库事务</h1><p>不使用spring  框架 , 在同一个 conneciton 中控制事务</p>
+        <p>//一般都是 放弃强一致性 ， 达到最终一致性 ,保证高可用</p>
+<p>分布式模型下，数据只有一份,锁技术 </p>
+<p>分布式共识算法</p>
+<p>//———dubbo框架———————</p>
+<p>//分布式锁 </p>
+<p>三个模块 访问同一个资源<br>用户模块<br>商品模块<br>订单模块 </p>
+<h1 id="数据库事务"><a href="#数据库事务" class="headerlink" title="数据库事务"></a>数据库事务</h1><p>不使用spring  框架 , 在同一个 conneciton 中控制事务</p>
 <p>CAP理论    强一致性 高可用  分区容错<br>在分布式系统中为了保证高可用，通常在不同的节点都保留数据的副本<br>大多数网站使用是AP  放弃强一致性，在一定latency之后达到最终一致性 </p>
 <h1 id="spring-cloud"><a href="#spring-cloud" class="headerlink" title="spring  cloud"></a>spring  cloud</h1><h1 id="springcloud-netflix全家桶"><a href="#springcloud-netflix全家桶" class="headerlink" title="springcloud  netflix全家桶"></a>springcloud  netflix全家桶</h1><p>zookeeper   CP<br>eruka    AP<br>服务发现——Netflix Eureka<br>客服端负载均衡——Netflix Ribbon<br>断路器——Netflix Hystrix<br>// 保障服务稳定， 防止服务器雪崩效应<br>服务网关——Netflix Zuul<br>分布式配置——Spring Cloud Config</p>
 <h1 id="spring-cloud-alibaba"><a href="#spring-cloud-alibaba" class="headerlink" title="spring  cloud alibaba"></a>spring  cloud alibaba</h1><p>几大组件 : </p>
@@ -512,7 +518,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

@@ -344,7 +344,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-07 13:26:09" itemprop="dateModified" datetime="2020-04-07T13:26:09+08:00">2020-04-07</time>
+                <time title="修改时间：2020-04-17 15:59:47" itemprop="dateModified" datetime="2020-04-17T15:59:47+08:00">2020-04-17</time>
               </span>
             
           
@@ -378,7 +378,12 @@
 <h1 id="vue-js的组件概念"><a href="#vue-js的组件概念" class="headerlink" title="vue.js的组件概念:"></a>vue.js的组件概念:</h1><h2 id="组件基础"><a href="#组件基础" class="headerlink" title="组件基础"></a>组件基础</h2><blockquote>
 <h4 id="组件的组织与-组件注册"><a href="#组件的组织与-组件注册" class="headerlink" title="组件的组织与 组件注册"></a>组件的组织与 组件注册</h4><h4 id><a href="#" class="headerlink" title="*"></a>*</h4></blockquote>
 <pre><code>hell world
-</code></pre>
+</code></pre><hr>
+<pre><code>npm 三部分
+网站 
+注册表 :巨大的数据库，保存了每个包的信息
+命令行工具
+</code></pre><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
         
       
     </div>
@@ -441,7 +446,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-04 04:42:54" itemprop="dateModified" datetime="2020-04-04T04:42:54+08:00">2020-04-04</time>
+                <time title="修改时间：2020-04-14 18:04:38" itemprop="dateModified" datetime="2020-04-14T18:04:38+08:00">2020-04-14</time>
               </span>
             
           
@@ -461,39 +466,29 @@
 <h1 id="解决Homebrew下载更新极慢的问题-更换国内镜像源-本例使用的-zsh-其他情况类似"><a href="#解决Homebrew下载更新极慢的问题-更换国内镜像源-本例使用的-zsh-其他情况类似" class="headerlink" title="解决Homebrew下载更新极慢的问题,更换国内镜像源, 本例使用的 zsh ,其他情况类似"></a>解决Homebrew下载更新极慢的问题,更换国内镜像源, 本例使用的 zsh ,其他情况类似</h1><p>使用brew update —verbose观察update过程：<br>1.替换brew.git:<br> cd “$(brew —repo)”<br> git remote set-url origin <a href="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git</a><br>2.替换homebrew-core.git:<br>cd “$(brew —repo)/Library/Taps/homebrew/homebrew-core”<br>git remote set-url origin <a href="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git</a></p>
 <p>3.替换homebrew-bottles:<br> echo ‘export HOMEBREW_BOTTLE_DOMAIN=<a href="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles</a>‘ &gt;&gt; ~/.bash_profile<br> source ~/.bash_profile</p>
 <p>4.替换homebrew-cask.git:<br>cd “$(brew —repo)”/Library/Taps/homebrew/homebrew-cask<br>git remote set-url origin <a href="https://mirrors.ustc.edu.cn/homebrew-cask.git" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/homebrew-cask.git</a></p>
-<p>官方源地址：<br><a href="https://github.com/Homebrew/brew.git" target="_blank" rel="noopener">https://github.com/Homebrew/brew.git</a><br><a href="https://github.com/Homebrew/homebrew-core.git" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core.git</a><br><a href="https://github.com/Homebrew/homebrew-cask" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-cask</a></p>
+<p>也可以切换回官方源地址：<br><a href="https://github.com/Homebrew/brew.git" target="_blank" rel="noopener">https://github.com/Homebrew/brew.git</a><br><a href="https://github.com/Homebrew/homebrew-core.git" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core.git</a><br><a href="https://github.com/Homebrew/homebrew-cask" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-cask</a></p>
 <h1 id="homebrew-常用命令"><a href="#homebrew-常用命令" class="headerlink" title="homebrew  常用命令"></a>homebrew  常用命令</h1><p>1、通过brew install安装应用最先是放在/usr/local/Cellar/目录下。<br>有些应用会自动创建软链接放在/usr/bin或者/usr/sbin，同时也会将整个文件夹放在/usr/local<br>可以使用 brew list 软件名 (比如 brew list oclint)确定安装位置</p>
 <p>例如 :  brew list oclint<br>sudo find / -name “autojump”<br>//查找autojump 安装位置<br>brew config | grep HOMEBREW<br>//查找 config配置文件<br>brew list           列出已安装的软件<br>brew update     更新brew<br>brew home       用浏览器打开brew的官方网站<br>brew info         显示软件信息<br>brew deps        显示包依赖</p>
 <hr>
 <h1 id="homebrew-安装-nginx"><a href="#homebrew-安装-nginx" class="headerlink" title="homebrew  安装  nginx"></a>homebrew  安装  nginx</h1><p>brew install nginx</p>
 <p>open /usr/local/Cellar/nginx<br>//servic nginx start<br>/usr/sbin/nginx          yum安装的nginx也可以使用<br>/usr/local/nginx/sbin/nginx -t<br>/usr/local/nginx/sbin/nginx -s reload<br>/usr/local/nginx/sbin/nginx -s stop</p>
 <h1 id="macos安装-npm-与-yarn"><a href="#macos安装-npm-与-yarn" class="headerlink" title="macos安装 npm 与 yarn"></a>macos安装 npm 与 yarn</h1><p>npm install yarn -g<br>yarn config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
-<h1 id="macOS-使用的命令行"><a href="#macOS-使用的命令行" class="headerlink" title="macOS 使用的命令行"></a>macOS 使用的命令行</h1><p>Sudo  vim  /etc/profile<br>//8080 端口占用<br>lsof -i :8080<br>find 是根据文件属性来进行查找<br>    1.按文件名 2. 按文件特征  3.混合方式</p>
-<pre><code>　(1)find / -name httpd.conf　　#在根目录下查找文件httpd.conf，表示在整个硬盘查找
-　　　　(2)find /etc -name httpd.conf　　#在/etc目录下文件httpd.conf
-　　　　(3)find /etc -name &#39;*srm*&#39;　　#使用通配符*(0或者任意多个)。表示在/etc目录下查找文件名中含有字符串‘srm’的文件
-　　　　(4)find . -name &#39;srm*&#39; 　　#表示当前目录下查找文件名开头是字符串‘srm’的文件
-</code></pre><p>grep 是根据文件内容来进行查找<br>    (1)grep ‘test’ d*　　#显示所有以d开头的文件中包含 test的行<br>　　(2)grep ‘test’ aa bb cc 　　 #显示在aa，bb，cc文件中包含test的行<br>　　(3)grep ‘[a-z]{5}’ aa 　　#显示所有包含每行字符串至少有5个连续小写字符的字符串的行<br>　　(4)grep magic /usr/src　　#显示/usr/src目录下的文件(不含子目录)包含magic的行<br>　　(5)grep -r magic /usr/src</p>
+<h1 id="macOS-使用的命令行"><a href="#macOS-使用的命令行" class="headerlink" title="macOS 使用的命令行"></a>macOS 使用的命令行</h1><p>Sudo  vim  /etc/profile<br>//8080 端口占用<br>lsof -i :8080<br>find 是根据文件属性来进行查找<br>    1.按文件名 2. 按文件特征  3.混合方式<br>(1)find / -name httpd.conf　　#在根目录下查找文件httpd.conf，表示在整个硬盘查找<br>(2)find /etc -name httpd.conf　　#在/etc目录下文件httpd.conf<br>(3)find /etc -name ‘<em>srm</em>‘　　#使用通配符<em>(0或者任意多个)。表示在/etc目录下查找文件名中含有字符串‘srm’的文件<br>(4)find . -name ‘srm</em>‘ 　　#表示当前目录下查找文件名开头是字符串‘srm’的文件<br>grep 是根据文件内容来进行查找<br>    (1)grep ‘test’ d*　　#显示所有以d开头的文件中包含 test的行<br>　　(2)grep ‘test’ aa bb cc 　　 #显示在aa，bb，cc文件中包含test的行<br>　　(3)grep ‘[a-z]{5}’ aa 　　#显示所有包含每行字符串至少有5个连续小写字符的字符串的行<br>　　(4)grep magic /usr/src　　#显示/usr/src目录下的文件(不含子目录)包含magic的行<br>　　(5)grep -r magic /usr/src</p>
 <h1 id="zsh-与-macOS原生bash"><a href="#zsh-与-macOS原生bash" class="headerlink" title="zsh 与  macOS原生bash"></a>zsh 与  macOS原生bash</h1><p>两者切换问题 ：zsh切换bash bash切换zsh<br>切换bash<br>chsh -s /bin/bash</p>
 <p>切换zsh<br>chsh -s /bin/zsh</p>
 <p>chmod  777   -R<br>chmod  -rwx rwx  rwx   -R<br>     拥有者   群组   其他人 </p>
 <h2 id="直接查阅文档可使用-cat-tac-反向显示-nl-等命令-cat是-concatenate的缩写"><a href="#直接查阅文档可使用-cat-tac-反向显示-nl-等命令-cat是-concatenate的缩写" class="headerlink" title="直接查阅文档可使用  cat/tac(反向显示)/nl 等命令,   cat是  concatenate的缩写"></a>直接查阅文档可使用  cat/tac(反向显示)/nl 等命令,   cat是  concatenate的缩写</h2><h1 id="macOS的环境变量配置"><a href="#macOS的环境变量配置" class="headerlink" title="macOS的环境变量配置"></a>macOS的环境变量配置</h1><p>Mac系统的环境变量，加载顺序为：</p>
 <p>/etc/profile      ——-这个一般不要改<br>/etc/paths<br>/etc/bashrc    （一般在这个文件中添加系统级环境变量）</p>
-<p>~/.bash_profile    ———-这个改的多<br>~/.bash_login<br>~/.profile<br>~/.bashrc              </p>
-<p>Type  :qa  and press <enter> to exit Vim<br>/usr/local/bin<br>/usr/bin<br>/bin<br>/usr/sbin<br>/sbin<br>/Library/Apple/usr/bin<br>/Library/Apple/bin</enter></p>
+<p>~/.bash_profile    ———-这个改的多<br>~/.bash_login<br>~/.profile<br>~/.bashrc<br>常用的软件安装路径<br>Type  :qa  and press <enter> to exit Vim<br>/usr/local/bin<br>/usr/bin<br>/bin<br>/usr/sbin<br>/sbin<br>/Library/Apple/usr/bin<br>/Library/Apple/bin</enter></p>
 <h1 id="macOS快捷键"><a href="#macOS快捷键" class="headerlink" title="macOS快捷键"></a>macOS快捷键</h1><p>空格 预览 word 等<br>Commacnd + n 新建窗口<br>command + shift  + 3  截取全屏<br>command + shift  + 3  截取区域<br>commoand  +  tab +  -&gt;<br>command + 2（数字 ） 跳到浏览器指定页面</p>
-<p>显示简介—打方方式——-全部更改———-</p>
-<p>//———————linux内核()—————-<br>fork() 函数</p>
-<p>poll()<br>epoll()<br>//—————————————开发工具————————————</p>
-<h1 id="gradle-构建"><a href="#gradle-构建" class="headerlink" title="gradle 构建"></a>gradle 构建</h1><p>1.依赖管理<br>相较于传统  maven构建 , maven 使用 xml 管理项目的基本信息，构建过程，环境信息，依赖信息等。<br>而  gradle  , 用 :链接 数值 ， compile 函数引入依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath(&quot;org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;) &#123;</span><br><span class="line">        exclude module: &quot;spring-boot-starter-tomcat&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-security&quot;)</span><br><span class="line">    compile(&quot;org.springframework.boot:spring-boot-starter-data-jpa&quot;)</span><br><span class="line">    testCompile(&quot;mysql:mysql-connector-java:5.1.25&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>构建生命周期  maven   &amp; grandle<br>在Maven中每个任务的goal称作Mojo</li>
-</ol>
+<h2 id="修改默认打开方式-显示简介—打方方式——-全部更改"><a href="#修改默认打开方式-显示简介—打方方式——-全部更改" class="headerlink" title="修改默认打开方式 : 显示简介—打方方式——-全部更改"></a>修改默认打开方式 : 显示简介—打方方式——-全部更改</h2><h1 id="idea-快捷键"><a href="#idea-快捷键" class="headerlink" title="idea 快捷键"></a>idea 快捷键</h1><p><a href="https://www.cnblogs.com/kaola8023/p/10831872.html" target="_blank" rel="noopener">idea快捷键^-^</a><br>option  + enter   导包</p>
 <p>//——————————-VSCode使用go语言的配置————-<br>VsCode官网 ：<a href="https://code.visualstudio.com/docs/getstarted/settings" target="_blank" rel="noopener"></a><br>⇧⌘P  open command  Paletee 打开命令面板</p>
 <h1 id="Language-specific-editor-settings"><a href="#Language-specific-editor-settings" class="headerlink" title="Language specific editor settings"></a>Language specific editor settings</h1><h2 id="⇧⌘P-configure-language-specific-settings"><a href="#⇧⌘P-configure-language-specific-settings" class="headerlink" title="⇧⌘P + configure  language specific  settings"></a>⇧⌘P + configure  language specific  settings</h2><h2 id="⇧⌘P-config-打开配置面板"><a href="#⇧⌘P-config-打开配置面板" class="headerlink" title="⇧⌘P  +  config  打开配置面板"></a>⇧⌘P  +  config  打开配置面板</h2><h2 id="修改快捷键-Code-gt-Preferences-gt-Keyboard-Shortcuts"><a href="#修改快捷键-Code-gt-Preferences-gt-Keyboard-Shortcuts" class="headerlink" title="修改快捷键  Code &gt; Preferences &gt; Keyboard Shortcuts"></a>修改快捷键  Code &gt; Preferences &gt; Keyboard Shortcuts</h2><p>//科学上网, 设置Go 相关工具的代理<br> go  版本  1.13以上<br>➜  ~ go env -w GO111MODULE=on<br>➜  ~ go env -w GOPROXY=<a href="https://goproxy.io,direct" target="_blank" rel="noopener">https://goproxy.io,direct</a></p>
 <p>GO111MODULE=off 无模块支持，go 会从 GOPATH 和 vendor 文件夹寻找包。<br>GO111MODULE=on 模块支持，go 会忽略 GOPATH 和 vendor 文件夹，只根据 go.mod 下载依赖。<br>GO111MODULE=auto 在 GOPATH/src 外面且根目录有 go.mod 文件时，开启模块支持。</p>
 <p>在新建项目后  使用  go mod init </p>
-
+<p>// 关于百度网盘, Em</p>
+<p>chrome插件方式实现不限速下载  NetDownloadManagerExtension<br>百度网盘在线解压限制 </p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
         
       
     </div>
@@ -637,7 +632,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-07 12:47:20" itemprop="dateModified" datetime="2020-04-07T12:47:20+08:00">2020-04-07</time>
+                <time title="修改时间：2020-04-09 01:35:28" itemprop="dateModified" datetime="2020-04-09T01:35:28+08:00">2020-04-09</time>
               </span>
             
           
@@ -653,7 +648,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>所谓的钩子函数和拦截器的关系,hook函数<br>shell只定义了一个非常简单的编程语言，所以，如果你的脚本程序复杂度较高，或者要操作的数据结构比较复杂，那么还是应该使用Python、Perl这样的脚本语言，或者是你本来就已经很擅长的高级语言。因为sh和bash在这方面很弱，比如说：</p>
+          <h1 id="DDD-领域设计模式"><a href="#DDD-领域设计模式" class="headerlink" title="DDD (领域设计模式)"></a>DDD (领域设计模式)</h1><p>所谓的钩子函数和拦截器的关系,hook函数<br>shell只定义了一个非常简单的编程语言，所以，如果你的脚本程序复杂度较高，或者要操作的数据结构比较复杂，那么还是应该使用Python、Perl这样的脚本语言，或者是你本来就已经很擅长的高级语言。因为sh和bash在这方面很弱，比如说：</p>
 <p>它的函数只能返回字串，无法返回数组<br>它不支持面向对象，你无法实现一些优雅的设计模式<br>它是解释型的，一边解释一边执行，连PHP那种预编译都不是</p>
 <h1 id="开发原则"><a href="#开发原则" class="headerlink" title="开发原则"></a>开发原则</h1><p>1.开闭  (OCP   open-close Principle )</p>
 <ol>
@@ -808,7 +803,7 @@ iHello.sayHello(name);
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-04 03:56:09" itemprop="dateModified" datetime="2020-04-04T03:56:09+08:00">2020-04-04</time>
+                <time title="修改时间：2020-04-08 11:00:33" itemprop="dateModified" datetime="2020-04-08T11:00:33+08:00">2020-04-08</time>
               </span>
             
           
@@ -850,6 +845,8 @@ iHello.sayHello(name);
 <p>从 CAP理论说起<br>![CAP.png]</p>
 <p>强一致性: 复制同步，<br>弱一致性 : 复制异步 </p>
 <p>// Copy  On  Wirte  机制 </p>
+<p>redis 存储的四种数据类型</p>
+<p>String  字符串<br>Hash     string类型的field和value的映射表，hash特别适合用于存储对象。</p>
 
         
       
@@ -913,7 +910,7 @@ iHello.sayHello(name);
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-30 18:06:12" itemprop="dateModified" datetime="2020-03-30T18:06:12+08:00">2020-03-30</time>
+                <time title="修改时间：2020-04-10 01:11:03" itemprop="dateModified" datetime="2020-04-10T01:11:03+08:00">2020-04-10</time>
               </span>
             
           
@@ -930,9 +927,7 @@ iHello.sayHello(name);
 
       
           <h1 id="多线程-几种同步问题"><a href="#多线程-几种同步问题" class="headerlink" title="多线程 几种同步问题"></a>多线程 几种同步问题</h1><p>JMM 内存模型 目的是屏蔽硬件差异</p>
-<ol>
-<li>synchronized关键字 </li>
-</ol>
+<h1 id="jdk-1-5-之后提供的java-uitl-concurrent并发包"><a href="#jdk-1-5-之后提供的java-uitl-concurrent并发包" class="headerlink" title="jdk  1.5 之后提供的java.uitl.concurrent并发包"></a>jdk  1.5 之后提供的java.uitl.concurrent并发包</h1><p><a href="https://segmentfault.com/a/1190000015558984" target="_blank" rel="noopener">参考这篇文档—&gt;</a><br>juc-locks 锁框架<br>juc-atomic 原子类框架<br>juc-sync 同步器框架<br>juc-collections 集合框架<br>juc-executors 执行器框架</p>
 <p>2.同步代码块<br>synchronized 关键字修饰的语句块<br>所有 被修饰的语句块会被自动加上内置锁,从而实现同步</p>
 <ol>
 <li><p>使用特殊域变量 volatile  实现线程同步<br>a.volatile关键字为域变量的访问提供了一种免锁机制，<br>b.使用volatile修饰域相当于告诉虚拟机该域可能会被其他线程更新，<br>c.因此每次使用该域就要重新计算，而不是使用寄存器中的值<br>d.volatile不会提供任何原子操作，它也不能用来修饰final类型的变量</p>
@@ -1012,7 +1007,7 @@ iHello.sayHello(name);
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-01 13:13:06" itemprop="dateModified" datetime="2020-04-01T13:13:06+08:00">2020-04-01</time>
+                <time title="修改时间：2020-04-09 03:34:09" itemprop="dateModified" datetime="2020-04-09T03:34:09+08:00">2020-04-09</time>
               </span>
             
           
@@ -1028,7 +1023,11 @@ iHello.sayHello(name);
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <p><a href="/Users/mac/Documents/JVM/java中的jvm的原理.txt"></a><br>缓存一致性:</p>
+<p>每个线程包含一个栈区，栈中只保存基础数据类型的对象和自定义对象的引用（不是对象）<br>每个栈中的数据（原始类型和对象引用）都是私有的，其他栈不能访问<br>栈分为3个部分：基本类型变量取，执行环境上下文，操作指令区(存放操作指令)</p>
+<p>方法区，<br>    又叫静态区，堆一样，被所有线程共享，方法区包含所有的class和static 变量<br>    方法区中包含的都是在整个程序中永远唯一的元素，class, static变量<br>// 短暂停GC   一个shenandoah，一个zgc<br>//———————linux内核()—————-<br>fork() 函数</p>
+<p>poll()<br>epoll()</p>
+
         
       
     </div>
@@ -1091,7 +1090,7 @@ iHello.sayHello(name);
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-02 20:14:44" itemprop="dateModified" datetime="2020-04-02T20:14:44+08:00">2020-04-02</time>
+                <time title="修改时间：2020-04-10 00:37:59" itemprop="dateModified" datetime="2020-04-10T00:37:59+08:00">2020-04-10</time>
               </span>
             
           
@@ -1107,11 +1106,34 @@ iHello.sayHello(name);
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="我认为合适的学习方法-首先找国外官方网站，-找到quick-start"><a href="#我认为合适的学习方法-首先找国外官方网站，-找到quick-start" class="headerlink" title="我认为合适的学习方法  首先找国外官方网站， 找到quick start"></a>我认为合适的学习方法  首先找国外官方网站， 找到quick start</h1><p>再去</p>
-<h1 id="springboot-整合-springcloud"><a href="#springboot-整合-springcloud" class="headerlink" title="springboot 整合   springcloud"></a>springboot 整合   springcloud</h1><h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>可以被独立部署， 更新 ，scale  , 和重启</p>
+          <h1 id="我认为合适的学习方法：-首先找国外官方网站，-找到quick-start"><a href="#我认为合适的学习方法：-首先找国外官方网站，-找到quick-start" class="headerlink" title="我认为合适的学习方法： 首先找国外官方网站， 找到quick start"></a>我认为合适的学习方法： 首先找国外官方网站， 找到quick start</h1><ul>
+<li>自动配置 Spring-boot-starter 开箱即用依赖模块</li>
+<li>简化统一配置文件</li>
+<li>监控管理actuator</li>
+<li>内嵌了如Tomcat，Jetty,所有的依赖都打到一个jar包里面，可以直接java -jar 运行</li>
+</ul>
+<hr>
+<h1 id="以下内容皆翻译自SpringBoot官网"><a href="#以下内容皆翻译自SpringBoot官网" class="headerlink" title="以下内容皆翻译自SpringBoot官网 "></a>以下内容皆翻译自SpringBoot官网 <img src="https://spring.io/" alt></h1><h1 id="springboot-整合-springcloud"><a href="#springboot-整合-springcloud" class="headerlink" title="springboot 整合   springcloud"></a>springboot 整合   springcloud</h1><p>springboot 和spring 相比有哪些区别<br>springboot 2.0.x   2.0.4.</p>
+<h1 id="SpringBoot-CLI"><a href="#SpringBoot-CLI" class="headerlink" title="SpringBoot  CLI"></a>SpringBoot  CLI</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sdk install springboot dev /path/to/spring-boot/spring-boot-cli/target/spring-boot-cli-2.0.9.RELEASE-bin/spring-2.0.9.RELEASE/</span><br><span class="line">$ sdk default springboot dev</span><br><span class="line">$ spring --version</span><br><span class="line">Spring CLI v2.0.9.RELEASE</span><br></pre></td></tr></table></figure>
+<h1 id="springBoot启动类-SpringApplication-run-Example-class-args"><a href="#springBoot启动类-SpringApplication-run-Example-class-args" class="headerlink" title="springBoot启动类   SpringApplication.run(Example.class, args);"></a>springBoot启动类   SpringApplication.run(Example.class, args);</h1><p> @EnableAutoConfiguration<br> This annotation tells Spring Boot to “guess” how you want to configure Spring, based on the jar dependencies that you have added.</p>
+<h1 id="智能版本迁移，在老的项目引入以下代码，在诊断完毕后删除"><a href="#智能版本迁移，在老的项目引入以下代码，在诊断完毕后删除" class="headerlink" title="智能版本迁移，在老的项目引入以下代码，在诊断完毕后删除"></a>智能版本迁移，在老的项目引入以下代码，在诊断完毕后删除</h1> <dependency>
+     <groupid>org.springframework.boot</groupid>
+     <artifactid>spring-boot-properties-migrator</artifactid>
+     <scope>runtime</scope>
+ </dependency>
+
+<h1 id="spring-Event-Dirven"><a href="#spring-Event-Dirven" class="headerlink" title="spring   Event  Dirven"></a>spring   Event  Dirven</h1><p> springcloud  stream<br> springcloud function<br> springcloud dataflow<br> Spring AMQP and Spring for Apache Kafka</p>
+<h2 id="Spring-Integration"><a href="#Spring-Integration" class="headerlink" title=" Spring Integration"></a> Spring Integration</h2><h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>可以被独立部署， 更新 ，scale  , 和重启</p>
 <h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><p>面向切面编程 </p>
 <p>编程的流程方向不同: 横向与纵向</p>
-<h1 id="ELK-日志采集工具"><a href="#ELK-日志采集工具" class="headerlink" title="ELK 日志采集工具"></a>ELK 日志采集工具</h1><p>ElasticSearch<br>Logstash<br>Kiabana</p>
+<h1 id="IOC容器-spring的思想依赖注入和-控制反转-把Bean的控制权交由Spring"><a href="#IOC容器-spring的思想依赖注入和-控制反转-把Bean的控制权交由Spring" class="headerlink" title="IOC容器 , spring的思想依赖注入和 控制反转 (把Bean的控制权交由Spring)"></a>IOC容器 , spring的思想依赖注入和 控制反转 (把Bean的控制权交由Spring)</h1><p>一种是不常用的BeanFactory，这是最简单的容器，只能提供基本的DI功能；<br>还有一种就是继承了BeanFactory后派生而来的应用上下文</p>
+<p>接口注入<br>构造方法注入<br>setter 方法注入</p>
+<ol>
+<li><h1 id="ELK-日志采集工具"><a href="#ELK-日志采集工具" class="headerlink" title="ELK 日志采集工具"></a>ELK 日志采集工具</h1></li>
+</ol>
+<p>ElasticSearch<br>Logstash<br>Kiabana</p>
+<h1 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h1><p>try{}  catch {} 打日志 ，做日志补偿</p>
+<h1 id="Spring-SPI"><a href="#Spring-SPI" class="headerlink" title="Spring SPI"></a>Spring SPI</h1><p>#</p>
 
         
       
@@ -1175,7 +1197,7 @@ iHello.sayHello(name);
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-29 00:15:31" itemprop="dateModified" datetime="2020-03-29T00:15:31+08:00">2020-03-29</time>
+                <time title="修改时间：2020-04-07 20:44:43" itemprop="dateModified" datetime="2020-04-07T20:44:43+08:00">2020-04-07</time>
               </span>
             
           
@@ -1200,7 +1222,7 @@ iHello.sayHello(name);
 <h1 id="Proxy-newProxyInstance"><a href="#Proxy-newProxyInstance" class="headerlink" title="Proxy.newProxyInstance()"></a>Proxy.newProxyInstance()</h1><p><img src="/2019/11/27/JDK动态代理/JDK动态代理.png" alt><br>为什么构造代理类  Developer时 要传入类加载和 zack 的接口<br>Developer  zackProxy   这个类不是通过implements 关键词实现的类,<br>zackProxy  被代理后生成的对象， 是通过 Developper接口字节码增强方式创建的类，属于临时构造的实现类对象 </p>
 <h1 id="再来看-newProxyInstance-的-三个参数-loader-interfaces-h"><a href="#再来看-newProxyInstance-的-三个参数-loader-interfaces-h" class="headerlink" title="再来看 newProxyInstance()的 三个参数 loader, interfaces, h"></a>再来看 newProxyInstance()的 三个参数 loader, interfaces, h</h1><p>loder，选用的类加载器。因为代理的是zack，所以一般都会用加载zack的类加载器。<br>interfaces，被代理的类所实现的接口，这个接口可以是多个。<br>h，绑定代理类的一个方法。<br>loder和interfaces基本就是决定了这个类到底是个怎么样的类。而h是InvocationHandler，决定了这个代理类到底是多了什么功能。所以动态代理的内容重点就是这个InvocationHandler。</p>
 <p>查看源码得知， c 作用就是，当代理对象的原本方法被调用时, 会绑定执行一个方法， 这个方法就是<br>invocationHandler 里定义的内容 ,同时会替代原本方法的结果返回 </p>
-<p>InvocationHandler接收三个参数 : proxy, method ,args  </p>
+<p>InvocationHandler接收三个参数 : proxy, method ,args</p>
 
         
       
@@ -1264,7 +1286,7 @@ iHello.sayHello(name);
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-01 14:03:40" itemprop="dateModified" datetime="2020-04-01T14:03:40+08:00">2020-04-01</time>
+                <time title="修改时间：2020-04-08 12:08:31" itemprop="dateModified" datetime="2020-04-08T12:08:31+08:00">2020-04-08</time>
               </span>
             
           
@@ -1283,8 +1305,11 @@ iHello.sayHello(name);
           <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>首先查看官网 </p>
 <h1 id><a href="#" class="headerlink" title></a><a href="http://kafka.apache.org/" target="_blank" rel="noopener"></a></h1><p>首先让我们看几个基本的消息系统术语：<br>Kafka将消息以topic为单位进行归纳。<br>将向Kafka topic发布消息的程序成为producers.<br>将预订topics并消费消息的程序成为consumer.<br>Kafka以集群的方式运行，可以由一个或多个服务组成，每个服务叫做一个broker.<br>producers通过网络将消息发送到Kafka集群，集群向消费者提供消息，如下图所示：</p>
 <p>分布式发布订阅消息系统 Kafka 架构设计 <a href="http://www.linuxidc.com/Linux/2013-11/92751.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2013-11/92751.htm</a><br>Apache Kafka 代码实例 <a href="http://www.linuxidc.com/Linux/2013-11/92754.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2013-11/92754.htm</a></p>
-<h1 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h1><p>每个分区在Kafka集群的若干服务中都有副本，这样这些持有副本的服务可以共同处理数据和请求，副本数量是可以配置的。副本使Kafka具备了容错能力。<br>每个分区都由一个服务器作为“leader”，零或若干服务器作为“followers”,leader负责处理消息的读和 写，followers则去复制leader.如果leader down了，followers中的一台则会自动成为leader。集群中的每个服务都会同时扮演两个角色：作为它所持有的一部分分区的leader，同 时作为其他分区的followers，这样集群就会据有较好的负载均衡。</p>
-<h1 id="AMQ"><a href="#AMQ" class="headerlink" title="AMQ"></a>AMQ</h1>
+<h1 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h1><p>每个分区在Kafka集群的若干服务中都有副本，这样这些持有副本的服务可以共同处理数据和请求，副本数量是可以配置的。副本使Kafka具备了容错能力。<br>每个分区都由一个服务器作为“leader”，零或若干服务器作为“followers”,leader负责处理消息的读和写，followers则去复制leader.如果leader down了，followers中的一台则会自动成为leader。集群中的每个服务都会同时扮演两个角色：作为它所持有的一部分分区的leader，同 时作为其他分区的followers，这样集群就会据有较好的负载均衡。</p>
+<h1 id="AMQ"><a href="#AMQ" class="headerlink" title="AMQ"></a>AMQ</h1><h1 id="rabbitMq"><a href="#rabbitMq" class="headerlink" title="rabbitMq"></a>rabbitMq</h1><p>单播</p>
+<p>广播</p>
+<p>模糊匹配 </p>
+
         
       
     </div>
@@ -1369,7 +1394,7 @@ iHello.sayHello(name);
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
